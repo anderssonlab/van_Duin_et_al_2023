@@ -1,0 +1,842 @@
+userSet	oddsRatio	matrixID	pValueLog	rnkPV	TF_name	dataSource	exp_type	medline	family	class
+1	2.26845690965086	MA0845.1	66.5693549974898	1	FOXB1	jaspar	HT-SELEX	7739038	FOX	Fork head/winged helix factors
+1	2.06001505669475	MA0601.1	65.4917342974263	1	Arid3b	jaspar	PBM	8543152	ARID-related	ARID
+1	2.0500048371449	MA0789.1	64.4971815397424	1	POU3F4	jaspar	HT-SELEX	8876240, 2350782	POU domain factors	Homeo domain factors
+1	1.88644449027475	MA0786.1	62.8272096858859	2	POU3F1	jaspar	HT-SELEX	1361172	POU domain factors	Homeo domain factors
+1	1.87499577481216	MA0713.1	62.6872679514416	1	PHOX2A	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.92953465309157	MA0785.1	61.6418131240503	3	POU2F1	jaspar	HT-SELEX	1361172	POU domain factors	Homeo domain factors
+1	1.78345125615455	MA0787.1	59.7696702366869	4	POU3F2	jaspar	HT-SELEX	9852081	POU domain factors	Homeo domain factors
+1	1.77238899445965	MA1113.2	59.0917927738347	1	PBX2	jaspar	ChIP-seq	12054735	TALE-type homeo domain factors	Homeo domain factors
+1	1.74642627556837	MA0788.1	57.1182931640305	5	POU3F3	jaspar	HT-SELEX	9852081	POU domain factors	Homeo domain factors
+1	2.09531505004508	MA0700.2	56.4487159464847	1	LHX2	jaspar	ChIP-seq	23332764	HD-LIM	Homeo domain factors
+1	2.27487012256667	MA0792.1	56.2406988978699	6	POU5F1B	jaspar	HT-SELEX	2350782	POU domain factors	Homeo domain factors
+1	1.73601593749058	MA0703.2	55.830303264505	2	LMX1B	jaspar	HT-SELEX	18585359	HD-LIM	Homeo domain factors
+1	1.79025274934393	MA1639.1	54.84794230343	1	MEIS1	jaspar	ChIP-seq	23602564	TALE-type homeo domain factors	Homeo domain factors
+1	1.74349130205607	MA0602.1	54.5758603400207	2	Arid5a	jaspar	PBM	25215497	ARID-related	ARID
+1	1.68883639884244	MA1640.1	52.1668746748423	2	MEIS2	jaspar	ChIP-seq	23602564	TALE-type homeo domain factors	Homeo domain factors
+1	1.84014422588607	MA0148.4	51.6454450721135	1	FOXA1	jaspar	ChIP-seq	18798982	FOX	Fork head/winged helix factors
+1	1.70616482790588	MA0025.2	50.8861240677325	1	NFIL3	jaspar	ChIP-seq	9122243	CEBP-related	Basic leucine zipper factors (bZIP)
+1	2.12430107065563	MA0847.3	50.8390526538515	2	FOXD2	jaspar	CAP-SELEX	28520732	FOX	Fork head/winged helix factors
+1	1.9968281940938	MA0497.1	50.4781153428933	1	MEF2C	jaspar	ChIP-seq	7559475	Regulators of differentiation	MADS box factors
+1	1.75944189211799	MA0465.2	49.9481898074864	2	CDX2	jaspar	ChIP-seq	20696899	HOX	Homeo domain factors
+1	2.46173556889961	MA0846.1	49.9327598260128	3	FOXC2	jaspar	HT-SELEX	23354101	FOX	Fork head/winged helix factors
+1	1.91540016348432	MA0878.3	49.7073641838572	1	CDX1	jaspar	CAP-SELEX	18585359	HOX	Homeo domain factors
+1	1.72688416928789	MA1963.1	49.2913061070927	1	SATB1	jaspar	No_annotation	18187506	HD-CUT	Homeo domain factors
+1	2.12679407768289	MA0481.3	48.3174483163444	3	FOXP1	jaspar	ChIP-seq	21924763	FOX	Fork head/winged helix factors
+1	1.8483248111749	MA0702.2	47.2263497475792	2	LMX1A	jaspar	HT-SELEX	18585359	HD-LIM	Homeo domain factors
+1	1.87092896705281	MA1473.1	47.094915823542	1	CDX4	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.22967025846052	MA0913.2	46.2862152287571	2	HOXD9	jaspar	HT-SELEX	10523646	HOX	Homeo domain factors
+1	2.15336552177318	MA1606.1	46.2388765592147	1	Foxf1	jaspar	ChIP-seq	25215497	FOX	Fork head/winged helix factors
+1	1.86275675906974	MA1125.1	45.6699515048632	3	ZNF384	jaspar	ChIP-seq	11149472	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.70322469883232	MA1463.1	45.498565709926	2	ARGFX	jaspar	HT-SELEX	18585359	Paired-related HD factors	Homeo domain factors
+1	1.96026381103681	MA1115.1	45.4902423773093	4	POU5F1	jaspar	ChIP-seq	23747866	POU domain factors	Homeo domain factors
+1	2.4806232365702	MA1471.1	45.1614257726468	3	BARX2	jaspar	HT-SELEX	10051657	NK	Homeo domain factors
+1	1.69620735587619	MA1104.2	44.6398487385448	5	GATA6	jaspar	ChIP-seq	9915795	C4-GATA-related	Other C4 zinc finger-type factors
+1	1.95700139703259	MA1683.1	44.6340015984751	3	FOXA3	jaspar	ChIP-seq	19919681	FOX	Fork head/winged helix factors
+1	1.98915597196912	MA0047.3	44.025815817743	2	FOXA2	jaspar	ChIP-seq	28644006	FOX	Fork head/winged helix factors
+1	2.23070224310984	MA0899.1	43.7624086306387	2	HOXA10	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.86353370590979	MA1707.1	43.6051880816539	4	DMRTA1	jaspar	HT-SELEX	17605809	DMRT factors	DM-type intertwined zinc finger factors
+1	1.63941133252496	MA0040.1	43.4881519680371	3	Foxq1	jaspar	SELEX	8139574	FOX	Fork head/winged helix factors
+1	2.29184160331758	MA0894.1	43.4519270273343	3	HESX1	jaspar	HT-SELEX	11748154	Paired-related HD factors	Homeo domain factors
+1	1.63751015458593	MA0043.3	43.0408678996698	4	HLF	jaspar	ChIP-seq	8065331	CEBP-related	Basic leucine zipper factors (bZIP)
+1	2.40420002736065	MA0905.1	43.0377907976075	6	HOXC10	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.92107525475401	MA0075.3	42.9641987525908	1	PRRX2	jaspar	HT-SELEX	7901837	Paired-related HD factors	Homeo domain factors
+1	1.67320873844618	MA0627.2	42.621466697371	3	POU2F3	jaspar	ChIP-seq	28473536	POU domain factors	Homeo domain factors
+1	1.62389112422541	MA0843.1	42.5927787323682	4	TEF	jaspar	HT-SELEX	25215497	CEBP-related	Basic leucine zipper factors (bZIP)
+1	2.03162364336405	MA0035.4	42.2773269253093	5	GATA1	jaspar	ChIP-seq	23142663	C4-GATA-related	Other C4 zinc finger-type factors
+1	2.00256870751023	MA0613.1	42.1112188018762	4	FOXG1	jaspar	PBM	15342912	FOX	Fork head/winged helix factors
+1	2.31792736317488	MA0634.1	42.0824355818266	5	ALX3	jaspar	HT-SELEX	18585359	Paired-related HD factors	Homeo domain factors
+1	1.68782518233812	MA1476.2	41.8838113337987	4	Dlx5	jaspar	No_annotation	18585359	NK	Homeo domain factors
+1	1.6092340184811	MA0153.2	41.7345370941419	4	HNF1B	jaspar	HT-SELEX	17916232	POU domain factors	Homeo domain factors
+1	1.77658973001336	MA1487.2	41.6843333680744	5	FOXE1	jaspar	CAP-SELEX	23675434	FOX	Fork head/winged helix factors
+1	2.15017037518671	MA1577.1	41.6313930827569	2	TLX2	jaspar	HT-SELEX	10869550	NK	Homeo domain factors
+1	1.78843419547859	MA0793.1	41.4889733745214	7	POU6F2	jaspar	HT-SELEX	9852081	POU domain factors	Homeo domain factors
+1	2.55866221953388	MA0032.2	41.4192655811039	6	FOXC1	jaspar	HT-SELEX	17993506	FOX	Fork head/winged helix factors
+1	1.62740787126877	MA0628.1	41.2489644992357	6	POU6F1	jaspar	PBM	9852081	POU domain factors	Homeo domain factors
+1	1.9165874907948	MA1103.2	41.1863016381209	7	FOXK2	jaspar	ChIP-seq	26578569	FOX	Fork head/winged helix factors
+1	2.13710404217768	MA0725.1	41.0406802214806	3	VSX1	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.58773328406452	MA0046.2	40.9662757092728	7	HNF1A	jaspar	HT-SELEX	9047360	POU domain factors	Homeo domain factors
+1	1.73226170298677	MA0068.2	40.8283391521162	8	PAX4	jaspar	HT-SELEX	10567552	Paired plus homeo domain	Paired box factors
+1	1.58943627088356	MA0041.2	40.8071229614098	9	FOXD3	jaspar	CAP-SELEX	8139574	FOX	Fork head/winged helix factors
+1	1.592196840577	MA0135.1	40.6943874842911	2	Lhx3	jaspar	SELEX	11602361	HD-LIM	Homeo domain factors
+1	1.81942827363116	MA0108.2	40.5892563491162	3	TBP	jaspar	No_annotation	2329577	TBP-related factors	TATA-binding proteins
+1	1.6673277878796	MA0885.2	40.4447549174286	4	Dlx2	jaspar	No_annotation	18585359	NK	Homeo domain factors
+1	1.7216338599012	MA0908.1	40.2760958344411	8	HOXD11	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.17061811083725	MA0724.1	40.0919482589465	4	VENTX	jaspar	HT-SELEX	18585360	NK	Homeo domain factors
+1	1.59255478007875	MA1479.1	40.0755192086001	6	DMRTC2	jaspar	HT-SELEX	25215497	DMRT factors	DM-type intertwined zinc finger factors
+1	1.64443040666987	MA0122.3	39.9514631097072	4	Nkx3-2	jaspar	ChIP-seq	18585360	NK	Homeo domain factors
+1	1.8179587932328	MA0650.3	39.8650864351075	7	Hoxa13	jaspar	No_annotation	17200107	HOX	Homeo domain factors
+1	1.61444679728769	MA0621.1	39.5360659730801	8	mix-a	jaspar	PBM	23332764	Paired-related HD factors	Homeo domain factors
+1	1.84459413209035	MA0726.1	39.3284386398554	5	VSX2	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.64121959452917	MA1970.1	38.8436157152242	2	TRPS1	jaspar	No_annotation	29895970	C4-GATA-related	Other C4 zinc finger-type factors
+1	2.3802479215206	MA0619.1	38.6235186017411	9	LIN54	jaspar	PBM	19725879	No_annotation	CRC domain
+1	1.91091930684137	MA0658.1	38.4180300044938	3	LHX6	jaspar	HT-SELEX	18585359	HD-LIM	Homeo domain factors
+1	2.02627505682119	MA0036.3	38.0553692873425	10	GATA2	jaspar	ChIP-seq	8321207	C4-GATA-related	Other C4 zinc finger-type factors
+1	1.76622043546067	MA0037.4	38.0229694034107	11	Gata3	jaspar	No_annotation	8321207	C4-GATA-related	Other C4 zinc finger-type factors
+1	1.84977660685317	MA0909.3	37.9336420942235	9	Hoxd13	jaspar	No_annotation	18585359	HOX	Homeo domain factors
+1	1.55709847547146	MA0715.1	37.4279467628576	6	PROP1	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	2.39315455065239	MA0084.1	37.3460622563056	5	SRY	jaspar	SELEX	8190643	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.98993221469668	MA0468.1	37.3221078513553	5	DUX4	jaspar	ChIP-seq	22209328	Paired-related HD factors	Homeo domain factors
+1	1.55440468156696	MA0884.2	37.1259366778443	5	DUXA	jaspar	CAP-SELEX	24278031	Paired-related HD factors	Homeo domain factors
+1	1.58708333485489	MA0152.2	36.852667981985	6	Nfatc2	jaspar	No_annotation	17916232	NFAT-related factors	Rel homology region (RHR) factors
+1	1.98800764368635	MA0593.1	36.8406284804666	2	FOXP2	jaspar	ChIP-seq	23625967	FOX	Fork head/winged helix factors
+1	2.31356611103941	MA0630.1	36.7179321975101	10	SHOX	jaspar	PBM	23332764	Paired-related HD factors	Homeo domain factors
+1	2.27140569429695	MA0718.1	36.2247403036556	7	RAX	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.54660317194588	MA0755.1	36.1915039725135	8	CUX2	jaspar	HT-SELEX	7799919	HD-CUT	Homeo domain factors
+1	1.57533047883671	MA0052.4	36.0212014807555	12	MEF2A	jaspar	ChIP-seq	25217591	Regulators of differentiation	MADS box factors
+1	1.60026346224154	MA0639.1	36.0065300499183	11	DBP	jaspar	HT-SELEX	21458520	CEBP-related	Basic leucine zipper factors (bZIP)
+1	1.60416461246615	MA0680.2	35.7332358793762	4	Pax7	jaspar	No_annotation	22609161, 10567552	Paired plus homeo domain	Paired box factors
+1	2.0794417699054	MA0125.1	35.6961473062941	6	Nobox	jaspar	SELEX	16997917	Paired-related HD factors	Homeo domain factors
+1	1.55092609820743	MA0142.1	35.4014224943179	7	Pou5f1::Sox2	jaspar	ChIP-seq	18555785	POU domain factors::SOX-related factors	Homeo domain factors::High-mobility group (HMG) domain factors
+1	1.63441718809774	MA0606.2	35.201707116784	12	Nfat5	jaspar	No_annotation	12374807	NFAT-related factors	Rel homology region (RHR) factors
+1	1.53213101751845	MA0754.2	35.056604771256	9	CUX1	jaspar	CAP-SELEX	7799919	HD-CUT	Homeo domain factors
+1	1.54787525710992	MA0780.1	34.8774854506804	10	PAX3	jaspar	HT-SELEX	19458195	Paired plus homeo domain	Paired box factors
+1	2.43241989287172	MA0716.1	34.870674684136	8	PRRX1	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	2.19643891193898	MA0618.1	34.7650569888857	13	LBX1	jaspar	PBM	23332764	NK	Homeo domain factors
+1	1.5783601541585	MA0901.2	34.5867702159481	6	HOXB13	jaspar	ChIP-seq	23332764	HOX	Homeo domain factors
+1	1.75728346627961	MA1478.1	34.4498541337482	7	DMRTA2	jaspar	HT-SELEX	25215497	DMRT factors	DM-type intertwined zinc finger factors
+1	2.27326884872373	MA0890.1	34.1118493725835	7	GBX2	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.35164130138148	MA0709.1	33.6096454215688	9	Msx3	jaspar	HT-SELEX	18585360	NK	Homeo domain factors
+1	1.58581590072656	MA1503.1	33.5561211677603	1	HOXB9	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.53531154747607	MA0790.1	33.5010077251527	11	POU4F1	jaspar	HT-SELEX	18077589	POU domain factors	Homeo domain factors
+1	1.66648599840374	MA0482.2	32.914480225513	7	GATA4	jaspar	ChIP-seq	7791790	C4-GATA-related	Other C4 zinc finger-type factors
+1	1.55476680434514	MA1607.1	32.765314395307	3	Foxl2	jaspar	ChIP-seq	17192407	FOX	Fork head/winged helix factors
+1	2.01518331590565	MA0889.1	32.7158832002513	8	GBX1	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.58887845561728	MA0911.1	32.6703654472226	10	Hoxa11	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.35169606183611	MA0886.1	32.5480659434555	9	EMX2	jaspar	HT-SELEX	18585359	NK	Homeo domain factors
+1	1.50577515525134	MA0851.1	32.3558245442199	5	Foxj3	jaspar	universal protein binding microarray (PBM)	23332764	FOX	Fork head/winged helix factors
+1	1.81693771761307	MA0157.3	32.1213589799584	8	Foxo3	jaspar	No_annotation	17916232	FOX	Fork head/winged helix factors
+1	1.52665914584709	MA0507.2	32.0317620224121	3	POU2F2	jaspar	CAP-SELEX	11937630	POU domain factors	Homeo domain factors
+1	1.52020565712785	MA0906.1	31.6146034615651	11	HOXC12	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.34620148931973	MA0721.1	31.2880366847185	10	UNCX	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.52333776150381	MA0490.2	31.1207593923761	4	JUNB	jaspar	ChIP-seq	21526160	Jun-related	Basic leucine zipper factors (bZIP)
+1	2.08322384664879	MA0523.1	30.8795578724823	5	TCF7L2	jaspar	ChIP-seq	18268006	TCF-7-related factors	High-mobility group (HMG) domain factors
+1	2.00998162088905	MA0701.2	30.8131570686511	5	LHX9	jaspar	HT-SELEX	18585359	HD-LIM	Homeo domain factors
+1	1.55808642851337	MA0485.2	30.7848541973816	9	HOXC9	jaspar	HT-SELEX	9079637	HOX	Homeo domain factors
+1	2.15987993118091	MA1519.1	30.7572048044776	2	LHX5	jaspar	HT-SELEX	18585359	HD-LIM	Homeo domain factors
+1	1.54079577467842	MA1962.1	30.730764816642	3	POU2F1::SOX2	jaspar	HT-SELEX	29335749	POU domain factors::SOX-related factors	Homeo domain factors::High-mobility group (HMG) domain factors
+1	1.51950726681675	MA0679.2	30.5839167035134	6	ONECUT1	jaspar	ChIP-seq	8887657	HD-CUT	Homeo domain factors
+1	1.62576947821422	MA0031.1	30.5478246522937	13	FOXD1	jaspar	SELEX	7957066	FOX	Fork head/winged helix factors
+1	1.92422708787842	MA0877.3	30.2587973440664	10	BARHL1	jaspar	CAP-SELEX	18585359	NK	Homeo domain factors
+1	2.28127307474535	MA0720.1	29.9000668238587	11	Shox2	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.47712960006802	MA1636.1	29.3927270910217	5	CEBPG	jaspar	ChIP-seq	21543584	CEBP-related	Basic leucine zipper factors (bZIP)
+1	2.38832494348898	MA0151.1	29.3548161406522	10	Arid3a	jaspar	SELEX	8543152	ARID-related	ARID
+1	2.03704110741766	MA0624.2	29.0106895273846	14	Nfatc1	jaspar	No_annotation	23332764	NFAT-related factors	Rel homology region (RHR) factors
+1	2.0666579702708	MA0769.2	28.8771437010532	12	TCF7	jaspar	ChIP-seq	28092692	TCF-7-related factors	High-mobility group (HMG) domain factors
+1	1.55688362844365	MA0678.1	28.7439426925913	7	OLIG2	jaspar	HT-SELEX	20959288	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	2.35991069493961	MA0699.1	28.6575277511702	8	LBX2	jaspar	HT-SELEX	18585360	NK	Homeo domain factors
+1	2.22377455842814	MA0661.1	28.5332571201389	9	MEOX1	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.36508097705731	MA0717.1	28.4473654930976	12	RAX2	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.98478362338609	MA0612.2	28.43781318674	15	EMX1	jaspar	HT-SELEX	25215497	NK	Homeo domain factors
+1	1.50255679463113	MA0681.2	28.1224921460574	10	PHOX2B	jaspar	ChIP-seq	22323723	Paired-related HD factors	Homeo domain factors
+1	1.46915039751818	MA0873.1	27.9951715145337	11	HOXD12	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.73613839575563	MA0480.2	27.8742747278141	11	Foxo1	jaspar	No_annotation	10880363	FOX	Fork head/winged helix factors
+1	2.32065588574913	MA0132.2	27.7950987464592	8	PDX1	jaspar	HT-SELEX	18585360	HOX	Homeo domain factors
+1	1.4853621707959	MA0610.1	27.4450134159337	16	DMRT3	jaspar	PBM	17605809	DMRT factors	DM-type intertwined zinc finger factors
+1	1.45840858398382	MA0102.4	27.0931566951204	9	CEBPA	jaspar	ChIP-seq	8632009	CEBP-related	Basic leucine zipper factors (bZIP)
+1	1.81787314033274	MA0912.2	26.7311919644108	12	HOXD3	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.98534530293095	MA0143.4	26.7265137889197	12	SOX2	jaspar	ChIP-seq	15863505	SOX-related factors	High-mobility group (HMG) domain factors
+1	2.14618570197245	MA0654.1	26.276284949077	11	ISX	jaspar	HT-SELEX	18585359	Paired-related HD factors	Homeo domain factors
+1	2.02988037228653	MA0676.1	26.2529471575553	12	Nr2e1	jaspar	HT-SELEX	10706625	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.45622140983183	MA1506.1	26.1638733489274	3	HOXD10	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.4600960707776	MA0491.2	25.8780050604769	6	JUND	jaspar	ChIP-seq	21526160	Jun-related	Basic leucine zipper factors (bZIP)
+1	2.38361238077824	MA0706.1	25.3768424056805	13	MEOX2	jaspar	HT-SELEX	18585360	HOX	Homeo domain factors
+1	1.43474887280648	MA0773.1	25.2812603628339	13	MEF2D	jaspar	HT-SELEX	25217591	Regulators of differentiation	MADS box factors
+1	1.45309553934682	MA1580.1	25.2783454410281	4	ZBTB32	jaspar	HT-SELEX	23794217	Other factors with up to three adjacent zinc fingers	C2H2 zinc finger factors
+1	1.54049628909217	MA0835.2	25.253480966256	6	BATF3	jaspar	ChIP-seq	29588546	B-ATF-related factors	Basic leucine zipper factors (bZIP)
+1	1.83235134523834	MA0868.2	24.9790152731887	12	SOX8	jaspar	HT-SELEX	17599239	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.95477428360134	MA0479.1	24.9727309940114	13	FOXH1	jaspar	ChIP-seq	9702198	FOX	Fork head/winged helix factors
+1	1.44605393388556	MA1960.1	24.8756103034534	1	MGA::EVX1	jaspar	HT-SELEX	24218641	TBX6-related factors::HOX	T-Box factors::Homeo domain factors
+1	1.4848278034015	MA1623.1	24.8336268162971	6	Stat2	jaspar	ChIP-seq	9242679	STAT factors	STAT domain factors
+1	1.69749500306072	MA1608.1	24.6954150349151	5	Isl1	jaspar	ChIP-seq	18585359	HD-LIM	Homeo domain factors
+1	1.46506959224081	MA0826.1	24.3772770721432	7	OLIG1	jaspar	HT-SELEX	20959288	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.42053548161975	MA0660.1	24.1510898475548	13	MEF2B	jaspar	HT-SELEX	9430690	Regulators of differentiation	MADS box factors
+1	1.41958714687564	MA0050.3	24.0450954530481	14	Irf1	jaspar	No_annotation	21803131	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.43128596241495	MA0030.1	23.9086998387427	15	FOXF2	jaspar	SELEX	7957066	FOX	Fork head/winged helix factors
+1	1.95016949812723	MA0895.1	23.6057180459447	13	HMBOX1	jaspar	HT-SELEX	18585359	POU domain factors	Homeo domain factors
+1	2.14952116464835	MA0880.1	23.5916671416355	14	Dlx3	jaspar	PBM	23332764	NK	Homeo domain factors
+1	2.20674718964232	MA0900.2	23.5332062482688	15	HOXA2	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.51072135416912	MA0704.1	23.4845069716314	14	Lhx4	jaspar	HT-SELEX	18585360	HD-LIM	Homeo domain factors
+1	1.67912217589392	MA0077.1	23.4291600643702	10	SOX9	jaspar	SELEX	9973626	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.4409969213157	MA0756.2	23.4075646589244	14	ONECUT2	jaspar	CAP-SELEX	8887657	HD-CUT	Homeo domain factors
+1	2.22943331036545	MA0614.1	23.399929837935	17	Foxj2	jaspar	PBM	24025729	FOX	Fork head/winged helix factors
+1	1.45697794159688	MA0852.2	23.3453101880312	8	FOXK1	jaspar	ChIP-seq	16624804	FOX	Fork head/winged helix factors
+1	2.22668912449131	MA0666.2	23.3221128382186	14	MSX1	jaspar	CAP-SELEX	18585359	NK	Homeo domain factors
+1	2.29543183338382	MA0642.2	23.0265854821467	18	EN2	jaspar	NCAP-SELEX	18585359	NK	Homeo domain factors
+1	1.41177325986292	MA0655.1	23.0096069854694	15	JDP2	jaspar	HT-SELEX	9154808	Fos-related	Basic leucine zipper factors (bZIP)
+1	1.9859981664531	MA1501.1	22.8620743866588	4	HOXB7	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.40603366251949	MA0833.2	22.7084404219374	9	ATF4	jaspar	ChIP-seq	22819556	ATF-4-related factors	Basic leucine zipper factors (bZIP)
+1	1.42333843020373	MA0836.2	22.5355930632386	10	CEBPD	jaspar	ChIP-seq	8632009	CEBP-related	Basic leucine zipper factors (bZIP)
+1	1.48125424091639	MA0791.1	22.1105703539641	15	POU4F3	jaspar	HT-SELEX	18077589	POU domain factors	Homeo domain factors
+1	1.49056529519393	MA1634.1	21.9720150831232	7	BATF	jaspar	ChIP-seq	29588546	B-ATF-related factors	Basic leucine zipper factors (bZIP)
+1	2.62149486140509	MA0644.2	21.9382685345988	19	ESX1	jaspar	CAP-SELEX	18585359	Paired-related HD factors	Homeo domain factors
+1	1.54882482800678	MA0520.1	21.6713224530157	7	Stat6	jaspar	ChIP-seq	21828071	STAT factors	STAT domain factors
+1	2.48205083233621	MA1152.1	21.5084820917535	8	SOX15	jaspar	SMiLE-seq	15863505	SOX-related factors	High-mobility group (HMG) domain factors
+1	2.50350394807599	MA0881.1	21.5066873025207	16	Dlx4	jaspar	PBM	23332764	NK	Homeo domain factors
+1	1.39935255881556	MA1709.1	21.4165591329941	8	ZIM3	jaspar	ChIP-seq	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	2.24376534820366	MA0882.1	21.3470967847478	17	DLX6	jaspar	HT-SELEX	9889271	NK	Homeo domain factors
+1	1.38412330223035	MA1603.1	20.8890026454761	6	Dmrt1	jaspar	ChIP-seq	26005864	DMRT factors	DM-type intertwined zinc finger factors
+1	1.38252655159936	MA1657.1	20.714173501145	9	ZNF652	jaspar	ChIP-seq	23332764	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.38029065373828	MA0629.1	20.5362895270797	20	Rhox11	jaspar	universal protein binding microarray (PBM)	18585359	Paired-related HD factors	Homeo domain factors
+1	1.47159992048653	MA0854.1	20.3751683444566	18	Alx1	jaspar	universal protein binding microarray (PBM)	23332764	Paired-related HD factors	Homeo domain factors
+1	1.65681870369032	MA1112.2	20.2877482409936	13	NR4A1	jaspar	ChIP-seq	12082103	NGFI-B-related receptors (NR4)	Nuclear receptors with C4 zinc fingers
+1	1.41105953009991	MA0070.1	20.1816200694686	16	PBX1	jaspar	SELEX	7910944	TALE-type homeo domain factors	Homeo domain factors
+1	2.40919066492549	MA0875.1	19.7790756014447	19	BARX1	jaspar	HT-SELEX	18585359	NK	Homeo domain factors
+1	2.40240033703267	MA0662.1	19.6400978849317	16	MIXL1	jaspar	HT-SELEX	19711456	Paired-related HD factors	Homeo domain factors
+1	2.44947878371425	MA0027.2	19.3101089977184	17	EN1	jaspar	HT-SELEX	8096059	NK	Homeo domain factors
+1	1.36521006782509	MA0817.1	19.2559514665397	11	BHLHE23	jaspar	HT-SELEX	9144210	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	2.69941500503629	MA0675.1	19.0041225351079	17	NKX6-2	jaspar	HT-SELEX	18585359	NK	Homeo domain factors
+1	1.7679240089693	MA0827.1	18.9984556081477	12	OLIG3	jaspar	HT-SELEX	20959288	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.50952841460956	MA1633.2	18.9070542711743	10	BACH1	jaspar	HT-SELEX	8887638	Jun-related	Basic leucine zipper factors (bZIP)
+1	2.27676575899052	MA0910.2	18.8860689116622	14	HOXD8	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	2.57486085626526	MA0674.1	18.8027905998681	18	NKX6-1	jaspar	HT-SELEX	18585359	NK	Homeo domain factors
+1	2.21753495464689	MA1549.1	18.7462386293882	5	POU6F1	jaspar	HT-SELEX	26265007	POU domain factors	Homeo domain factors
+1	1.39123183195087	MA0757.1	18.730106756139	16	ONECUT3	jaspar	HT-SELEX	8887657	HD-CUT	Homeo domain factors
+1	1.37034734590795	MA1989.1	18.5276414171974	4	Bcl11B	jaspar	No_annotation	21912641	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	1.59818574293852	MA0164.1	18.2578829699075	14	Nr2e3	jaspar	SELEX	15634773	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.35762985123931	MA1489.1	18.0830077697362	9	FOXN3	jaspar	PBM	30826165	FOX	Fork head/winged helix factors
+1	1.35591816539684	MA0772.1	18.0192304000642	17	IRF7	jaspar	HT-SELEX	10938111	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.36622663902321	MA0495.3	17.8836927174807	8	MAFF	jaspar	ChIP-seq	8264639	Maf-related	Basic leucine zipper factors (bZIP)
+1	1.865873502413	MA0514.2	17.8462873430519	9	Sox3	jaspar	No_annotation	8625802	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.38548677668117	MA1991.1	17.7082931997417	5	Hnf1A	jaspar	No_annotation	30420627	POU domain factors	Homeo domain factors
+1	2.56419275273304	MA0708.2	17.6290333705185	15	MSX2	jaspar	CAP-SELEX	18585360	NK	Homeo domain factors
+1	2.32924471308777	MA1530.1	17.2096886992069	6	NKX6-3	jaspar	HT-SELEX	18585359	NK	Homeo domain factors
+1	1.73092644477055	MA0648.1	17.1392835795678	21	GSC	jaspar	HT-SELEX	18585359	Paired-related HD factors	Homeo domain factors
+1	2.04107713658772	MA0483.1	17.1123892314718	15	Gfi1B	jaspar	ChIP-seq	19773260	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.34444523291375	MA0517.1	16.9890848429399	10	STAT1::STAT2	jaspar	ChIP-seq	16319195	STAT factors	STAT domain factors
+1	1.38117546891423	MA0477.2	16.9642086025851	16	FOSL1	jaspar	ChIP-seq	17916232	Fos-related	Basic leucine zipper factors (bZIP)
+1	2.14343135605349	MA0042.2	16.9268130620735	18	FOXI1	jaspar	HT-SELEX	23836653	FOX	Fork head/winged helix factors
+1	1.76037597411238	MA0693.3	16.9257277718874	19	Vdr	jaspar	No_annotation	8065900	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.37098641701723	MA0842.2	16.8967651114351	13	NRL	jaspar	HT-SELEX	8552602	Maf-related	Basic leucine zipper factors (bZIP)
+1	1.46299322094836	MA0038.2	16.7651540399257	19	GFI1	jaspar	HT-SELEX	8754800	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.38758546608915	MA1137.1	16.7015681998148	15	FOSL1::JUNB	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.38631428477705	MA0818.2	16.589166663753	14	BHLHE22	jaspar	CAP-SELEX	22284184	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.34157248842648	MA1118.1	16.5843433473747	16	SIX1	jaspar	ChIP-seq	9826681	HD-SINE	Homeo domain factors
+1	1.38454618306903	MA0611.2	16.5418004577293	22	Dux	jaspar	No_annotation	28173143, 24278031	Paired-related HD factors	Homeo domain factors
+1	2.3004807848642	MA1502.1	16.4824502385772	7	HOXB8	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.34374712106701	MA0078.2	16.3825026088818	11	Sox17	jaspar	No_annotation	8636240	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.61932275531831	MA0712.2	16.2837839171426	16	OTX2	jaspar	ChIP-seq	18585360	Paired-related HD factors	Homeo domain factors
+1	2.03592811326643	MA0904.2	16.2391119025534	17	HOXB5	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.63412389598533	MA1120.1	16.1862441624294	18	SOX13	jaspar	ChIP-seq	27521520	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.40269222219533	MA0462.2	16.1515210778934	17	BATF::JUN	jaspar	ChIP-seq	22992523	B-ATF-related factors::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.72084136990042	MA1142.1	16.079053440106	10	FOSL1::JUND	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.32895096692798	MA0883.1	15.8961691043734	20	Dmbx1	jaspar	universal protein binding microarray (PBM)	23332764	Paired-related HD factors	Homeo domain factors
+1	2.4994290977241	MA0705.1	15.888285600403	17	Lhx8	jaspar	HT-SELEX	18585360	HD-LIM	Homeo domain factors
+1	1.32583509608291	MA0907.1	15.8122448810999	19	HOXC13	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.45916482174993	MA1480.1	15.7498198154501	11	DPRX	jaspar	HT-SELEX	18585359	Paired-related HD factors	Homeo domain factors
+1	2.23877931750276	MA0891.1	15.6893221639516	21	GSC2	jaspar	HT-SELEX	9441739	Paired-related HD factors	Homeo domain factors
+1	2.2159458933201	MA0849.1	15.5970304887339	15	FOXO6	jaspar	HT-SELEX	10880363	FOX	Fork head/winged helix factors
+1	1.40060351544096	MA0029.1	15.5936447037917	20	Mecom	jaspar	SELEX	8321231	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	2.0043705549092	MA0722.1	15.3805227832601	18	VAX1	jaspar	HT-SELEX	18585360	NK	Homeo domain factors
+1	1.66125102632335	MA0063.2	15.2395171742691	21	NKX2-5	jaspar	ChIP-seq	27013732	NK	Homeo domain factors
+1	1.48996733246239	MA0160.2	15.2038116795145	18	NR4A2	jaspar	CAP-SELEX	17916232	NGFI-B-related receptors (NR4)	Nuclear receptors with C4 zinc fingers
+1	1.32358966381626	MA0669.1	15.1658968488103	20	NEUROG2	jaspar	HT-SELEX	19389376	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.97565670261517	MA0467.2	15.0622781554705	19	Crx	jaspar	No_annotation	20463752	Paired-related HD factors	Homeo domain factors
+1	1.53643220318864	MA0476.1	14.7893371432405	20	FOS	jaspar	ChIP-seq	17916232	Fos-related	Basic leucine zipper factors (bZIP)
+1	1.33459430538791	MA0651.2	14.6352015872226	23	HOXC11	jaspar	CAP-SELEX	18585359	HOX	Homeo domain factors
+1	1.30627860434728	MA0768.2	14.470681115181	18	Lef1	jaspar	No_annotation	19443739	TCF-7-related factors	High-mobility group (HMG) domain factors
+1	1.42197609966766	MA0099.3	14.4185995811822	12	FOS::JUN	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.37265980798737	MA1138.1	14.3901482068137	12	FOSL2::JUNB	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.52809905312329	MA0684.2	14.3223952289586	21	RUNX3	jaspar	ChIP-seq	20378718	Runt-related factors	Runt domain factors
+1	1.39522523664183	MA1130.1	14.2484766646238	20	FOSL2::JUN	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.33523535846445	MA0623.2	14.1078351190836	24	NEUROG1	jaspar	HT-SELEX	23332764	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.37611111490466	MA0896.1	13.9711579666728	22	Hmx1	jaspar	universal protein binding microarray (PBM)	23332764	NK	Homeo domain factors
+1	2.01671953835068	MA0710.1	13.9553589317429	19	NOTO	jaspar	HT-SELEX	18585360	NK	Homeo domain factors
+1	1.41712407952455	MA0853.1	13.9083829643177	16	Alx4	jaspar	universal protein binding microarray (PBM)	10542273	Paired-related HD factors	Homeo domain factors
+1	2.18468712781519	MA0766.2	13.8898150465226	19	GATA5	jaspar	HT-SELEX	14612389	C4-GATA-related	Other C4 zinc finger-type factors
+1	1.44732449898643	MA0874.1	13.7859001147421	23	Arx	jaspar	universal protein binding microarray (PBM)	23332764	Paired-related HD factors	Homeo domain factors
+1	1.30276882247866	MA0838.1	13.5206089672587	17	CEBPG	jaspar	HT-SELEX	8632009	CEBP-related	Basic leucine zipper factors (bZIP)
+1	2.36762600782746	MA0876.1	13.5056200822241	24	BSX	jaspar	HT-SELEX	18585359	NK	Homeo domain factors
+1	1.37520212699202	MA2001.1	13.4378613705127	6	Six4	jaspar	No_annotation	14966291	HD-SINE	Homeo domain factors
+1	2.25501904573153	MA1481.1	13.3538971762583	13	DRGX	jaspar	HT-SELEX	25131932	Paired-related HD factors	Homeo domain factors
+1	1.43578501253923	MA0117.2	13.2658375013194	13	Mafb	jaspar	HT-SELEX	9571165	Maf-related	Basic leucine zipper factors (bZIP)
+1	2.2475503017884	MA1497.1	13.2380685848764	14	HOXA6	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.28900734763662	MA1562.1	13.1003819595363	7	SOX14	jaspar	HT-SELEX	17852354	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.33221030536655	MA1128.1	12.8722073830447	21	FOSL1::JUN	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.35135884461875	MA1974.1	12.8716808334965	7	ZNF211	jaspar	No_annotation	29146583	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	2.23226916391879	MA0887.1	12.8291647743046	25	EVX1	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.28987172736553	MA1729.1	12.7681705027555	2	ZNF680	jaspar	ChIP-seq	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.77183279824665	MA0682.2	12.7028462149949	22	PITX1	jaspar	HT-SELEX	8675014	Paired-related HD factors	Homeo domain factors
+1	1.35006750275228	MA0784.2	12.6362176765667	20	POU1F1	jaspar	CAP-SELEX	2350782	POU domain factors	Homeo domain factors
+1	1.47143222579304	MA1988.1	12.4910894913477	8	Atf3	jaspar	No_annotation	27146783	Fos-related	Basic leucine zipper factors (bZIP)
+1	1.63271415885267	MA0518.1	12.4883707228352	11	Stat4	jaspar	ChIP-seq	19710469	STAT factors	STAT domain factors
+1	1.29575397427001	MA0607.2	12.3674562786171	25	BHLHA15	jaspar	CAP-SELEX	9482738	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.28158431938451	MA1105.2	12.1764965862295	22	GRHL2	jaspar	ChIP-seq	20978075	Grainyhead-related factors	Grainyhead domain factors
+1	1.29877785146011	MA1134.1	12.1012046953077	23	FOS::JUNB	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	2.06521603571926	MA1499.1	12.0071146416145	8	HOXB4	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.30824531677195	MA1143.1	11.9754330107634	15	FOSL1::JUND	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.47648549885746	MA0683.1	11.8867705349339	23	POU4F2	jaspar	HT-SELEX	18077589	POU domain factors	Homeo domain factors
+1	2.61461484866443	MA0902.2	11.8251098052372	26	HOXB2	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.27914367825616	MA1943.1	11.8111763026395	3	ETV2::HOXB13	jaspar	HT-SELEX	24218641	Ets-related::HOX-related factors	Tryptophan cluster factors::Homeo domain factors
+1	2.39495709371552	MA1507.1	11.7752832376282	9	HOXD4	jaspar	HT-SELEX	9079695	HOX	Homeo domain factors
+1	2.28428644118088	MA0892.1	11.772389472066	27	GSX1	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.30097594580843	MA1978.1	11.5462485779964	9	ZNF354A	jaspar	ChIP-exo	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	2.23740401334282	MA0848.1	11.5078691998258	18	FOXO4	jaspar	HT-SELEX	10880363	FOX	Fork head/winged helix factors
+1	1.26312594456433	MA0667.1	10.9435816602827	24	MYF6	jaspar	HT-SELEX	19443739	MyoD/ASC-related factors	Basic helix-loop-helix factors (bHLH)
+1	1.39135242462087	MA0897.1	10.9040861457967	28	Hmx2	jaspar	universal protein binding microarray (PBM)	23332764	NK	Homeo domain factors
+1	1.42987242081143	MA0137.3	10.7478687533409	14	STAT1	jaspar	ChIP-seq	17558387	STAT factors	STAT domain factors
+1	1.2785012188994	MA0089.2	10.5808988480808	15	MAFG::NFE2L1	jaspar	ChIP-seq	9421508	Maf-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.30870363192938	MA0095.3	10.5690992171078	16	Yy1	jaspar	No_annotation	18950698	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.25189944688227	MA0140.2	10.5310526216312	17	GATA1::TAL1	jaspar	ChIP-seq	20566737	C4-GATA-related::Tal-related	Other C4 zinc finger-type factors::Basic helix-loop-helix factors (bHLH)
+1	1.26958113563218	MA0647.1	10.5147500026075	26	GRHL1	jaspar	HT-SELEX	18288204	Grainyhead-related factors	Grainyhead domain factors
+1	1.26881594285475	MA1421.1	10.4673781185429	16	TCF7L1	jaspar	HT-SELEX	27447672	TCF-7-related factors	High-mobility group (HMG) domain factors
+1	1.26977273252051	MA1141.1	10.3510600459567	17	FOS::JUND	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.29931105906685	MA1144.1	10.3502434187719	18	FOSL2::JUND	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.27366038041101	MA0072.1	10.301538870845	22	RORA	jaspar	SELEX	7926749	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	2.17037508643057	MA0158.2	10.290524781432	21	HOXA5	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.27231571550882	MA1593.1	10.174490352086	8	ZNF317	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.30976007329455	MA1135.1	10.154047268619	24	FOSB::JUNB	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.44845141844919	MA0688.1	10.0602121600958	25	TBX2	jaspar	HT-SELEX	16285859	TBX2-related factors	T-Box factors
+1	2.24830746812245	MA0888.1	10.0410762072837	29	EVX2	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.85185241222438	MA0714.1	10.0360849825276	20	PITX3	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.30447546291462	MA1928.1	9.96614254061033	4	BNC2	jaspar	No_annotation	30487138	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	1.24726196286896	MA0687.1	9.95417185827069	26	SPIC	jaspar	HT-SELEX	16887979	Ets-related	Tryptophan cluster factors
+1	1.25441129757685	MA0770.1	9.81772363142044	21	HSF2	jaspar	HT-SELEX	12027891	HSF factors	Heat shock factors
+1	1.26347292053951	MA1940.1	9.78279377419591	5	ETV2::DRGX	jaspar	HT-SELEX	24218641	Ets-related::Paired-related HD factors	Tryptophan cluster factors::Homeo domain factors
+1	1.23992042387779	MA1524.2	9.73582166991535	10	Msgn1	jaspar	No_annotation	21750544	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.31367563664864	MA0489.2	9.64225084060268	12	Jun	jaspar	No_annotation	21703547	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.24163105267576	MA1953.1	9.55368074149798	6	FOXO1::ELF1	jaspar	HT-SELEX	31913281	FOX::Ets-related	Fork head/winged helix factors::Tryptophan cluster factors
+1	1.33169666369325	MA0809.2	9.55119143429399	19	TEAD4	jaspar	ChIP-seq	23332764	TEF-1-related factors	TEA domain factors
+1	1.83077308580318	MA0442.2	9.48493613412351	22	SOX10	jaspar	ChIP-seq	17916232	SOX-related factors	High-mobility group (HMG) domain factors
+1	2.358638883467	MA0914.1	9.47834292837681	25	ISL2	jaspar	HT-SELEX	7999775	HD-LIM	Homeo domain factors
+1	2.59039568926927	MA0903.1	9.45074615935392	30	HOXB3	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.23892242264538	MA1937.1	9.36537011447582	7	ERF::HOXB13	jaspar	HT-SELEX	24218641	Ets-related::HOX-related factors	Tryptophan cluster factors::Homeo domain factors
+1	1.56079598962723	MA0124.2	9.26594220712524	18	Nkx3-1	jaspar	HT-SELEX	18585360	NK	Homeo domain factors
+1	1.32998235323087	MA0492.1	9.1798285160212	13	JUND	jaspar	ChIP-seq	21526160	Jun-related	Basic leucine zipper factors (bZIP)
+1	2.18637149620025	MA0635.1	9.16530750293621	27	BARHL2	jaspar	HT-SELEX	18585359	NK	Homeo domain factors
+1	1.27592227768748	MA1994.1	9.11609293440126	10	Nkx2-1	jaspar	No_annotation	26556242	NK	Homeo domain factors
+1	1.33025632797395	MA0051.1	9.10240864387326	23	IRF2	jaspar	SELEX	7687740	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.23207258564365	MA0087.2	8.99767965485625	19	Sox5	jaspar	No_annotation	1396566	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.24377404401425	MA1592.1	8.9474686239982	9	ZNF274	jaspar	HT-SELEX	21170338	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.36970873244939	MA0898.1	8.94183945988504	31	Hmx3	jaspar	universal protein binding microarray (PBM)	23332764	NK	Homeo domain factors
+1	1.24540511840044	MA0800.1	8.88237510325862	22	EOMES	jaspar	HT-SELEX	12093383	TBrain-related factors	T-Box factors
+1	1.38258996374627	MA1150.1	8.88070670719212	19	RORB	jaspar	SMiLE-seq	25500868	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.31954524006292	MA1132.1	8.80107971011332	26	JUN::JUNB	jaspar	SMiLE-seq	15240010	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.99790573656767	MA1495.1	8.79133389867689	20	HOXA1	jaspar	HT-SELEX	16341070	HOX	Homeo domain factors
+1	1.23302656930631	MA1975.1	8.78509495584798	11	ZNF214	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.48596269271583	MA0869.2	8.75571498575005	32	Sox11	jaspar	No_annotation	24681958, 12920151	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.22887419787825	MA0018.4	8.73114735926214	24	CREB1	jaspar	ChIP-seq	17916232	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	1.44645159754486	MA1547.2	8.64575548284843	11	PITX2	jaspar	CAP-SELEX	9685346	Paired-related HD factors	Homeo domain factors
+1	2.22844427109088	MA0711.1	8.5727377337283	21	OTX1	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	1.22350424519211	MA1625.1	8.54021466050283	11	Stat5b	jaspar	ChIP-seq	10594041	STAT factors	STAT domain factors
+1	1.24454714870261	MA0501.1	8.50144268205374	14	MAF::NFE2	jaspar	ChIP-seq	9166829	Maf-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.61700772676843	MA1525.2	8.47036371660277	12	NFATC4	jaspar	CAP-SELEX	12374807	NFAT-related factors	Rel homology region (RHR) factors
+1	1.38411044813769	MA0461.2	8.40890375787805	23	Atoh1	jaspar	HT-SELEX	21300888	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	2.20574048178237	MA0594.2	8.00127916914936	15	HOXA9	jaspar	HT-SELEX	12923056	HOX	Homeo domain factors
+1	4.37113009386833	MA1505.1	7.96749868985148	13	HOXC8	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.23022432194368	MA1624.1	7.89469503879597	12	Stat5a	jaspar	ChIP-seq	10594041	STAT factors	STAT domain factors
+1	1.29280349353226	MA1124.1	7.87760526266577	27	ZNF24	jaspar	ChIP-seq	11532988	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.28377804029687	MA0488.1	7.81904779069371	16	JUN	jaspar	ChIP-seq	21703547	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.20900311928263	MA1136.1	7.69754443789018	28	FOSB::JUNB	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.20922970489375	MA0771.1	7.69576667243632	23	HSF4	jaspar	HT-SELEX	25850300	HSF factors	Heat shock factors
+1	1.32014343451747	MA1618.1	7.61085433444552	13	Ptf1a	jaspar	ChIP-seq	23754747	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.21103608113614	MA1950.1	7.43075963489318	8	FLI1::FOXI1	jaspar	HT-SELEX	31913281	Ets-related::FOX	Tryptophan cluster factors::Fork head/winged helix factors
+1	1.22107078267533	MA1101.2	7.22988229786446	29	BACH2	jaspar	HT-SELEX	28461702	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.65078026262543	MA0515.1	7.18403421174006	17	Sox6	jaspar	ChIP-seq	21985497	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.24448622691498	MA1119.1	7.07638284421022	30	SIX2	jaspar	ChIP-seq	15327782	HD-SINE	Homeo domain factors
+1	2.00912991640011	MA0867.2	7.00107460751862	33	SOX4	jaspar	HT-SELEX	17599239	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.39668542797976	MA1151.1	6.99995858858073	21	RORC	jaspar	SMiLE-seq	25500868	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	2.6179308625121	MA1498.2	6.90551679379826	22	HOXA7	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.1951006544834	MA1632.1	6.765818036922	14	ATF2	jaspar	ChIP-seq	20581861	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.34549754845072	MA0866.1	6.75200823803061	34	SOX21	jaspar	HT-SELEX	12920151	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.25629407139622	MA1579.1	6.32694851334861	10	ZBTB26	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.25674241705777	MA0802.1	6.17229387653822	24	TBR1	jaspar	HT-SELEX	12093383	TBrain-related factors	T-Box factors
+1	1.29716485576204	MA1518.2	6.09246400254326	14	Lhx1	jaspar	No_annotation	18585359	HD-LIM	Homeo domain factors
+1	1.328615140927	MA0870.1	6.03007553545937	35	Sox1	jaspar	HT-SELEX	12920151	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.1869858500354	MA1561.1	5.93630583327768	11	SOX12	jaspar	HT-SELEX	18403418	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.2373583194667	MA0069.1	5.93214083992294	25	PAX6	jaspar	SELEX	8132558	Paired plus homeo domain	Paired box factors
+1	1.18084295735216	MA1968.1	5.81275960267563	12	TFCP2	jaspar	HT-SELEX	9668115	CP2-related factors	Grainyhead domain factors
+1	1.21248133813333	MA0486.2	5.79776499697644	18	HSF1	jaspar	HT-SELEX	17500587	HSF factors	Heat shock factors
+1	1.31156740106729	MA1508.1	5.68170495192651	15	IKZF1	jaspar	ChIP-seq	27664237	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	1.2635430583188	MA1419.1	5.66535940095454	23	IRF4	jaspar	HT-SELEX	25896227	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.19329922905739	MA0837.2	5.54708684549189	20	CEBPE	jaspar	CAP-SELEX	8632009	CEBP-related	Basic leucine zipper factors (bZIP)
+1	1.20011039028759	MA1952.1	5.53887111330559	9	FOXJ2::ELF1	jaspar	HT-SELEX	31913281	FOX::Ets-related	Fork head/winged helix factors::Tryptophan cluster factors
+1	1.87893600065196	MA1504.1	5.53499203741986	16	HOXC4	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.17025570061048	MA0841.1	5.53072786388275	21	NFE2	jaspar	HT-SELEX	10498903	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.18682873432845	MA0071.1	5.50323054917805	26	RORA	jaspar	SELEX	7926749	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.24823418019731	MA1111.1	5.48571275097318	31	NR2F2	jaspar	ChIP-seq	1324415	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.17964230555057	MA1121.1	5.45634732358497	32	TEAD2	jaspar	ChIP-seq	9571041	TEF-1-related factors	TEA domain factors
+1	1.1760831178332	MA1944.1	5.42222587442506	10	ETV5::DRGX	jaspar	HT-SELEX	24218641	Ets-related::Paired-related HD factors	Tryptophan cluster factors::Homeo domain factors
+1	2.66353098122859	MA1534.1	5.40222777557897	17	NR1I3	jaspar	HT-SELEX	12896978	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.17233054274899	MA1948.1	5.26088894486072	11	ETV5::HOXA2	jaspar	HT-SELEX	24218641	Ets-related::HOX-related factors	Tryptophan cluster factors::Homeo domain factors
+1	1.16314059036706	MA0665.1	5.25764056634705	27	MSC	jaspar	HT-SELEX	24175993	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.99778716663059	MA0707.2	5.202511477367	22	MNX1	jaspar	CAP-SELEX	18585360	HOX	Homeo domain factors
+1	1.22413084164776	MA0652.1	5.13756598177502	28	IRF8	jaspar	HT-SELEX	21731497	Interferon-regulatory factors	Tryptophan cluster factors
+1	2.33869513761706	MA0519.1	5.13116381065719	19	Stat5a::Stat5b	jaspar	ChIP-seq	22158971	STAT factors	STAT domain factors
+1	1.37796148598326	MA0508.3	5.11711323690154	20	PRDM1	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.21525902926884	MA1947.1	5.11260372949852	12	ETV5::FOXO1	jaspar	HT-SELEX	31913281	Ets-related::FOX	Tryptophan cluster factors::Fork head/winged helix factors
+1	1.17038866365316	MA0840.1	5.06426064462097	22	Creb5	jaspar	HT-SELEX	11134034	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	1.35097330248659	MA0136.3	5.04040485080146	20	Elf5	jaspar	No_annotation	20517297	Ets-related	Tryptophan cluster factors
+1	1.87955439752639	MA0033.2	4.90390699751294	27	FOXL1	jaspar	HT-SELEX	23836653	FOX	Fork head/winged helix factors
+1	1.23940018197818	MA1588.1	4.87282637337156	12	ZNF136	jaspar	ChIP-seq	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.15978848198118	MA1129.1	4.63935169818298	33	FOSL1::JUN	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.16800842203699	MA1644.1	4.45296284335414	15	NFYC	jaspar	ChIP-seq	11895773	Heteromeric CCAAT-binding	Heteromeric CCAAT-binding factors
+1	1.14802405871557	MA1131.1	4.42704243582296	34	FOSL2::JUN	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.14675350440313	MA1955.1	4.3673747108233	13	FOXO1::ELK3	jaspar	HT-SELEX	31913281	FOX::Ets-related	Fork head/winged helix factors::Tryptophan cluster factors
+1	1.14960598126707	MA0689.1	4.21592804049742	28	TBX20	jaspar	HT-SELEX	23326246	TBX1-related factors	T-Box factors
+1	1.16014942431161	MA1544.1	4.18410956053032	18	OVOL1	jaspar	HT-SELEX	26504231	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.176680788237	MA1126.1	4.15056329762635	35	FOS::JUN	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.30292922410266	MA1958.1	4.11890374014324	14	HOXD12::ELK1	jaspar	HT-SELEX	24218641	HOX::Ets-related	Homeo domain factors::Tryptophan cluster factors
+1	1.15884102403004	MA1145.1	4.01286786759923	24	FOSL2::JUND	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.35826115219522	MA0804.1	4.00478633745441	23	TBX19	jaspar	HT-SELEX	12093383	Brachyury-related factors	T-Box factors
+1	1.135878735457	MA0862.1	3.95774805199596	36	GMEB2	jaspar	HT-SELEX	11743720	GMEB	SAND domain factors
+1	1.17041991507804	MA1568.1	3.8759801456054	13	TCF21	jaspar	HT-SELEX	25215497	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.14025606377757	MA0090.3	3.79382471747425	21	TEAD1	jaspar	ChIP-seq	23332764	TEF-1-related factors	TEA domain factors
+1	1.12916048475249	MA0080.6	3.61932126134575	22	Spi1	jaspar	No_annotation	7624145	Ets-related	Tryptophan cluster factors
+1	1.14814093288913	MA1127.1	3.58113014844397	36	FOSB::JUN	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.15072228266419	MA0698.1	3.57181475008697	29	ZBTB18	jaspar	HT-SELEX	9756912	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.19294367451849	MA1123.2	3.51816421887145	37	TWIST1	jaspar	ChIP-seq	29453333	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.12165474921658	MA0081.2	3.36711465432489	23	SPIB	jaspar	ChIP-seq	7624145	Ets-related	Tryptophan cluster factors
+1	1.12451062282468	MA0690.2	3.35741212735542	30	TBX21	jaspar	CAP-SELEX	16285859	TBrain-related factors	T-Box factors
+1	2.06195907486004	MA0144.2	3.31120399124615	24	STAT3	jaspar	ChIP-seq	18555785	STAT factors	STAT domain factors
+1	1.18777379847651	MA0478.1	3.28566026787054	25	FOSL2	jaspar	ChIP-seq	17916232	Fos-related	Basic leucine zipper factors (bZIP)
+1	1.11778276681162	MA0743.2	3.18912836663195	23	SCRT1	jaspar	ChIP-seq	23332764	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.13981648403542	MA1139.1	3.17608683799886	25	FOSL2::JUNB	jaspar	SMiLE-seq	11988758	Fos-related::Jun-related	Basic leucine zipper factors (bZIP)
+1	1.24404296524619	MA0009.2	3.09494505463472	28	TBXT	jaspar	HT-SELEX	7588606	Brachyury-related factors	T-Box factors
+1	1.12575183724452	MA1647.2	3.06827596390218	16	Prdm4	jaspar	No_annotation	23918801	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	1.17838405458587	MA1418.1	3.0507165841813	26	IRF3	jaspar	HT-SELEX	10938111	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.12049843489936	MA1133.1	3.04386799094837	38	JUN::JUNB	jaspar	SMiLE-seq	15240010	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.13726585765711	MA0466.3	3.02983301158466	26	CEBPB	jaspar	CAP-SELEX	8632009	CEBP-related	Basic leucine zipper factors (bZIP)
+1	1.11895030195346	MA1956.1	3.02136926215572	15	FOXO1::FLI1	jaspar	HT-SELEX	31913281	FOX::Ets-related	Fork head/winged helix factors::Tryptophan cluster factors
+1	2.6774747032545	MA0672.1	3.00429428551128	31	NKX2-3	jaspar	HT-SELEX	11042197	NK	Homeo domain factors
+1	1.1892075273755	MA1936.1	2.97916873795662	16	ERF::FOXO1	jaspar	HT-SELEX	31913281	Ets-related::FOX	Tryptophan cluster factors::Fork head/winged helix factors
+1	1.12834524165414	MA0150.2	2.93472974070714	27	Nfe2l2	jaspar	ChIP-seq	17916232	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.11662231889297	MA1946.1	2.9074917050377	17	ETV5::FOXI1	jaspar	HT-SELEX	31913281	Ets-related::FOX	Tryptophan cluster factors::Fork head/winged helix factors
+1	1.12442399299799	MA1720.1	2.88162143503527	18	ZNF85	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.33131040815331	MA0774.1	2.83263986621389	25	MEIS2	jaspar	HT-SELEX	9405651	TALE-type homeo domain factors	Homeo domain factors
+1	1.20148566982416	MA0653.1	2.81953099790275	32	IRF9	jaspar	HT-SELEX	21731497	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.11718351590169	MA0060.3	2.75101521626474	29	NFYA	jaspar	ChIP-seq	9469818	NFY	Other alpha
+1	1.26107433680638	MA1523.1	2.74569383510241	19	MSANTD3	jaspar	PBM	12354778	Myb/SANT domain factors	Tryptophan cluster factors
+1	1.1073152540034	MA1585.1	2.73313347616585	14	ZKSCAN1	jaspar	ChIP-seq	28092692	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.79183542250611	MA0670.1	2.66130195688496	33	NFIA	jaspar	HT-SELEX	10085123	Nuclear factor 1	SMAD/NF-1 DNA-binding domain factors
+1	2.04598665695991	MA0879.2	2.64646308677979	37	DLX1	jaspar	NCAP-SELEX	18585359	NK	Homeo domain factors
+1	1.10410164054312	MA1954.1	2.62314350606637	19	FOXO1::ELK1	jaspar	HT-SELEX	31913281	FOX::Ets-related	Fork head/winged helix factors::Tryptophan cluster factors
+1	1.10187853110226	MA0744.2	2.58802789248517	24	SCRT2	jaspar	ChIP-seq	23332764	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.13209496593137	MA0463.2	2.56109484660847	28	BCL6	jaspar	HT-SELEX	7945383	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.13974529206844	MA0832.1	2.53747826498439	24	Tcf21	jaspar	HT-SELEX	26020271	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.15394783175382	MA1949.1	2.45153293901371	20	FLI1::DRGX	jaspar	HT-SELEX	24218641	Paired-related HD factors::Ets-related	Homeo domain factors::Tryptophan cluster factors
+1	1.11308459779178	MA0656.1	2.44718304336693	34	JDP2	jaspar	HT-SELEX	9154808	Fos-related	Basic leucine zipper factors (bZIP)
+1	1.09897490510081	MA1509.1	2.44045187520856	20	IRF6	jaspar	HT-SELEX	18604160	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.14166391598984	MA0600.2	2.27567643941955	21	RFX2	jaspar	HT-SELEX	8754849	RFX-related factors	Fork head/winged helix factors
+1	1.15514704227821	MA1714.1	2.23427737651996	17	ZNF675	jaspar	ChIP-seq	31427604	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	2.04727586184751	MA0850.1	2.18878694040183	25	FOXP3	jaspar	HT-SELEX	20554955	FOX	Fork head/winged helix factors
+1	1.10191350930532	MA0605.2	2.11316711634101	29	ATF3	jaspar	HT-SELEX	12815047	Fos-related	Basic leucine zipper factors (bZIP)
+1	1.51943151685197	MA0808.1	2.02209773452233	26	TEAD3	jaspar	HT-SELEX	9571041	TEF-1-related factors	TEA domain factors
+1	1.08298049588738	MA0141.3	1.95870732032939	24	ESRRB	jaspar	HT-SELEX	18555785	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	1.08331066543928	MA0494.1	1.85512003343725	22	Nr1h3::Rxra	jaspar	ChIP-seq	21349840	Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.5222177943044	MA1108.2	1.84177389810207	39	MXI1	jaspar	ChIP-seq	8425219	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	1.98548013304993	MA0893.2	1.74516148643928	38	GSX2	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.29303884327188	MA1570.1	1.74428435405617	15	TFAP4	jaspar	HT-SELEX	9741833	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	1.11258832098386	MA1420.1	1.74136195220893	27	IRF5	jaspar	HT-SELEX	25896227	Interferon-regulatory factors	Tryptophan cluster factors
+1	1.78828873979706	MA1563.2	1.66892308987036	16	SOX18	jaspar	CAP-SELEX	7651823	SOX-related factors	High-mobility group (HMG) domain factors
+1	1.1441910504743	MA1467.2	1.64001507580233	28	Atoh1	jaspar	No_annotation	22985730	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.0764922566065	MA0598.3	1.60943295187941	23	EHF	jaspar	ChIP-seq	11259407	Ets-related	Tryptophan cluster factors
+1	1.09209503317002	MA0088.2	1.58363315888485	25	ZNF143	jaspar	HT-SELEX	9009278	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.10071142758903	MA0604.1	1.53552407206598	30	Atf1	jaspar	PBM	1655749	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	1.07747554240728	MA1566.2	1.471747540314	17	TBX3	jaspar	CAP-SELEX	18829543	TBX2-related factors	T-Box factors
+1	1.07250678730761	MA0795.1	1.4539498302152	26	SMAD3	jaspar	HT-SELEX	12582250	SMAD factors	SMAD/NF-1 DNA-binding domain factors
+1	1.1174993957523	MA0643.1	1.44202451842038	31	Esrrg	jaspar	HT-SELEX	15475169	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	1.07571160772915	MA1520.1	1.38614669679176	21	MAF	jaspar	HT-SELEX	9571165	Maf-related	Basic leucine zipper factors (bZIP)
+1	1.08284935959622	MA1546.1	1.34138668780551	22	PAX3	jaspar	HT-SELEX	9632796	Paired plus homeo domain	Paired box factors
+1	1.06046701802454	MA0762.1	1.30597120927426	27	ETV2	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	1.07511448994654	MA1567.2	1.28972790559502	18	Tbx6	jaspar	No_annotation	12093383	TBX6-related factors	T-Box factors
+1	1.05897924053157	MA0091.1	1.28143435020637	26	TAL1::TCF3	jaspar	SELEX	8289805	Tal-related::E2A	Basic helix-loop-helix factors (bHLH)
+1	1.05809079229239	MA0620.3	1.24004980393012	32	MITF	jaspar	ChIP-seq	12086670	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	1.2990891566267	MA0002.2	1.23676618999185	30	Runx1	jaspar	ChIP-seq	8413232	Runt-related factors	Runt domain factors
+1	1.07455156492062	MA0834.1	1.22900604323324	27	ATF7	jaspar	HT-SELEX	2516827	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.07765139184201	MA1155.1	1.21356919120633	29	ZSCAN4	jaspar	HT-SELEX	28092692	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.24165691302325	MA1996.1	1.19633590301163	13	Nr1H2	jaspar	No_annotation	31175293	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.0537801497878	MA0782.2	1.17783839778664	28	PKNOX1	jaspar	ChIP-seq	23602564	TALE-type homeo domain factors	Homeo domain factors
+1	1.17165880383305	MA0752.1	1.17417140012293	25	ZNF410	jaspar	HT-SELEX	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.0567383445606	MA0691.1	1.16054473628735	35	TFAP4	jaspar	HT-SELEX	18818310	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	1.07350019168463	MA1957.1	1.10650590695442	21	HOXB2::ELK1	jaspar	HT-SELEX	24218641	HOX::Ets-related	Homeo domain factors::Tryptophan cluster factors
+1	1.05090921554912	MA1601.2	1.10149474807944	19	ZNF75D	jaspar	ChIP-exo	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.08255531373116	MA0805.1	1.07896358355127	28	TBX1	jaspar	HT-SELEX	12093383	TBX1-related factors	T-Box factors
+1	1.92744861906396	MA1500.1	1.06693549069783	23	HOXB6	jaspar	HT-SELEX	18585359	HOX	Homeo domain factors
+1	1.16908287278169	MA0092.1	1.06668976617552	27	Hand1::Tcf3	jaspar	SELEX	7791788	Tal-related::E2A	Basic helix-loop-helix factors (bHLH)
+1	1.33156897559453	MA0100.3	1.05336078007426	28	MYB	jaspar	ChIP-seq	8467793	Myb/SANT domain factors	Tryptophan cluster factors
+1	1.06806875226121	MA0727.1	1.01254166800586	26	NR3C2	jaspar	HT-SELEX	15563547	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	1.14990487945678	MA0758.1	1.00544699192463	29	E2F7	jaspar	HT-SELEX	18836037	E2F	Fork head/winged helix factors
+1	1.04638366565193	MA1980.1	0.998664013340824	14	ZNF418	jaspar	ChIP-seq	28273063	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	1.04641235150838	MA0019.1	0.984272208604409	31	Ddit3::Cebpa	jaspar	SELEX	8657121	CEBP-related	Basic leucine zipper factors (bZIP)
+1	1.05740842581624	MA1645.1	0.980280235420674	18	NKX2-2	jaspar	ChIP-seq	18585359	NK	Homeo domain factors
+1	1.0446593527719	MA1984.1	0.940485830810273	15	ZNF667	jaspar	ChIP-exo	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.1055936734741	MA0777.1	0.932599011719737	30	MYBL2	jaspar	HT-SELEX	21998171	Myb/SANT domain factors	Tryptophan cluster factors
+1	1.05555008938408	MA1935.1	0.931862027085216	22	ERF::FOXI1	jaspar	HT-SELEX	31913281	Ets-related::FOX	Tryptophan cluster factors::Fork head/winged helix factors
+1	1.06130021470602	MA0113.3	0.916965301430462	29	NR3C1	jaspar	HT-SELEX	15563547	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	1.11350460182501	MA0083.3	0.908700295982539	30	SRF	jaspar	HT-SELEX	2243767	Responders to external signals (SRF/RLM1)	MADS box factors
+1	1.04261057233285	MA1550.1	0.899640635783355	24	PPARD	jaspar	HT-SELEX	8725145	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.07984154686168	MA0510.2	0.892823224140209	24	RFX5	jaspar	HT-SELEX	8754849	RFX-related factors	Fork head/winged helix factors
+1	1.07628143110732	MA0509.3	0.816925841006105	25	RFX1	jaspar	ChIP-seq	28473536, 28473536	RFX-related factors	Fork head/winged helix factors
+1	1.03549329580058	MA1545.1	0.800264208422366	25	OVOL2	jaspar	HT-SELEX	24735879	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.04281577420165	MA0856.1	0.7948162223347	39	RXRG	jaspar	HT-SELEX	15019979	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.11699930234252	MA1708.1	0.787696661561379	19	ETV7	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	1.06208935724488	MA1494.1	0.778180678965794	30	HNF4A	jaspar	HT-SELEX	25164757	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.05659690257165	MA1932.1	0.767203844478794	23	ELK1::HOXB13	jaspar	HT-SELEX	24218641	Ets-related::HOX-related factors	Tryptophan cluster factors::Homeo domain factors
+1	1.09231699532386	MA1931.1	0.75676221051751	24	ELK1::HOXA1	jaspar	HT-SELEX	24218641	Ets-related::HOX-related factors	Tryptophan cluster factors::Homeo domain factors
+1	1.08831051206265	MA1597.1	0.736041652420898	20	ZNF528	jaspar	ChIP-seq	25690854	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.06312194649539	MA0074.1	0.730210433810408	32	RXRA::VDR	jaspar	SELEX	8674817	RXR-related receptors (NR2)::Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.0478131877397	MA0631.1	0.699680493907503	33	Six3	jaspar	universal protein binding microarray (PBM)	18585360	HD-SINE	Homeo domain factors
+1	1.07711035187053	MA0858.1	0.699137327581926	40	Rarb	jaspar	HT-SELEX	15019979	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.05308452501139	MA0819.2	0.695938907823848	29	CLOCK	jaspar	CAP-SELEX	24591654	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	1.11137566236579	MA1470.1	0.68681523135106	31	BACH2	jaspar	HT-SELEX	28461702	Jun-related	Basic leucine zipper factors (bZIP)
+1	1.02789631441531	MA0093.3	0.66633923932398	31	USF1	jaspar	ChIP-seq	23332764	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	1.02815002021188	MA0829.2	0.664902676013435	30	SREBF1	jaspar	ChIP-seq	11591434	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	1.02791111031419	MA0114.4	0.664845213886828	32	HNF4A	jaspar	ChIP-seq	22383578	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.40222504419148	MA1638.1	0.66184980347633	20	HAND2	jaspar	ChIP-seq	11812799	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.34686549664102	MA0723.2	0.660998763689933	27	VAX2	jaspar	NCAP-SELEX	18585360	NK	Homeo domain factors
+1	1.02971053952951	MA0794.1	0.649250878210328	31	PROX1	jaspar	HT-SELEX	21040746	HD-PROS factors	Homeo domain factors
+1	1.02638804138034	MA0484.2	0.634339059910106	29	HNF4G	jaspar	ChIP-seq	22383578	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.04836836541433	MA1154.1	0.634081265136786	32	ZNF282	jaspar	HT-SELEX	28092692	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.03592559773533	MA1538.1	0.624325015843053	26	NR2F1	jaspar	HT-SELEX	14559106	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.03142765771317	MA1541.1	0.612361791099662	27	NR6A1	jaspar	HT-SELEX	11578963	GCNF-related receptors (NR6)	Nuclear receptors with C4 zinc fingers
+1	1.04771502625055	MA1153.1	0.562218908664254	33	Smad4	jaspar	SMiLE-seq	15329343	SMAD factors	SMAD/NF-1 DNA-binding domain factors
+1	1.4445974532579	MA1116.1	0.556648785595771	40	RBPJ	jaspar	ChIP-seq	23651858	CSL-related factors	Rel homology region (RHR) factors
+1	1.02628746183964	MA1148.1	0.55487218842956	34	PPARA::RXRA	jaspar	SMiLE-seq	8386511	Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.04759486364753	MA1939.1	0.547339459272827	25	ERF::SREBF2	jaspar	HT-SELEX	23050235	Ets-related::bHLH-ZIP	Tryptophan cluster factors::Basic helix-loop-helix factors (bHLH)
+1	1.02895838597378	MA0677.1	0.546109179769736	36	Nr2f6	jaspar	HT-SELEX	12690040	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.02655370181354	MA0776.1	0.539508487446601	32	MYBL1	jaspar	HT-SELEX	21998171	Myb/SANT domain factors	Tryptophan cluster factors
+1	1.02507167826152	MA1553.1	0.522311246146987	21	RARG	jaspar	HT-SELEX	1738600	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.05142507935819	MA0729.1	0.515168756885387	28	RARA	jaspar	HT-SELEX	15019979	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	1.01728528496994	MA0591.1	0.466744056772012	26	Bach1::Mafk	jaspar	ChIP-seq	11069897	Jun-related::Maf-related	Basic leucine zipper factors (bZIP)
+1	1.01680146050104	MA1146.1	0.445233523127783	35	NR1H4::RXRA	jaspar	SMiLE-seq	10744760	Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.01275418786498	MA0592.3	0.441206358634121	27	ESRRA	jaspar	ChIP-seq	17488637	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	1.36986113303181	MA2003.1	0.438278711699764	16	NKX2-4	jaspar	CAP-SELEX	18585359	NK	Homeo domain factors
+1	Inf	MA1535.1	0.419687775308835	28	NR2C1	jaspar	HT-SELEX	23354101	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	1.01462115143114	MA1642.1	0.377165586337847	21	NEUROG2	jaspar	ChIP-seq	19389376	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	1.01902116787822	MA0799.2	0.371535340068761	33	RFX4	jaspar	CAP-SELEX	8754849	RFX-related factors	Fork head/winged helix factors
+1	1.01844458678276	MA1722.1	0.366365419653867	26	ZSCAN31	jaspar	HT-SELEX	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.34065353248377	MA1496.1	0.364117105857814	36	HOXA4	jaspar	HT-SELEX	7901228	HOX	Homeo domain factors
+1	1.03542836251335	MA0731.1	0.349585039673964	29	BCL6B	jaspar	HT-SELEX	11374866	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.00453868385741	MA1725.1	0.338794848461839	27	ZNF189	jaspar	ChIP-seq	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.00749857682044	MA1951.1	0.338267496808272	28	FOS	jaspar	HT-SELEX	2511004	Fos-related	Basic leucine zipper factors (bZIP)
+1	1.00388171979287	MA1942.1	0.334844055632892	29	ETV2::FOXI1	jaspar	HT-SELEX	19070576	Ets-related::FOX	Tryptophan cluster factors::Fork head/winged helix factors
+1	1.00303698722595	MA0828.2	0.320735581235587	31	SREBF2	jaspar	CAP-SELEX	11591434	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	1.02659392583075	MA1594.1	0.316878515424669	22	ZNF382	jaspar	ChIP-seq	27852650	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	1.00593584567452	MA0798.3	0.315697234424415	34	RFX3	jaspar	NCAP-SELEX	20378718	RFX-related factors	Fork head/winged helix factors
+1	1.00134731641479	MA1977.1	0.306137307304713	17	ZNF324	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	1.03703334011146	MA0806.1	0.293766783218869	32	TBX4	jaspar	HT-SELEX	12093383	TBX2-related factors	T-Box factors
+1	0.999327851476782	MA0106.3	0.289290967749671	33	TP53	jaspar	HT-SELEX	1588974	p53-related factors	p53 domain factors
+1	0.999808754931972	MA0525.2	0.28906320458531	28	TP63	jaspar	HT-SELEX	17188034	p53-related factors	p53 domain factors
+1	0.998257428229118	MA1999.1	0.280054009489769	18	Prdm5	jaspar	No_annotation	22589746	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.997052660967011	MA0475.2	0.271869533229838	30	FLI1	jaspar	HT-SELEX	7517940	Ets-related	Tryptophan cluster factors
+1	0.996224650471441	MA0007.3	0.27137399319458	33	Ar	jaspar	HT-SELEX	20943813	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	1.01486197997375	MA1110.2	0.271341531456595	41	Nr1H4	jaspar	No_annotation	24498423	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.996442858003702	MA1572.1	0.264027448898635	23	TGIF2LY	jaspar	HT-SELEX	8537382	TALE-type homeo domain factors	Homeo domain factors
+1	0.995453969143233	MA0512.2	0.26335833233149	29	Rxra	jaspar	HT-SELEX	1323763	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.994154947101827	MA1573.2	0.260093823085396	24	Thap11	jaspar	No_annotation	20581084	THAP-related factors	C2CH THAP-type zinc finger factors
+1	0.99391582805767	MA1724.1	0.238453792804396	30	Rfx6	jaspar	ChIP-seq	33033118	RFX-related factors	Fork head/winged helix factors
+1	0.993291967367236	MA1616.1	0.235264533485654	22	Prdm15	jaspar	ChIP-seq	28740264	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.992945003859372	MA1554.1	0.230336338415411	25	RFX7	jaspar	HT-SELEX	23354101	RFX-related factors	Fork head/winged helix factors
+1	0.991073050730149	MA0861.1	0.229856009646574	41	TP73	jaspar	HT-SELEX	23243311	p53-related factors	p53 domain factors
+1	0.97148182629308	MA1718.1	0.223298165360062	31	ZNF8	jaspar	ChIP-seq	28273063	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.973594202473708	MA0807.1	0.218633277446963	33	TBX5	jaspar	HT-SELEX	12093383	TBX2-related factors	T-Box factors
+1	0.986874346820983	MA0783.1	0.211659766047117	35	PKNOX2	jaspar	HT-SELEX	25233378	TALE-type homeo domain factors	Homeo domain factors
+1	0.988335719320945	MA1998.1	0.193690117277419	19	Prdm14	jaspar	No_annotation	20953172	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.981430298245093	MA0775.1	0.191701485854328	36	MEIS3	jaspar	HT-SELEX	9405651	TALE-type homeo domain factors	Homeo domain factors
+1	0.985306098337251	MA0797.1	0.190887352761523	37	TGIF2	jaspar	HT-SELEX	8537382	TALE-type homeo domain factors	Homeo domain factors
+1	0.986306503041032	MA1565.1	0.188647795455709	26	TBX18	jaspar	HT-SELEX	17584735	TBX1-related factors	T-Box factors
+1	0.980849517566055	MA0796.1	0.184194593814722	38	TGIF1	jaspar	HT-SELEX	8537382	TALE-type homeo domain factors	Homeo domain factors
+1	0.96626154299674	MA0730.1	0.162906802854852	30	RARA	jaspar	HT-SELEX	15019979	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.95219112619095	MA1468.1	0.159702998524931	37	ATOH7	jaspar	HT-SELEX	23293286	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.92904006051779	MA1654.1	0.145363015840413	23	ZNF16	jaspar	ChIP-seq	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.971232008234751	MA1483.2	0.140847783902839	38	ELF2	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.965689768047309	MA0511.2	0.131612404495678	30	RUNX2	jaspar	HT-SELEX	20483917	Runt-related factors	Runt domain factors
+1	0.974241020887712	MA0640.2	0.131154549326046	34	ELF3	jaspar	ChIP-seq	9234700	Ets-related	Tryptophan cluster factors
+1	0.964061475698165	MA0855.1	0.125637013591975	42	RXRB	jaspar	HT-SELEX	15019979	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.975217935293579	MA0496.3	0.123185270905021	31	MAFK	jaspar	ChIP-seq	8264639	Maf-related	Basic leucine zipper factors (bZIP)
+1	0.943873391281759	MA0857.1	0.12211914574837	43	Rarb	jaspar	HT-SELEX	15019979	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.971567413871676	MA1571.1	0.113189563568509	27	TGIF2LX	jaspar	HT-SELEX	8537382	TALE-type homeo domain factors	Homeo domain factors
+1	0.956361811584653	MA0609.2	0.098567836409354	35	CREM	jaspar	ChIP-seq	20920259	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	0.948299012551168	MA0645.1	0.0957749921467892	36	ETV6	jaspar	HT-SELEX	20400516	Ets-related	Tryptophan cluster factors
+1	0.946352014221194	MA0781.1	0.0957388065270561	39	PAX9	jaspar	HT-SELEX	19132093	Paired domain only	Paired box factors
+1	0.955490327258737	MA1646.1	0.0937114493064204	24	OSR2	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.967616779232056	MA1532.2	0.0826365727355863	29	NR1D2	jaspar	HT-SELEX	14559106	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.940702298839199	MA1140.2	0.0821714260314818	39	JUNB	jaspar	HT-SELEX	14585541	Jun-related	Basic leucine zipper factors (bZIP)
+1	0.879262344424892	MA1589.1	0.0770884867275281	28	ZNF140	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.943998209601554	MA1967.1	0.074807061510363	20	TFAP4::FLI1	jaspar	HT-SELEX	24218641	bHLH-ZIP::Ets-related	Basic helix-loop-helix factors (bHLH)::Tryptophan cluster factors
+1	0.944531273110219	MA0098.3	0.0735148445252884	34	ETS1	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.966289943049178	MA0664.1	0.0733141579631469	37	MLXIPL	jaspar	HT-SELEX	14742444	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.95734111999247	MA0844.1	0.0693654719409287	34	XBP1	jaspar	HT-SELEX	15598891	XBP-1-related factors	Basic leucine zipper factors (bZIP)
+1	0.904569270171267	MA0749.1	0.0676246932278938	31	ZBED1	jaspar	HT-SELEX	12663651	BED zinc finger factors	C2H2 zinc finger factors
+1	0.929070912220723	MA1649.1	0.0621386173397596	25	ZBTB12	jaspar	ChIP-seq	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.805926422367393	MA0115.1	0.0605550689675492	35	NR1H2::RXRA	jaspar	SELEX	10187832	Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.954445754148178	MA1117.1	0.0599022733281101	42	RELB	jaspar	ChIP-seq	17996728	NF-kappaB-related factors	Rel homology region (RHR) factors
+1	0.850462734301229	MA0801.1	0.0552633897646056	40	MGA	jaspar	HT-SELEX	12093383	TBX6-related factors	T-Box factors
+1	Inf	MA0671.1	0.0541467997464554	38	NFIX	jaspar	HT-SELEX	20178747	Nuclear factor 1	SMAD/NF-1 DNA-binding domain factors
+1	0.939933705814855	MA1539.1	0.050345452585293	30	NR2F6	jaspar	HT-SELEX	14559106	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.95487488548499	MA0473.3	0.0462908561441267	31	ELF1	jaspar	ChIP-seq	8756667	Ets-related	Tryptophan cluster factors
+1	0.948734326143563	MA0659.3	0.0431066205021689	39	Mafg	jaspar	No_annotation	8264639	Maf-related	Basic leucine zipper factors (bZIP)
+1	0.949782255930103	MA0596.1	0.0424167739997029	32	SREBF2	jaspar	ChIP-seq	8156598	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.939281137487501	MA1552.1	0.041971370118401	31	RARB	jaspar	HT-SELEX	1738600	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.929509172300327	MA1651.1	0.0403882563719529	26	ZFP42	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.955071016177596	MA0505.2	0.0398335006375303	33	Nr5A2	jaspar	No_annotation	12853459	FTZF1related(NR5A)	Nuclear receptors with C4 zinc fingers
+1	0.844012376946742	MA0820.1	0.0384842673385542	35	FIGLA	jaspar	HT-SELEX	18499083	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.948863238746903	MA1114.1	0.0381274456550785	43	PBX3	jaspar	ChIP-seq	10082572	TALE-type homeo domain factors	Homeo domain factors
+1	0.931823440386875	MA0692.1	0.036802994182991	40	TFEB	jaspar	HT-SELEX	1748288	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.851326166808867	MA1930.1	0.0365955333594679	32	CTCF	jaspar	ChIP-seq	34326481	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.916558066310128	MA1643.1	0.0361055337281366	27	NFIB	jaspar	ChIP-seq	23332764	Nuclear factor 1	SMAD/NF-1 DNA-binding domain factors
+1	0.827791496989049	MA0138.2	0.0340945468918345	36	REST	jaspar	ChIP-seq	17540862	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.411522285060906	MA0625.2	0.0301687692972628	37	NFATC3	jaspar	NCAP-SELEX	9143705	NFAT-related factors	Rel homology region (RHR) factors
+1	0.940047023148911	MA1655.1	0.0299578135645885	28	ZNF341	jaspar	ChIP-seq	29907691	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.746263795797095	MA1558.1	0.0281029533159912	29	SNAI1	jaspar	HT-SELEX	26170144	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.861112879370849	MA0469.3	0.0278746162280503	32	E2F3	jaspar	HT-SELEX	18836037	E2F	Fork head/winged helix factors
+1	Inf	MA0673.1	0.0270731605962086	41	NKX2-8	jaspar	HT-SELEX	11042197	NK	Homeo domain factors
+1	0.817434618601545	MA1100.2	0.0269786670655555	44	ASCL1	jaspar	HT-SELEX	20382226	MyoD/ASC-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.930546227314996	MA0638.1	0.0261605111950548	38	CREB3	jaspar	HT-SELEX	15845366	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	0.942842139210341	MA0062.3	0.0243255654907383	34	GABPA	jaspar	ChIP-seq	9461436	Ets-related	Tryptophan cluster factors
+1	0.906608457372727	MA0839.1	0.0227691667949625	36	CREB3L1	jaspar	HT-SELEX	21041443	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	0.944958221692001	MA0831.3	0.0224344182655233	37	TFE3	jaspar	CAP-SELEX	23933270	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.940064917639933	MA0763.1	0.0212992712516331	41	ETV3	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.629403581203712	MA1983.1	0.021232301202584	21	ZNF582	jaspar	No_annotation	31162603	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.933651109235785	MA0474.3	0.0204386414459672	33	Erg	jaspar	No_annotation	20517297	Ets-related	Tryptophan cluster factors
+1	0.907458779613351	MA0119.1	0.0196144672992473	37	NFIC::TLX1	jaspar	SELEX	10327073	Nuclear factor 1::NK	SMAD/NF-1 DNA-binding domain factors::Homeo domain factors
+1	0.836621521061457	MA1929.1	0.0185010329568372	33	CTCF	jaspar	ChIP-seq	34326481	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.899422239189936	MA1466.1	0.0158575483130334	40	ATF6	jaspar	HT-SELEX	10856300	Jun-related	Basic leucine zipper factors (bZIP)
+1	0.772766989681338	MA0066.1	0.0145967238246123	35	PPARG	jaspar	SELEX	11139380	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.930131870579039	MA0761.2	0.014458102438588	42	ETV1	jaspar	ChIP-seq	25866208	Ets-related	Tryptophan cluster factors
+1	0.923349838735184	MA0159.1	0.0137035930358359	34	RARA::RXRA	jaspar	COMPILED	17916232	Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	Inf	MA1684.1	0.013536520479907	29	Foxn1	jaspar	ChIP-seq	23836653	FOX	Fork head/winged helix factors
+1	0.813006949353295	MA0149.1	0.0131837652032427	35	EWSR1-FLI1	jaspar	ChIP-seq	19305498	Ets-related	Tryptophan cluster factors
+1	0.911479560791229	MA0626.1	0.013059738038569	39	Npas2	jaspar	PBM	23332764	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.912637580420455	MA0161.2	0.01290127398348	36	NFIC	jaspar	ChIP-seq	12101405	Nuclear factor 1	SMAD/NF-1 DNA-binding domain factors
+1	0.882689697824628	MA1576.1	0.0127665076989174	30	THRB	jaspar	HT-SELEX	19741045	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.31648521175841	MA0738.1	0.0126770313123686	32	HIC2	jaspar	HT-SELEX	15231840	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.934567490674108	MA1971.1	0.011662836147584	22	ZBED2	jaspar	No_annotation	32385160	BED zinc finger factors	C2H2 zinc finger factors
+1	0.722689625128037	MA0599.1	0.0106425043069604	34	KLF5	jaspar	ChIP-seq	15740636	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.914880035475203	MA1540.2	0.010462317402786	32	NR5A1	jaspar	No_annotation	23907384, 10913126	FTZF1related(NR5A)	Nuclear receptors with C4 zinc fingers
+1	0.911477332724049	MA0101.1	0.00999061616258441	38	REL	jaspar	SELEX	1406630	NF-kappaB-related factors	Rel homology region (RHR) factors
+1	0.934066461911664	MA0107.1	0.00996881637131081	39	RELA	jaspar	SELEX	1406630	NF-kappaB-related factors	Rel homology region (RHR) factors
+1	0.914518356487412	MA0779.1	0.00901659977927873	43	PAX1	jaspar	HT-SELEX	19132093	Paired domain only	Paired box factors
+1	0.91471516191862	MA0668.2	0.00853673904392215	42	Neurod2	jaspar	No_annotation	22445365	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.929640659533778	MA1602.1	0.00794087368238168	31	ZSCAN29	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.884079832943175	MA0859.1	0.00726569613637044	44	Rarg	jaspar	HT-SELEX	15019979	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.92006122185311	MA1147.1	0.00591066925582487	41	NR4A2::RXRA	jaspar	SMiLE-seq	7705655	NGFI-B-related receptors (NR4)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.915174381562652	MA1533.1	0.00549276178778859	33	NR1I2	jaspar	HT-SELEX	12016543	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.126594898435469	MA0130.1	0.00386093066102183	40	ZNF354C	jaspar	SELEX	15555547	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.90694055912209	MA0111.1	0.00368030018979604	41	Spz1	jaspar	SELEX	11165476	No_annotation	Basic helix-loop-helix factors (bHLH)
+1	0.901692083329842	MA1641.1	0.0028735165376877	30	MYF5	jaspar	ChIP-seq	26906734	MyoD/ASC-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.911364996326096	MA0760.1	0.00216069057290886	44	ERF	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.903155734214134	MA1652.1	0.00176680369499429	31	ZKSCAN5	jaspar	ChIP-seq	23354101	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.815260830952964	MA0860.1	0.00162005882863472	45	Rarg	jaspar	HT-SELEX	15019979	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.748045771309956	MA0006.1	0.00158967513891569	36	Ahr::Arnt	jaspar	SELEX	7592839	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.911368833819043	MA1557.1	0.00137748310820524	32	SMAD5	jaspar	HT-SELEX	11527422	SMAD factors	SMAD/NF-1 DNA-binding domain factors
+1	0.83114204782573	MA1933.1	0.00137240286055467	34	ELK1::SREBF2	jaspar	HT-SELEX	23050235	Ets-related::bHLH-ZIP	Tryptophan cluster factors::Basic helix-loop-helix factors (bHLH)
+1	0.772232355036144	MA1969.1	0.00124875715561282	23	THRA	jaspar	No_annotation	23332764	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.900259713691881	MA1521.1	0.00124688772991264	34	MAFA	jaspar	HT-SELEX	9571165	Maf-related	Basic leucine zipper factors (bZIP)
+1	0.908359182892925	MA1537.1	0.00121981192088476	35	NR2F1	jaspar	HT-SELEX	14559106	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.812962083200477	MA0112.3	0.00108683835924654	42	ESR1	jaspar	HT-SELEX	19339991	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	0.880231570488796	MA1109.1	0.00100288484002773	45	NEUROD1	jaspar	ChIP-seq	9858593	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.896535300471719	MA0065.2	0.00065331227900466	37	Pparg::Rxra	jaspar	ChIP-seq	18981474	Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.806738780180664	MA2002.1	0.000648926711820088	24	Zfp335	jaspar	No_annotation	27401554	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.839943860657869	MA0803.1	0.000627504088878556	38	TBX15	jaspar	HT-SELEX	12093383	TBX1-related factors	T-Box factors
+1	0.870944735785768	MA1619.1	0.000588943438219393	32	Ptf1A	jaspar	ChIP-seq	23754747	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.90170748643959	MA1717.1	0.000569127122170443	35	ZNF784	jaspar	HT-SELEX	27852650	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.870887505418719	MA1472.2	0.00051048519074921	42	Bhlha15	jaspar	No_annotation	28174210	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.864013921108425	MA0595.1	0.000498009993042568	35	SREBF1	jaspar	ChIP-seq	8156598	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.876203423015175	MA0816.1	0.000433131455830868	39	Ascl2	jaspar	HT-SELEX	19443739	MyoD/ASC-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.733679567760431	MA0863.1	0.000412280500884114	46	MTF1	jaspar	HT-SELEX	8265351	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.891207386909664	MA0663.1	0.000340192578416525	43	MLX	jaspar	HT-SELEX	14742444	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.893333814719933	MA1731.1	0.000203012768951401	36	ZNF768	jaspar	ChIP-seq	30476274	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.835321328552927	MA1938.1	0.000195052023319132	37	ERF::NHLH1	jaspar	HT-SELEX	9488464	Ets-related::Tal-related	Tryptophan cluster factors::Basic helix-loop-helix factors (bHLH)
+1	0.888948789424256	MA0502.2	0.000126494887024455	36	NFYB	jaspar	ChIP-seq	9334236	Heteromeric CCAAT-binding	Heteromeric CCAAT-binding factors
+1	0.87123979926985	MA0056.2	0.000125134460972961	38	MZF1	jaspar	ChIP-seq	8114711	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.741526922957802	MA1484.1	0.000105145716064613	43	ETS2	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.799549127122759	MA0728.1	0.000103194559720944	33	Nr2F6	jaspar	HT-SELEX	12690040	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.874810016393576	MA0017.2	9.41153759057756e-05	39	NR2F1	jaspar	HT-SELEX	8496174	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.836366566229478	MA1620.1	8.86449469489805e-05	33	Ptf1A	jaspar	ChIP-seq	23754747	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.799470417271123	MA1559.1	7.55952608934773e-05	33	SNAI3	jaspar	HT-SELEX	23762348	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.869229651218826	MA1475.1	3.65416778094274e-05	44	CREB3L4	jaspar	HT-SELEX	21711675	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	0.748690274059111	MA1600.1	3.28070274693612e-05	34	ZNF684	jaspar	HT-SELEX	25690854	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.845377782427616	MA0058.3	2.80078901000171e-05	40	MAX	jaspar	HT-SELEX	22955619	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.842205660038054	MA0825.1	1.70187395305477e-05	40	MNT	jaspar	HT-SELEX	12695332	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.851669325518089	MA1555.1	1.45698457416967e-05	35	RXRB	jaspar	HT-SELEX	14559106	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.835346971134657	MA1527.1	1.29496275716929e-05	36	NFIC	jaspar	HT-SELEX	22456058	Nuclear factor 1	SMAD/NF-1 DNA-binding domain factors
+1	0.66798334156504	MA0633.2	1.19947578372996e-05	40	Twist2	jaspar	No_annotation	10594029	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.581287660895327	MA1964.1	1.06314638851027e-05	25	SMAD2	jaspar	No_annotation	21828274	SMAD factors	SMAD/NF-1 DNA-binding domain factors
+1	0.674365226060879	MA1997.1	8.4224956244482e-06	26	Olig2	jaspar	No_annotation	20959288	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.756342242190208	MA1715.1	6.84686665869812e-06	34	ZNF707	jaspar	ChIP-seq	22955616	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.867625427695769	MA1493.1	6.75059848408899e-06	45	HES6	jaspar	HT-SELEX	11959828	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.796050764790589	MA0076.2	3.0160023947301e-06	43	ELK4	jaspar	ChIP-seq	8524663	Ets-related	Tryptophan cluster factors
+1	0.849609381978124	MA0641.1	3.01047404164716e-06	41	ELF4	jaspar	HT-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.759003121246592	MA1716.1	2.75559476278409e-06	38	ZNF76	jaspar	HT-SELEX	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.74327922644277	MA0657.1	2.20810671474423e-06	44	KLF13	jaspar	HT-SELEX	16266294	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.805372581970034	MA1575.1	2.00313284152918e-06	36	THRB	jaspar	HT-SELEX	19741045	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.753036492187478	MA1542.1	1.98019847324828e-06	37	OSR1	jaspar	HT-SELEX	29084951	Other factors with up to three adjacent zinc fingers	C2H2 zinc finger factors
+1	0.836347098732995	MA1941.1	1.76718535131533e-06	39	ETV2::FIGLA	jaspar	HT-SELEX	31913281	Ets-related::Tal-related	Tryptophan cluster factors::Basic helix-loop-helix factors (bHLH)
+1	0.804886369105851	MA1621.1	1.62866824491636e-06	35	Rbpjl	jaspar	ChIP-seq	20398665	CSL-related factors	Rel homology region (RHR) factors
+1	0.794100284749055	MA0004.1	1.35583516148772e-06	41	Arnt	jaspar	SELEX	7592839	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.839207667112327	MA1574.1	1.30736332082458e-06	37	THRB	jaspar	HT-SELEX	19741045	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.584572566345481	MA0103.3	1.15900302154005e-06	44	ZEB1	jaspar	ChIP-seq	8065305	HD-ZF factors	Homeo domain factors
+1	0.836079180974885	MA0608.1	9.10902638509096e-07	42	Creb3l2	jaspar	PBM	23332764	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	0.828231082222493	MA0500.2	8.20449553908765e-07	37	MYOG	jaspar	ChIP-seq	16437161	MyoD/ASC-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.762724580503894	MA1491.2	6.17689238333262e-07	46	GLI3	jaspar	CAP-SELEX	2105456	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.851222786691	MA1531.1	5.28963785499272e-07	38	NR1D1	jaspar	HT-SELEX	14559106	Thyroid hormone receptor-related factors (NR1)	Nuclear receptors with C4 zinc fingers
+1	0.716125538386336	MA0737.1	4.4891588762472e-07	34	GLIS3	jaspar	HT-SELEX	22391303	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.844336405582804	MA0603.1	4.12864438081716e-07	43	Arntl	jaspar	PBM	7592839	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.441559459910104	MA0739.1	3.9112881385067e-07	35	Hic1	jaspar	HT-SELEX	15231840	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.805508080994756	MA0622.1	3.38672808370353e-07	44	Mlxip	jaspar	PBM	12446771	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.843524799364679	MA1992.1	3.02664183232034e-07	27	Ikzf3	jaspar	No_annotation	27664237	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.482126133109378	MA0735.1	1.26895616630038e-07	36	GLIS1	jaspar	HT-SELEX	22391303	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.658407339146831	MA1710.1	1.19939573816651e-07	36	ZNF257	jaspar	ChIP-exo	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.824797611306769	MA0526.4	7.8904729687769e-08	38	USF2	jaspar	CAP-SELEX	28473536	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.840663981138569	MA0156.3	7.8394504414979e-08	37	FEV	jaspar	CAP-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.660005600033403	MA1993.1	6.41566518788911e-08	28	Neurod2	jaspar	No_annotation	22445365	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.78993168829437	MA1711.1	5.91251777181922e-08	37	ZNF343	jaspar	HT-SELEX	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.678483791943803	MA1635.1	5.70555093367643e-08	38	BHLHE22	jaspar	ChIP-seq	22284184	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.829745136337742	MA0059.1	4.86059913452983e-08	42	MAX::MYC	jaspar	SELEX	8265351	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.835827941550704	MA1604.1	3.9576180106197e-08	38	Ebf2	jaspar	ChIP-seq	23499423	Early B-Cell Factor-related factors	Rel homology region (RHR) factors
+1	0.794027726828882	MA0499.2	3.83233575720978e-08	39	MYOD1	jaspar	ChIP-seq	20412780	MyoD/ASC-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.835826388270958	MA0686.1	3.78493189794007e-08	45	SPDEF	jaspar	HT-SELEX	23449978	Ets-related	Tryptophan cluster factors
+1	0.83129190163852	MA0871.2	1.57697077619694e-08	47	TFEC	jaspar	HT-SELEX	15186484	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.830519629114884	MA1995.1	1.2919448350081e-08	29	Npas4	jaspar	No_annotation	31585079	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.826566354371143	MA1726.1	8.63508089626649e-09	40	ZNF331	jaspar	ChIP-seq	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.721407735712843	MA0259.1	2.90089336615281e-09	38	ARNT::HIF1A	jaspar	COMPILED	16234508	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.82260145846922	MA1485.1	2.75338438745839e-09	47	FERD3L	jaspar	HT-SELEX	17027923	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.821814176825674	MA1474.1	2.21205969139423e-09	48	CREB3L4	jaspar	HT-SELEX	21711675	CREB-related factors	Basic leucine zipper factors (bZIP)
+1	0.810242981243573	MA1945.1	2.09528903680836e-09	41	ETV5::FIGLA	jaspar	HT-SELEX	24218641	Ets-related::Tal-related	Tryptophan cluster factors::Basic helix-loop-helix factors (bHLH)
+1	0.774122230169704	MA1529.1	1.73875205011932e-09	39	NHLH2	jaspar	HT-SELEX	23354101	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.785717667130603	MA0258.2	1.69544718927308e-09	39	ESR2	jaspar	ChIP-seq	18272478	Steroid hormone receptors (NR3)	Nuclear receptors with C4 zinc fingers
+1	0.682066423556584	MA1628.1	1.64488803038737e-09	39	Zic1::Zic2	jaspar	ChIP-seq	11038359	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.815604849772767	MA0464.2	1.58010730749344e-09	40	BHLHE40	jaspar	HT-SELEX	15186484	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.730974525032579	MA1719.1	1.19713241576338e-09	42	ZNF816	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.783551625723283	MA0745.2	1.08285199248985e-09	37	SNAI2	jaspar	ChIP-seq	23332764	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.784488409630493	MA1556.1	1.06119425829782e-09	39	RXRG	jaspar	HT-SELEX	14559106	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.715703443448966	MA0521.2	9.6348580260923e-10	40	Tcf12	jaspar	No_annotation	1501295	E2A	Basic helix-loop-helix factors (bHLH)
+1	0.760466205410353	MA0105.4	5.08619189724645e-10	45	NFKB1	jaspar	HT-SELEX	20066093	NF-kappaB-related factors	Rel homology region (RHR) factors
+1	0.770582717910139	MA0764.3	1.95900424757577e-10	45	ETV4	jaspar	CAP-SELEX	25866208	Ets-related	Tryptophan cluster factors
+1	0.808835835687882	MA1637.1	1.2640086205356e-10	40	EBF3	jaspar	ChIP-seq	20592035	Early B-Cell Factor-related factors	Rel homology region (RHR) factors
+1	0.614789030649557	MA1965.1	1.24828622551636e-10	30	SP5	jaspar	No_annotation	29044119	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.807712608862369	MA0154.4	1.21058970051066e-10	41	EBF1	jaspar	ChIP-seq	8497258	Early B-Cell Factor-related factors	Rel homology region (RHR) factors
+1	0.802251080541906	MA1464.1	1.1686588135985e-10	49	ARNT2	jaspar	HT-SELEX	25215497	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.803516290635638	MA0028.2	5.36337721725792e-11	43	ELK1	jaspar	HT-SELEX	1425594	Ets-related	Tryptophan cluster factors
+1	0.627318009100186	MA1973.1	5.31078761886297e-11	31	ZKSCAN3	jaspar	No_annotation	23332764	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.729491433259733	MA0470.2	4.26662830287594e-11	42	E2F4	jaspar	HT-SELEX	18836037	E2F	Fork head/winged helix factors
+1	0.759423002601666	MA0073.1	4.0806336427466e-11	44	RREB1	jaspar	SELEX	8816445	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.789638103042201	MA0636.1	3.35977957488694e-11	45	BHLHE41	jaspar	HT-SELEX	18345027	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.796102311531714	MA1934.1	9.58946519300507e-12	43	ERF::FIGLA	jaspar	HT-SELEX	31913281	Ets-related::Tal-related	Tryptophan cluster factors::Basic helix-loop-helix factors (bHLH)
+1	0.791791652021563	MA1149.1	3.19525084406274e-12	50	RARA::RXRG	jaspar	SMiLE-seq	10698945	Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.75611483758189	MA0067.2	3.05016777670912e-13	45	PAX2	jaspar	CAP-SELEX	8132558	Paired domain only	Paired box factors
+1	0.723939829840269	MA0767.1	1.87995639604604e-13	46	GCM2	jaspar	HT-SELEX	8962155	GCM	GCM domain factors
+1	0.782219734239087	MA1560.1	1.44745552729673e-13	40	SOHLH2	jaspar	HT-SELEX	26869299	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.769074147569327	MA1528.1	1.1841941289276e-13	40	NFIX	jaspar	HT-SELEX	22456058	Nuclear factor 1	SMAD/NF-1 DNA-binding domain factors
+1	0.778586122745048	MA0147.3	1.05642073960925e-13	43	MYC	jaspar	ChIP-seq	18555785	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.769817663059939	MA1987.1	7.01066068184296e-14	32	ZNF701	jaspar	ChIP-exo	22955616	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.636830374787734	MA0822.1	3.79945021822012e-14	41	HES7	jaspar	HT-SELEX	16342160	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.656845670840282	MA1985.1	1.0221871145465e-14	33	ZNF669	jaspar	ChIP-exo	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.772802252548112	MA0765.3	1.01254383988096e-14	47	ETV5	jaspar	CAP-SELEX	25866208	Ets-related	Tryptophan cluster factors
+1	0.71072935273748	MA1099.2	4.53233909280047e-15	46	HES1	jaspar	HT-SELEX	15870295	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.76395417426314	MA1979.1	3.76087711955784e-15	34	ZNF416	jaspar	No_annotation	25690854	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.760113474571456	MA0778.1	3.23049701295352e-15	48	NFKB2	jaspar	HT-SELEX	20066093	NF-kappaB-related factors	Rel homology region (RHR) factors
+1	0.685054689782391	MA0527.1	3.08584789297053e-15	41	ZBTB33	jaspar	ChIP-seq	23693142	Other factors with up to three adjacent zinc fingers	C2H2 zinc finger factors
+1	0.75783866630528	MA0615.1	3.08584789297053e-15	46	Gmeb1	jaspar	universal protein binding microarray (PBM)	19443739	GMEB	SAND domain factors
+1	0.620200013891863	MA0810.1	2.84476602633221e-15	42	TFAP2A	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.760857505440268	MA1629.1	2.07330405308957e-15	41	Zic2	jaspar	ChIP-seq	11038359	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.654164322840393	MA1569.1	1.78400581312359e-15	41	TFAP2E	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.754137198333059	MA0139.1	1.63935669314059e-15	46	CTCF	jaspar	ChIP-seq	17512414	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.760879347743706	MA1730.1	1.15719295986395e-15	44	ZNF708	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.754395416829747	MA1106.1	6.26812853259637e-16	47	HIF1A	jaspar	ChIP-seq	20061373	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.694093868254252	MA1578.1	4.82163733276644e-16	42	VEZF1	jaspar	PBM	20062523	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.693467597814387	MA0024.3	1.92865493310657e-16	46	E2F1	jaspar	HT-SELEX	9372931	E2F	Fork head/winged helix factors
+1	0.630513544583514	MA0522.3	1.92865493310657e-16	42	TCF3	jaspar	ChIP-seq	10594029	E2A	Basic helix-loop-helix factors (bHLH)
+1	0.665708582197015	MA0524.2	1.92865493310657e-16	42	TFAP2C	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.756028345971345	MA1990.1	4.82163733276644e-17	35	Gli1	jaspar	No_annotation	25476449	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.716440039741617	MA0048.2	0	47	NHLH1	jaspar	HT-SELEX	8289804	Tal-related	Basic helix-loop-helix factors (bHLH)
+1	0.579517057697485	MA0039.4	0	47	KLF4	jaspar	ChIP-seq	28473536	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.621121656133832	MA0003.4	0	47	TFAP2A	jaspar	ChIP-seq	23332764	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.646918925568974	MA0014.3	0	47	PAX5	jaspar	ChIP-seq	8406007	Paired domain only	Paired box factors
+1	0.68026319394198	MA0865.2	0	48	E2F8	jaspar	CAP-SELEX	18836037	E2F	Fork head/winged helix factors
+1	0.61675362471477	MA0872.1	0	48	TFAP2A	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.654134899414142	MA0864.2	0	48	E2F2	jaspar	HT-SELEX	18836037	E2F	Fork head/winged helix factors
+1	0.590729991220406	MA1102.2	0	48	CTCFL	jaspar	ChIP-seq	26268681	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.640953106974724	MA1122.1	0	48	TFDP1	jaspar	ChIP-seq	9027491	E2F	Fork head/winged helix factors
+1	0.624599316500468	MA1107.2	0	48	KLF9	jaspar	ChIP-seq	12620113	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0	MA1536.1	0	41	NR2C2	jaspar	HT-SELEX	11478808	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.63680169796365	MA1522.1	0	41	MAZ	jaspar	ChIP-seq	7760814	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.606064637127905	MA1517.1	0	41	KLF6	jaspar	HT-SELEX	11443140	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.567136576107764	MA1515.1	0	41	KLF2	jaspar	HT-SELEX	11443140	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.608776043069712	MA1516.1	0	41	KLF3	jaspar	HT-SELEX	11443140	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.572630074393762	MA1511.2	0	41	KLF10	jaspar	ChIP-seq	11443140	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.55097680315151	MA1512.1	0	41	KLF11	jaspar	HT-SELEX	11443140	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.601314956305818	MA1548.1	0	41	PLAGL2	jaspar	PBM	11832486	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.713562343574582	MA1514.1	0	41	KLF17	jaspar	HT-SELEX	11443140	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.51962334684869	MA1513.1	0	41	KLF15	jaspar	ChIP-seq	28473536	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.668719186616275	MA1581.1	0	43	ZBTB6	jaspar	ChIP-seq	16381825	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.69710254301274	MA1583.1	0	43	ZFP57	jaspar	ChIP-seq	30602440	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.555454960959196	MA1564.1	0	43	SP9	jaspar	HT-SELEX	26187067	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.604169951327668	MA1615.1	0	43	Plagl1	jaspar	ChIP-seq	28985358	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.60482308601782	MA1587.1	0	43	ZNF135	jaspar	ChIP-seq	28092692	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.590568745130817	MA1584.1	0	43	ZIC5	jaspar	HT-SELEX	23354101	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.625384603699903	MA1599.1	0	43	ZNF682	jaspar	ChIP-seq	28092692	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.506196926136175	MA1596.1	0	43	ZNF460	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.624929434660569	MA1648.1	0	42	TCF12	jaspar	ChIP-seq	8163514	E2A	Basic helix-loop-helix factors (bHLH)
+1	0.67755910437936	MA1631.1	0	42	ASCL1	jaspar	ChIP-seq	31086315	MyoD/ASC-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.613594222894156	MA1630.2	0	42	ZNF281	jaspar	ChIP-seq	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.64689667450085	MA1627.1	0	42	Wt1	jaspar	ChIP-seq	7862533	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.677501184514729	MA1656.1	0	42	ZNF449	jaspar	ChIP-seq	28473536	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.592855104887544	MA1653.1	0	42	ZNF148	jaspar	ChIP-seq	15635072	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.564391445042398	MA1712.1	0	42	ZNF454	jaspar	ChIP-exo	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.499260442071171	MA1650.1	0	42	ZBTB14	jaspar	ChIP-seq	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.504952392635861	MA1713.1	0	42	ZNF610	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.645934331176836	MA1728.1	0	45	ZNF549	jaspar	ChIP-seq	27852650	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.57982659945297	MA1959.1	0	45	KLF7	jaspar	ChIP-seq	28916725	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.57000101825139	MA1961.1	0	45	PATZ1	jaspar	ChIP-seq	24380431	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.714752820716478	MA1723.1	0	45	PRDM9	jaspar	ChIP-exo	29072575	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.652591637341586	MA1727.1	0	45	ZNF417	jaspar	ChIP-exo	32923624	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.600469602751612	MA1721.1	0	45	ZNF93	jaspar	ChIP-seq	25274305	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.722824855975333	MA1972.1	0	36	ZFP14	jaspar	ChIP-exo	28092692	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.533635124845946	MA1986.1	0	36	ZNF692	jaspar	No_annotation	25690854	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.736031278173121	MA1966.1	0	36	TFAP4::ETV1	jaspar	HT-SELEX	24218641	bHLH-ZIP::Ets-related	Basic helix-loop-helix factors (bHLH)::Tryptophan cluster factors
+1	0.678868088417627	MA1982.1	0	36	ZNF574	jaspar	ChIP-seq	22955616	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.626071938070243	MA1981.1	0	36	ZNF530	jaspar	ChIP-exo	11967234	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.574276596737437	MA1976.1	0	36	ZNF320	jaspar	ChIP-seq	28273063	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.580709317090021	MA0079.5	0	47	SP1	jaspar	ChIP-seq	22021377	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.632952190056407	MA0116.1	0	47	Znf423	jaspar	SELEX	9774661	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.723046684847042	MA0104.4	0	47	MYCN	jaspar	ChIP-seq	18555785	bHLH-ZIP	Basic helix-loop-helix factors (bHLH)
+1	0.555220411165456	MA0131.2	0	47	HINFP	jaspar	HT-SELEX	14752047	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.575248554873	MA0145.2	0	44	Tfcp2l1	jaspar	ChIP-seq	18555785	CP2-related factors	Grainyhead domain factors
+1	0.598754607896039	MA0471.2	0	44	E2F6	jaspar	ChIP-seq	17908821	E2F	Fork head/winged helix factors
+1	0.687077388875652	MA0155.1	0	44	INSM1	jaspar	COMPILED	17916232	Factors with multiple dispersed zinc fingers	C2H2 zinc finger factors
+1	0.501438015930299	MA0146.2	0	44	Zfx	jaspar	ChIP-seq	18555785	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.6400314942086	MA0472.2	0	44	EGR2	jaspar	HT-SELEX	7891721	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.584333132073305	MA0162.4	0	44	EGR1	jaspar	ChIP-seq	16041365	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.57823659159693	MA0163.1	0	44	PLAG1	jaspar	bacterial 1-hybrid	16041365	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0	MA0498.2	0	44	MEIS1	jaspar	HT-SELEX	9405651	TALE-type homeo domain factors	Homeo domain factors
+1	0.576634072478687	MA0493.2	0	44	KLF1	jaspar	ChIP-seq	7682653	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.623537757102157	MA0528.2	0	44	ZNF263	jaspar	ChIP-seq	19887448	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.681627951207144	MA0597.2	0	44	THAP1	jaspar	No_annotation	15863623, 15863623	THAP-related factors	C2CH THAP-type zinc finger factors
+1	0.728726813370675	MA0504.1	0	44	NR2C2	jaspar	ChIP-seq	11478808	RXR-related receptors (NR2)	Nuclear receptors with C4 zinc fingers
+1	0.575502395341198	MA0516.3	0	44	SP2	jaspar	ChIP-seq	14726517	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.545221600196418	MA0506.2	0	44	Nrf1	jaspar	No_annotation	12533512	Jun-related	Basic leucine zipper factors (bZIP)
+1	0.669982697615987	MA0632.2	0	47	TCFL5	jaspar	HT-SELEX	15585666	PAS domain factors	Basic helix-loop-helix factors (bHLH)
+1	0.712614513713709	MA0646.1	0	47	GCM1	jaspar	HT-SELEX	8962155	GCM	GCM domain factors
+1	0.694058820877571	MA0649.1	0	47	HEY2	jaspar	HT-SELEX	22615585	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.712227868452557	MA0616.2	0	47	HES2	jaspar	HT-SELEX	8354270	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.60631706064142	MA0685.2	0	46	SP4	jaspar	ChIP-seq	23019068	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.701407602157992	MA0695.1	0	46	ZBTB7C	jaspar	HT-SELEX	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.728883104223025	MA0697.2	0	46	Zic3	jaspar	No_annotation	20872845, 19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.721147459894473	MA0694.1	0	46	ZBTB7B	jaspar	HT-SELEX	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.659643835916699	MA0696.1	0	46	ZIC1	jaspar	HT-SELEX	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0	MA0719.1	0	38	RHOXF1	jaspar	HT-SELEX	18585360	Paired-related HD factors	Homeo domain factors
+1	0.586389712130769	MA0740.2	0	38	KLF14	jaspar	ChIP-seq	16266294	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.599710496434861	MA0741.1	0	38	KLF16	jaspar	HT-SELEX	16266294	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.701368776301548	MA0750.2	0	38	ZBTB7A	jaspar	ChIP-seq	12750370	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.680682747773361	MA0734.3	0	38	Gli2	jaspar	No_annotation	2105456	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.578904147820711	MA0747.1	0	38	SP8	jaspar	HT-SELEX	23019068	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.656756618771267	MA0748.2	0	38	YY2	jaspar	ChIP-seq	23332764	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.581660839558727	MA0746.2	0	38	SP3	jaspar	HT-SELEX	23019068	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.530599521761677	MA0742.2	0	38	KLF12	jaspar	ChIP-seq	16266294	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.589291185311881	MA0751.1	0	38	ZIC4	jaspar	HT-SELEX	19443739	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.610282478134338	MA0736.1	0	38	GLIS2	jaspar	HT-SELEX	22391303	More than 3 adjacent zinc fingers	C2H2 zinc finger factors
+1	0.592590815400586	MA0733.1	0	38	EGR4	jaspar	HT-SELEX	7891721	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.561211157063584	MA0732.1	0	38	EGR3	jaspar	HT-SELEX	7891721	Three-zinc finger Kruppel-related	C2H2 zinc finger factors
+1	0.735647953908309	MA0759.2	0	49	ELK3	jaspar	CAP-SELEX	20517297	Ets-related	Tryptophan cluster factors
+1	0.633469738028381	MA0753.2	0	49	ZNF740	jaspar	HT-SELEX	23354101	Other factors with up to three adjacent zinc fingers	C2H2 zinc finger factors
+1	0.647743112801626	MA0811.1	0	43	TFAP2B	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.605247238343735	MA0812.1	0	43	TFAP2B	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.606515143610122	MA0830.2	0	43	TCF4	jaspar	ChIP-seq	31081034	E2A	Basic helix-loop-helix factors (bHLH)
+1	0.713298465836287	MA0821.2	0	43	HES5	jaspar	CAP-SELEX	15186484	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.704378422406654	MA0823.1	0	43	HEY1	jaspar	HT-SELEX	22615585	Hairy-related factors	Basic helix-loop-helix factors (bHLH)
+1	0.634184733012815	MA0813.1	0	43	TFAP2B	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.55786212033708	MA0814.2	0	43	TFAP2C	jaspar	ChIP-seq	23332764	AP-2	Basic helix-span-helix factors (bHSH)
+1	0.61834300712687	MA0815.1	0	43	TFAP2C	jaspar	HT-SELEX	16420676	AP-2	Basic helix-span-helix factors (bHSH)

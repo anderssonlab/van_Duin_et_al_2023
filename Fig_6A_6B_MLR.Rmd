@@ -1,0 +1,570 @@
+---
+title: "Generate figure 6"
+output: 
+#  html_notebook:
+  html_document:
+      code_folding: hide
+      toc: true
+      toc_float: true
+editor_options: 
+  
+  
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load-packages}
+library(ggsignif)
+library(tidyverse)
+library(lme4)
+library(broom)
+library(ggrepel)
+library(gridExtra)
+library(car)
+```
+
+
+```{r load-data}
+
+ABC_variable <- read_rds("var_regions_indiv_ABC.rds") %>%
+  mutate(ABC_connections = map(ABC_connections, ~summarise(.x, ENSG = paste(ENSG, collapse = ", "),
+                                                           TargetGene = paste(TargetGene, collapse = ", "),
+                                                           across(matches("^(GM|NA|HG)"), ~sum(.x, na.rm = TRUE))))) %>%
+  select(peak_id, ABC_connections) %>%
+  unnest(cols = c(ABC_connections)) %>%
+  select(-ENSG, -TargetGene) %>%
+  pivot_longer(-peak_id, names_to = "individual", values_to = "total_ABC_connections") %>%
+  nest(total_ABC_connections = c(individual, total_ABC_connections))
+
+PD_QTL_Polygenic_Risk_Score15 = read_tsv("var_regs_mean_PD_QTL_LD_removed15.tsv") %>%
+  mutate(across(matches("^(GM|NA|HG)\\d"), ~ifelse(beta > 0, .x, 2 - .x)), beta = abs(beta)) %>%
+  group_by(peak_id) %>% summarise(across(matches("^(GM|NA|HG)\\d"), ~weighted.mean(.x, beta))) %>%
+  pivot_longer(-peak_id, names_to = "individual", values_to = "SNP_PRS") %>%
+  nest(SNP_PRS = c(individual, SNP_PRS)) %>%
+  bind_rows(tibble(peak_id = setdiff(ABC_variable$peak_id, .$peak_id), SNP_PRS = list(.$SNP_PRS[[1]] %>% mutate(across(matches("SNP_PRS"), ~1)))))
+
+TF_exp_PD_across_indivs_GEUVADIS <- read_rds("TF_exp_PD_across_indivs.rds")
+
+TF_best_1_geu = read_csv("GEUVADIS_TOP_TFs_variable_regions.csv") %>% left_join(TF_exp_PD_across_indivs_GEUVADIS %>% select(peak_id, individual, TF_name, TF_exp) %>% distinct(), by = c("peak_id", "top_1" = "TF_name")) %>% select(peak_id, individual, TF_exp) %>% nest(TF_TPM = c(individual, TF_exp))
+
+TF_best_10_geu = read_csv("GEUVADIS_TOP_TFs_variable_regions.csv") %>% mutate(top_10 = map(top_10, str_split, ",")) %>% select(peak_id, top_10) %>% unnest(top_10) %>% unnest(top_10) %>% left_join(TF_exp_PD_across_indivs_GEUVADIS %>% select(peak_id, individual, TF_name, TF_exp) %>% distinct(), by = c("peak_id", "top_10" = "TF_name")) %>% nest(TF_TPM = c(top_10, individual, TF_exp)) %>% mutate(TF_TPM = map(TF_TPM, ~pivot_wider(.x, names_from = top_10, values_from = TF_exp, names_prefix = "TF_")))
+
+PD_per_region_variable = read_rds("PD_per_region_variable.rds")
+
+mean_PD_across_region = PD_per_region_variable %>%
+  nest(mean_PD_across_region = c(individual, mean_PD_across_region))
+
+PD_per_region_variable_all = read_rds("PD_per_region_variable_all.rds")
+
+mean_PD_across_region_all = PD_per_region_variable_all %>%
+  nest(mean_PD_across_region = c(individual, mean_PD_across_region))
+
+```
+
+
+
+```{r}
+
+#start 10 TFs
+
+data_full = list(ABC_variable,
+                 #var_regs_mean_PD_QTL_LD_removed %>% mutate(region_PD_QTL = map(region_PD_QTL, ~select(.x, 1:11))),
+                 PD_QTL_Polygenic_Risk_Score15,
+                 #TF_exp_by_cor %>% mutate(TPM = map(TPM, ~select(.x, 1:11))),
+                 TF_best_10_geu,
+                 mean_PD_across_region) %>%
+  purrr::reduce(left_join, by = "peak_id") %>%
+  #mutate(TF_exp_PC1 = list(TF_exp_PC1)) %>%
+  rowwise() %>%
+  mutate(joined = list(purrr::reduce(list(total_ABC_connections, SNP_PRS, TF_TPM, mean_PD_across_region), inner_join, by = "individual"))) %>%
+  select(peak_id, joined)
+
+
+data_triple = data_full %>% mutate(all_top = list(select(joined, everything()))) %>% ungroup()
+
+```
+
+
+
+
+Linear model with all the terms and associated R-squared values:
+
+```{r}
+lm_func <- ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~sum(!is.na(.)) > 0))
+
+lm_func_scaled <-  ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~(sum(!is.na(.)) > 0 & var(abs(.))>0)) %>% scale() %>% round(5) %>% as_tibble())
+
+#run both model
+data_triple <- data_triple %>% mutate( mylm_all = map(all_top,lm_func_scaled) , 
+                                     rs_all = map_dbl(mylm_all,~.x  %>% glance() %>% pull(r.squared)))
+
+```
+
+\% Variance explained - function to pull relative sum of squares from ANOVA
+
+```{r}
+get_ex <- function(.x)
+{
+  dat <- .x %>% select(-individual) %>% select_if(~(sum(!is.na(.)) > 0 & var(abs(.))>0)) %>% scale() %>% round(5) %>% as_tibble()
+  mylm <- (lm(mean_PD_across_region ~ . - 1,data=dat))
+  aov_mylm <- Anova(mylm,type="II")
+  
+  #secoefs <- summary(mylm)$coefficients[,2]
+  #total <- sum(summary(mylm)$coefficients[,2]) + summary(mylm)[[6]]
+  
+  if(nrow(aov_mylm) == 2) return(aov_mylm %>% 
+    effectsize::eta_squared(partial = FALSE) %>% 
+    {set_names(keep(., str_detect(names(.), "Eta2")) %>% unlist(), .$Parameter)} %>% 
+    {map2(c("TF", "CHIP", "SNP", "ABC") %>% 
+            set_names(c("TF", "chip", "eqtl", "ABC")), 
+          list(.), 
+          ~keep(.y, str_detect(names(.y), .x)) %>% sum())} %>% 
+    as_tibble())
+  
+  ex_vec = aov_mylm %>% 
+    effectsize::eta_squared(partial = FALSE) %>% 
+    {set_names(keep(., str_detect(names(.), "Eta2")) %>% unlist(), .$Parameter)} %>% 
+    {map2(c("TF", "CHIP", "SNP", "ABC") %>% 
+            set_names(c("TF", "chip", "eqtl", "ABC")), 
+          list(.), 
+          ~keep(.y, str_detect(names(.y), .x)) %>% sum())} %>% 
+    as_tibble()
+  return(ex_vec)
+}
+
+
+
+data_triple <- data_triple %>% mutate( var_explained = map(all_top,get_ex))
+```
+
+Drop-out models
+
+```{r}
+lm_func <- ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~sum(!is.na(.)) > 0))
+lm_func_scaled <-  ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~(sum(!is.na(.)) > 0 & var(abs(.))>0)) %>% scale() %>% round(5) %>% as_tibble())
+
+
+#drop CHIP
+data_triple <- data_triple %>% mutate(all_drop_chip = map(all_top, ~.x %>% select(-starts_with("CHIP"))))
+
+aov_func <- function(.x,.y)
+{
+  aov <- anova(.x,.y)
+  return(aov$`Sum of Sq`[2]/aov$RSS[1])
+}
+
+data_triple <- data_triple %>% mutate( mylm_drop_chip = map(all_drop_chip,lm_func_scaled) , 
+                                     rs_drop_chip = map_dbl(mylm_drop_chip,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_chip = map2_dbl(mylm_drop_chip,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_chip = map2_dbl(mylm_drop_chip,mylm_all,aov_func))
+
+
+#drop interactions
+data_triple <- data_triple %>% mutate(all_drop_ABC = map(all_top, ~.x %>% select(-starts_with("total_ABC_connections"))))
+
+data_triple <- data_triple %>% mutate( mylm_drop_ABC = map(all_drop_ABC,lm_func_scaled) , 
+                                     rs_drop_ABC = map_dbl(mylm_drop_ABC,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_ABC = map2_dbl(mylm_drop_ABC,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_ABC = map2_dbl(mylm_drop_ABC,mylm_all,aov_func))
+
+
+
+#drop  eqtls
+data_triple <- data_triple %>% mutate(all_drop_eqtl = map(all_top, ~.x %>% select(-starts_with("SNP"))))
+
+data_triple <- data_triple %>% mutate( mylm_drop_eqtl = map(all_drop_eqtl,lm_func_scaled) , 
+                                     rs_drop_eqtl = map_dbl(mylm_drop_eqtl,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_eqtl = map2_dbl(mylm_drop_eqtl,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_eqtl = map2_dbl(mylm_drop_eqtl,mylm_all,aov_func))
+
+
+
+
+
+#drop TFs
+data_triple <- data_triple %>% mutate(all_drop_TF = map(all_top, ~.x %>% select(-starts_with("TF"))))
+
+data_triple <- data_triple %>% mutate( mylm_drop_TF = map(all_drop_TF,lm_func_scaled) , 
+                                     rs_drop_TF = map_dbl(mylm_drop_TF,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_TF = map2_dbl(mylm_drop_TF,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_TF = map2_dbl(mylm_drop_TF,mylm_all,aov_func))
+
+
+
+
+
+
+```
+
+
+```{r}
+data_triple$region_type = "var"
+
+```
+
+
+```{r}
+data_sig <- data_triple %>% select(peak_id,region_type,starts_with("pval"))
+data_sig <- data_sig %>% mutate(sig_chip = ifelse(pval_drop_chip>0.05 | is.na(pval_drop_chip),FALSE,TRUE),
+                                sig_ABC = ifelse(pval_drop_ABC>0.05 | is.na(pval_drop_ABC),FALSE,TRUE),
+                                sig_eqtl = ifelse(pval_drop_eqtl>0.05 | is.na(pval_drop_eqtl),FALSE,TRUE),
+                                sig_TF = ifelse(pval_drop_TF>0.05 | is.na(pval_drop_TF),FALSE,TRUE))
+
+data_rs <- data_triple %>% select(peak_id,region_type,rs_all,rs_drop_chip,rs_drop_ABC,rs_drop_eqtl,rs_drop_TF) %>% 
+  mutate(rs_chip = rs_all-rs_drop_chip,rs_ABC = rs_all-rs_drop_ABC,rs_eqtl=rs_all-rs_drop_eqtl,rs_TF=rs_all-rs_drop_TF)
+
+
+###DROP OUT APPROACH
+data_rs <- data_rs %>% select(peak_id,region_type,rs_chip,rs_ABC,rs_eqtl,rs_TF) %>% ungroup()
+
+###VARIANCE EXPLAINED APPROACH
+data_vp <- data_triple %>% select(peak_id,region_type,explained_chip,explained_ABC,explained_eqtl,explained_TF) %>% ungroup()
+```
+
+```{r}
+data_use <- data_rs #use drop out model
+
+
+data_rs_long <- data_use %>% pivot_longer(-c("peak_id","region_type"),values_to = "rs") %>% separate(name,into=c("rs_part","name"),sep="_") %>% select(-rs_part)
+data_sig_long <- data_sig  %>% select(-starts_with("pval")) %>% pivot_longer(-c("peak_id","region_type"),values_to = "sig") %>% separate(name,into=c("sig_part","name"),sep="_") %>% select(-sig_part)
+
+data_long <- full_join(data_rs_long,data_sig_long)
+data_long <- data_long %>% mutate("sig_reg" = paste(region_type,sig))
+
+
+```
+
+```{r}
+data_use <- data_vp #variance explained model
+
+
+data_rs_long <- data_use %>% pivot_longer(-c("peak_id","region_type"),values_to = "rs") %>% separate(name,into=c("rs_part","name"),sep="_") %>% select(-rs_part)
+data_sig_long <- data_sig  %>% select(-starts_with("pval")) %>% pivot_longer(-c("peak_id","region_type"),values_to = "sig") %>% separate(name,into=c("sig_part","name"),sep="_") %>% select(-sig_part)
+
+data_long <- full_join(data_rs_long,data_sig_long)
+data_long <- data_long %>% mutate("sig_reg" = paste(region_type,sig))
+
+
+```
+
+## Fig 6B
+
+```{r}
+cols <- c("#70EE9C","#434371","#0C6E2F")
+cols_pale <- c("#9898C3","#C8F9D9")
+
+data_long_explained <- data_triple %>% select(peak_id,region_type,var_explained) %>% unnest(var_explained) %>% pivot_longer(-c("peak_id","region_type"))
+data_long <- data_long %>% inner_join(data_long_explained,by=c("peak_id","region_type","name")) %>% group_by(name) %>% filter(sum(value) != 0) %>% ungroup() %>% mutate(sig_reg = ifelse(sig_reg == "var TRUE", "sig", "n.s."))
+
+var_exp_per_group_10 = data_long %>%
+    filter(region_type=="var")  %>% 
+  mutate(name = case_when(name == "ABC" ~ "Gene\nInteractions", name == "eqtl" ~ "Genotype", name == "TF" ~ "TF\nexpression")) %>%
+    ggplot(aes(x=name ,y=value*100)) + 
+    #scale_y_continuous(trans="sqrt") +
+    geom_boxplot(outlier.shape = NA) + 
+    geom_point(aes(colour=sig_reg),position=position_jitter(),size=1,alpha=0.75) +
+    scale_fill_manual(values=cols_pale) +
+    scale_colour_manual(values=c("dark grey",cols[2],"dark grey",cols[3])) +
+    ylab("% variance explained") +
+    xlab("Predictor group") +
+    theme_bw(base_size = 16) +
+  labs(title = "Percentage of variance explained by each predictor group",
+       subtitle = "top 10 TFs",
+       x = "Predictor group",
+       y = "Percentage of variance explained",
+       colour = "")  +
+  ylim(c(0, 83))
+
+var_exp_per_group_10
+
+
+```
+
+## Fig 6A
+
+```{r}
+data_long <- data_long %>% arrange(desc(value),name)
+
+ids = data_long %>% 
+  group_by(peak_id) %>% 
+  summarise(sum_value = sum(value)) %>% 
+  arrange(desc(sum_value)) %>% 
+  pull(peak_id)
+
+var_exp_per_region_10 = data_long %>% 
+  filter(region_type=="var")  %>% 
+    mutate(name = case_when(name == "ABC" ~ "Gene Interactions", name == "eqtl" ~ "Genotype", name == "TF" ~ "TF expression")) %>%
+  #ggplot(aes(y=value,x=reorder(peak_id, -value),fill=name)) + 
+  ggplot(aes(y=value*100,x=factor(peak_id,levels=ids),fill=name)) + 
+  geom_bar(stat="identity", width = 1) +
+  theme_bw(base_size = 16) +
+  theme(axis.ticks.x.bottom = element_blank(), axis.text.x.bottom = element_blank(), panel.grid.major.x = element_blank(), legend.position = "top") +
+    labs(title = "Percentage of variance explained per domain",
+       subtitle = "top 10 TFs",
+       x = "Variable co-activity domains",
+       y = "Percentage of variance explained",
+       fill = "Predictor group")  +
+  ylim(c(0, 83))
+
+var_exp_per_region_10
+
+
+
+```
+
+
+
+
+
+```{r}
+
+#start 1 TF
+
+data_full = list(ABC_variable,
+                 #var_regs_mean_PD_QTL_LD_removed %>% mutate(region_PD_QTL = map(region_PD_QTL, ~select(.x, 1:11))),
+                 PD_QTL_Polygenic_Risk_Score15,
+                 #TF_exp_by_cor %>% mutate(TPM = map(TPM, ~select(.x, 1:11))),
+                 TF_best_1_geu,
+                 mean_PD_across_region) %>%
+  purrr::reduce(left_join, by = "peak_id") %>%
+  #mutate(TF_exp_PC1 = list(TF_exp_PC1)) %>%
+  rowwise() %>%
+  mutate(joined = list(purrr::reduce(list(total_ABC_connections, SNP_PRS, TF_TPM, mean_PD_across_region), inner_join, by = "individual"))) %>%
+  select(peak_id, joined)
+
+
+data_triple = data_full %>% mutate(all_top = list(select(joined, everything()))) %>% ungroup()
+
+```
+
+
+
+
+Linear model with all the terms and associated R-squared values:
+
+```{r}
+lm_func <- ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~sum(!is.na(.)) > 0))
+
+lm_func_scaled <-  ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~(sum(!is.na(.)) > 0 & var(abs(.))>0)) %>% scale() %>% round(5) %>% as_tibble())
+
+#run both model
+data_triple <- data_triple %>% mutate( mylm_all = map(all_top,lm_func_scaled) , 
+                                     rs_all = map_dbl(mylm_all,~.x  %>% glance() %>% pull(r.squared)))
+
+```
+
+\% Variance explained - function to pull relative sum of squares from ANOVA
+
+```{r}
+get_ex <- function(.x)
+{
+  dat <- .x %>% select(-individual) %>% select_if(~(sum(!is.na(.)) > 0 & var(abs(.))>0)) %>% scale() %>% round(5) %>% as_tibble()
+  mylm <- (lm(mean_PD_across_region ~ . - 1,data=dat))
+  aov_mylm <- Anova(mylm,type="II")
+  
+  #secoefs <- summary(mylm)$coefficients[,2]
+  #total <- sum(summary(mylm)$coefficients[,2]) + summary(mylm)[[6]]
+  
+  if(nrow(aov_mylm) == 2) return(aov_mylm %>% 
+    effectsize::eta_squared(partial = FALSE) %>% 
+    {set_names(keep(., str_detect(names(.), "Eta2")) %>% unlist(), .$Parameter)} %>% 
+    {map2(c("TF", "CHIP", "SNP", "ABC") %>% 
+            set_names(c("TF", "chip", "eqtl", "ABC")), 
+          list(.), 
+          ~keep(.y, str_detect(names(.y), .x)) %>% sum())} %>% 
+    as_tibble())
+  
+  ex_vec = aov_mylm %>% 
+    effectsize::eta_squared(partial = FALSE) %>% 
+    {set_names(keep(., str_detect(names(.), "Eta2")) %>% unlist(), .$Parameter)} %>% 
+    {map2(c("TF", "CHIP", "SNP", "ABC") %>% 
+            set_names(c("TF", "chip", "eqtl", "ABC")), 
+          list(.), 
+          ~keep(.y, str_detect(names(.y), .x)) %>% sum())} %>% 
+    as_tibble()
+  return(ex_vec)
+}
+
+
+
+data_triple <- data_triple %>% mutate( var_explained = map(all_top,get_ex))
+```
+
+Drop-out models
+
+```{r}
+lm_func <- ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~sum(!is.na(.)) > 0))
+lm_func_scaled <-  ~lm(mean_PD_across_region ~ ., data = .x %>% select(-individual) %>% select_if(~(sum(!is.na(.)) > 0 & var(abs(.))>0)) %>% scale() %>% round(5) %>% as_tibble())
+
+
+#drop CHIP
+data_triple <- data_triple %>% mutate(all_drop_chip = map(all_top, ~.x %>% select(-starts_with("CHIP"))))
+
+aov_func <- function(.x,.y)
+{
+  aov <- anova(.x,.y)
+  return(aov$`Sum of Sq`[2]/aov$RSS[1])
+}
+
+data_triple <- data_triple %>% mutate( mylm_drop_chip = map(all_drop_chip,lm_func_scaled) , 
+                                     rs_drop_chip = map_dbl(mylm_drop_chip,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_chip = map2_dbl(mylm_drop_chip,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_chip = map2_dbl(mylm_drop_chip,mylm_all,aov_func))
+
+
+#drop interactions
+data_triple <- data_triple %>% mutate(all_drop_ABC = map(all_top, ~.x %>% select(-starts_with("total_ABC_connections"))))
+
+data_triple <- data_triple %>% mutate( mylm_drop_ABC = map(all_drop_ABC,lm_func_scaled) , 
+                                     rs_drop_ABC = map_dbl(mylm_drop_ABC,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_ABC = map2_dbl(mylm_drop_ABC,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_ABC = map2_dbl(mylm_drop_ABC,mylm_all,aov_func))
+
+
+
+#drop  eqtls
+data_triple <- data_triple %>% mutate(all_drop_eqtl = map(all_top, ~.x %>% select(-starts_with("SNP"))))
+
+data_triple <- data_triple %>% mutate( mylm_drop_eqtl = map(all_drop_eqtl,lm_func_scaled) , 
+                                     rs_drop_eqtl = map_dbl(mylm_drop_eqtl,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_eqtl = map2_dbl(mylm_drop_eqtl,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_eqtl = map2_dbl(mylm_drop_eqtl,mylm_all,aov_func))
+
+
+
+
+
+#drop TFs
+data_triple <- data_triple %>% mutate(all_drop_TF = map(all_top, ~.x %>% select(-starts_with("TF"))))
+
+data_triple <- data_triple %>% mutate( mylm_drop_TF = map(all_drop_TF,lm_func_scaled) , 
+                                     rs_drop_TF = map_dbl(mylm_drop_TF,~.x  %>% glance() %>% pull(r.squared)),
+                                     pval_drop_TF = map2_dbl(mylm_drop_TF,mylm_all,~anova(.x,.y)$`Pr(>F)`[2]),
+                                     explained_TF = map2_dbl(mylm_drop_TF,mylm_all,aov_func))
+
+
+```
+
+
+```{r}
+data_triple$region_type = "var"
+```
+
+
+```{r}
+data_sig <- data_triple %>% select(peak_id,region_type,starts_with("pval"))
+data_sig <- data_sig %>% mutate(sig_chip = ifelse(pval_drop_chip>0.05 | is.na(pval_drop_chip),FALSE,TRUE),
+                                sig_ABC = ifelse(pval_drop_ABC>0.05 | is.na(pval_drop_ABC),FALSE,TRUE),
+                                sig_eqtl = ifelse(pval_drop_eqtl>0.05 | is.na(pval_drop_eqtl),FALSE,TRUE),
+                                sig_TF = ifelse(pval_drop_TF>0.05 | is.na(pval_drop_TF),FALSE,TRUE))
+
+data_rs <- data_triple %>% select(peak_id,region_type,rs_all,rs_drop_chip,rs_drop_ABC,rs_drop_eqtl,rs_drop_TF) %>% 
+  mutate(rs_chip = rs_all-rs_drop_chip,rs_ABC = rs_all-rs_drop_ABC,rs_eqtl=rs_all-rs_drop_eqtl,rs_TF=rs_all-rs_drop_TF)
+
+
+###DROP OUT APPROACH
+data_rs <- data_rs %>% select(peak_id,region_type,rs_chip,rs_ABC,rs_eqtl,rs_TF) %>% ungroup()
+
+###VARIANCE EXPLAINED APPROACH
+data_vp <- data_triple %>% select(peak_id,region_type,explained_chip,explained_ABC,explained_eqtl,explained_TF) %>% ungroup()
+```
+
+```{r}
+data_use <- data_rs #use drop out model
+
+
+#MAKE PLOT
+data_rs_long <- data_use %>% pivot_longer(-c("peak_id","region_type"),values_to = "rs") %>% separate(name,into=c("rs_part","name"),sep="_") %>% select(-rs_part)
+data_sig_long <- data_sig  %>% select(-starts_with("pval")) %>% pivot_longer(-c("peak_id","region_type"),values_to = "sig") %>% separate(name,into=c("sig_part","name"),sep="_") %>% select(-sig_part)
+
+data_long <- full_join(data_rs_long,data_sig_long)
+data_long <- data_long %>% mutate("sig_reg" = paste(region_type,sig))
+
+
+```
+
+```{r}
+data_use <- data_vp #variance explained model
+
+
+data_rs_long <- data_use %>% pivot_longer(-c("peak_id","region_type"),values_to = "rs") %>% separate(name,into=c("rs_part","name"),sep="_") %>% select(-rs_part)
+data_sig_long <- data_sig  %>% select(-starts_with("pval")) %>% pivot_longer(-c("peak_id","region_type"),values_to = "sig") %>% separate(name,into=c("sig_part","name"),sep="_") %>% select(-sig_part)
+
+data_long <- full_join(data_rs_long,data_sig_long)
+data_long <- data_long %>% mutate("sig_reg" = paste(region_type,sig))
+
+
+```
+
+## Supp. to fig 6B
+
+```{r}
+cols <- c("#70EE9C","#434371","#0C6E2F")
+cols_pale <- c("#9898C3","#C8F9D9")
+
+data_long_explained <- data_triple %>% select(peak_id,region_type,var_explained) %>% unnest(var_explained) %>% pivot_longer(-c("peak_id","region_type"))
+data_long <- data_long %>% inner_join(data_long_explained,by=c("peak_id","region_type","name")) %>% group_by(name) %>% filter(sum(value) != 0) %>% ungroup() %>% mutate(sig_reg = ifelse(sig_reg == "var TRUE", "sig", "n.s."))
+
+var_exp_per_group_1 = data_long %>%
+    filter(region_type=="var")  %>% 
+  mutate(name = case_when(name == "ABC" ~ "Gene\nInteractions", name == "eqtl" ~ "Genotype", name == "TF" ~ "TF\nexpression")) %>%
+    ggplot(aes(x=name ,y=value*100)) + 
+    #scale_y_continuous(trans="sqrt") +
+    geom_boxplot(outlier.shape = NA) + 
+    geom_point(aes(colour=sig_reg),position=position_jitter(),size=1,alpha=0.75) +
+    scale_fill_manual(values=cols_pale) +
+    scale_colour_manual(values=c("dark grey",cols[2],"dark grey",cols[3])) +
+    ylab("% variance explained") +
+    xlab("Predictor group") +
+    theme_bw(base_size = 16) +
+  labs(title = "Percentage of variance explained by each predictor group",
+       subtitle = "top 1 TF",
+       x = "Predictor group",
+       y = "Percentage of variance explained",
+       colour = "")  +
+  ylim(c(0, 83))
+
+var_exp_per_group_1
+
+
+```
+
+## Supp. to fig 6A
+
+```{r}
+data_long <- data_long %>% arrange(desc(value),name)
+
+ids = data_long %>% 
+  group_by(peak_id) %>% 
+  summarise(sum_value = sum(value)) %>% 
+  arrange(desc(sum_value)) %>% 
+  pull(peak_id)
+
+var_exp_per_region_1 = data_long %>% 
+  filter(region_type=="var")  %>% 
+    mutate(name = case_when(name == "ABC" ~ "Gene Interactions", name == "eqtl" ~ "Genotype", name == "TF" ~ "TF expression")) %>%
+  #ggplot(aes(y=value,x=reorder(peak_id, -value),fill=name)) + 
+  ggplot(aes(y=value*100,x=factor(peak_id,levels=ids),fill=name)) + 
+  geom_bar(stat="identity", width = 1) +
+  theme_bw(base_size = 16) +
+  theme(axis.ticks.x.bottom = element_blank(), axis.text.x.bottom = element_blank(), panel.grid.major.x = element_blank(), legend.position = "top") +
+    labs(title = "Percentage of variance explained per domain",
+       subtitle = "top 1 TF",
+       x = "Variable co-activity domains",
+       y = "Percentage of variance explained",
+       fill = "Predictor group")  +
+  ylim(c(0, 83))
+
+var_exp_per_region_1
+
+
+
+```
+
+
+
+
+

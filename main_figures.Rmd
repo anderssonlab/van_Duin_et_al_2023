@@ -1,0 +1,1225 @@
+---
+title: "Generate main figures"
+
+output: 
+#  html_notebook:
+  html_document:
+      code_folding: hide
+      toc: true
+      toc_float: true
+editor_options: 
+  
+  
+  chunk_output_type: inline
+---
+
+
+```{r init, message=FALSE, warning=FALSE}
+
+
+
+
+knitr::knit_hooks$set(time_it = local({
+  now <- NULL
+  function(before, options) {
+    if (before) {
+      # record the current time before each chunk
+      now <<- Sys.time()
+    } else {
+      # calculate the time difference after a chunk
+      res <- difftime(Sys.time(), now)
+      # return a character string to show the time
+      message("Time for this code chunk to run: ", res, " Time: ", timestamp())
+    }
+  }
+}))
+
+knitr::opts_chunk$set(time_it = TRUE)
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(fig.width = 10)
+
+
+library(tidyverse)
+library(car)
+theme_set(theme_bw(base_size = 16))
+scale_colour_continuous <- scale_colour_viridis_c
+scale_fill_continuous <- scale_fill_viridis_c
+scale_color_discrete <- function(...) {
+  scale_color_brewer(..., palette="Set1")
+}
+scale_fill_discrete <- function(...) {
+  scale_fill_brewer(..., palette="Set1")
+}
+scale_colour_discrete <- function(...) {
+  scale_colour_brewer(..., palette="Set1")
+}
+
+loadRData <- function(fileName){
+    #loads an RData file, and returns it
+    load(fileName)
+    get(ls()[ls() != "fileName"])
+}
+
+cor_test_tidy = function(x, y){
+  if(all(is.na(x)) | all(is.na(y))) return(tibble(estimate = as.numeric(NA), p.value = as.numeric(NA)))
+  if(length(na.omit(x)) < 3 | length(na.omit(y)) < 3) return(tibble(estimate = as.numeric(NA), p.value = as.numeric(NA)))
+  if(sd(x, na.rm = TRUE) == 0 | sd(y, na.rm = TRUE) == 0) return(tibble(estimate = as.numeric(NA), p.value = as.numeric(NA)))
+
+
+  return(dplyr::select(broom::tidy(cor.test(x, y)), estimate, p.value))
+}
+
+
+```
+
+# IG genes are removed by not including the bins containing IG genes
+
+```{r remove-IG}
+
+IG_bins = read_rds("geuvadis_recount_mean_exp.rds") %>%
+  filter(str_detect(gene_name, "^IG(H|K|L)")) %>%
+  mutate(gene_id_trunc = str_remove(gene, "\\..*"))
+
+Geuvadis_TD_summary_tib = read_rds("TD_summary_tib.rds") %>% filter(!(paste(chr, bin) %in% with(IG_bins, paste(seqnames, bin))))
+
+
+Geuvadis_PD = vroom::vroom("rwr_-5_iidr_-1.rw_mean.tsv", col_types = vroom::cols()) %>% filter(!(paste(chr, bin) %in% with(IG_bins, paste(seqnames, bin))))
+
+
+ext_data_tbls_log1p_centered = map(
+  read_rds("ext_data_tbls_log1p_centered.RDS") %>%
+  set_names(names(.) %>% str_remove(., "(.normalised)?.csv") %>% {case_when(
+    str_detect(., "ChIP") ~ str_replace(., "^(.*)20.._ChIP_(.*)$", "\\2_\\1"),
+    str_detect(., "ATAC") ~ str_replace(., "^(.*)20.._ATAC_(.*)$", "ATAC_\\2_\\1"),
+    str_detect(., "DNAse") ~ str_replace(., "^(.*)20.._DNAse_(.*)$", "\\2_\\1"),
+    str_detect(., "CTCF") ~ str_replace(., "^(.*)20.._CTCF_(.*)$", "\\2_\\1"),
+    str_detect(., "Yoruba|LCL") ~ str_replace(., "^", "Hi-C_"),
+    TRUE ~ .
+)})
+, ~filter(.x, !(paste(chr, bin) %in% with(IG_bins, paste(seqnames, bin)))))
+
+
+
+geuvadis_recount_mean_exp = filter(read_rds("geuvadis_recount_mean_exp.rds"), !str_detect(gene_name, "^IG(H|K|L)"))
+
+geuvadis_rse = read_rds("geuvadis_rse.rds")
+
+geuvadis_recount_tibble_ = geuvadis_rse %>%
+  SummarizedExperiment::`assay<-`("counts", value = recount3::transform_counts(.)) %>%
+  SummarizedExperiment::`assay<-`("TPM", value = recount::getTPM(., length_var = "score")) %>%
+  SummarizedExperiment::assay("TPM") %>%
+  as_tibble(rownames = "gene") %>%
+  dplyr::select(gene, matches("^ERR188")) %>%
+  bind_cols(geuvadis_rse %>% SummarizedExperiment::rowRanges() %>% as_tibble() %>% dplyr::select(seqnames, start, end, gene_id, gene_name, strand), .) %>%
+  filter(seqnames %in% paste0("chr", c(1:22, "X")))
+
+geuvadis_recount_tibble = geuvadis_recount_tibble_ %>%
+  filter(!str_detect(gene_name, "^IG(H|K|L)"))
+
+
+
+ENCODE_TF_beds_ = read_rds("ENCODE_TF_beds.rds") %>% mutate(bed = map(bed, ~filter(.x, !(paste(chr, bin) %in% with(IG_bins, paste(seqnames, bin))))))
+
+
+
+```
+
+
+
+## 1B
+
+```{r 1B}
+
+rna.binned.rpm.log1p = vroom::vroom("raw_binned_rnaseq_TD_indivs_norm_log1p.csv", col_types = vroom::cols())
+Geuvadis_PI = vroom::vroom("rwr_-5_iidr_-1.iid_mean.tsv", col_types = vroom::cols())
+
+
+
+plotsectionfigure1.1 = function(startbin = sample(1:25000, 1), chr = "chr1", individuals = "random"){
+  if(individuals == "random") individuals = colnames(Geuvadis_PD) %>% keep(str_detect(., "GM|NA|HG")) %>% sample(3)
+  expplot = cowplot::plot_grid(rna.binned.rpm.log1p %>% dplyr::filter(chr == (!!chr), bin > startbin, bin < startbin + 50) %>% dplyr::select(bin, {{individuals}}) %>% pivot_longer(-bin) %>% ggplot(aes(bin, value)) + geom_col() + facet_grid(rows = vars(name)), ggbio::autoplot(biovizBase::crunch(EnsDb.Hsapiens.v86::EnsDb.Hsapiens.v86, which = paste0(chr %>% str_remove("chr"), ":", startbin*1e4, "-", startbin*1e4 + 50e4) %>% as("GRanges")) %>% split(.$gene_name) %>% as("GRangesList"))@ggplot + coord_cartesian(xlim = c(startbin*1e4 + 1e4, startbin*1e4 + 49e4)), ncol = 1, align = "v", axis = "lr", rel_heights = c(3,1))
+  TDplot = bind_rows(PD = Geuvadis_PD, PI = Geuvadis_PI, .id = "component") %>% dplyr::filter(chr == (!!chr), bin > startbin, bin < startbin + 50) %>% dplyr::select(bin, component, {{individuals}}) %>% pivot_longer(c(-bin, -component)) %>% ggplot(aes(bin, value)) + geom_col() + facet_grid(rows = vars(paste(name, component)))
+  cowplot::plot_grid(cowplot::ggdraw() + cowplot::draw_label("Binned expression and decomposed expression for three individuals", size = 22), cowplot::plot_grid(expplot, TDplot, ncol = 2), ncol = 1, rel_heights = c(0.1, 1))
+  
+}
+
+plotsectionfigure1.1(startbin = 5835, individuals = c("GM18520", "GM20819", "HG00238"))
+```
+
+## 1C
+
+```{r 1C}
+all_gene_coexpression = read_rds("all_gene_coexpression.rds")
+
+
+all_gene_coexpression %>% mutate(bin = ceiling(TSS / 1e4)) %>% left_join(
+  Geuvadis_TD_summary_tib %>% select(chr, bin, mean_PD_2comp),
+  by = c("seqnames" = "chr", "bin")
+) %>% filter(!is.na(mean_PD_2comp)) %>% mutate(lead_mean_PD_2comp = lead(mean_PD_2comp)) %>% mutate(
+  PD_bin_1 = round(mean_PD_2comp / 3 + 1.5) * 3 - 1.5,
+  PD_bin_2 = round(lead_mean_PD_2comp / 3 + 1.5) * 3 - 1.5
+) %>% group_by(PD_bin_1, PD_bin_2) %>% arrange(mean_PD_2comp) %>% mutate(
+  mean_PD_2comp_cut = cut(
+    mean_PD_2comp,
+    breaks = (-2:3) * 3,
+    labels = (-1:3) * 3 - 1.5
+  ) %>% as.character() %>% as.numeric(),
+  mean_PD_2comp_lead_cut = cut(
+    lead_mean_PD_2comp,
+    breaks = (-2:3) * 3,
+    labels = (-1:3) * 3 - 1.5
+  ) %>% as.character() %>% as.numeric()
+) %>% group_by(mean_PD_2comp_cut, mean_PD_2comp_lead_cut) %>% summarise(
+  n = n(),
+  `mean PCC` = mean(estimate, na.rm = TRUE),
+  .groups = "drop"
+)  %>% filter(n > 10) %>%
+  ggplot(aes(
+  mean_PD_2comp_cut,
+  mean_PD_2comp_lead_cut,
+  fill = `mean PCC`,
+  label = n
+)) + geom_tile() + shadowtext::geom_shadowtext(color = "white") + scale_y_continuous(breaks = (-2:3) * 3) + scale_x_continuous(breaks = (-2:3) *
+                                                                                  3) + xlab("co-activity score (upstream gene)") + ylab("co-activity score (downstream gene)") + ggtitle("Co-expression and co-activity scores \nof neighboring gene pairs")
+
+
+```
+
+
+## 2A
+
+```{r 2A}
+
+geuvadis_recount_mean_exp_0.1 = geuvadis_recount_mean_exp %>% filter(mean_exp_log1p > 0.1)
+
+
+cowplot::plot_grid(Geuvadis_PD %>% dplyr::filter(chr == "chr12", bin > 7500, bin < 7625) %>% dplyr::select(bin, HG00104, GM19093, GM19210) %>% pivot_longer(-bin, values_to = "mean") %>% ggplot(aes(x = bin*1e4, y = mean, color = name, label = name, fill = name)) + geom_hline(yintercept = 0) + geom_line() + scale_x_continuous(name="", labels = scales::comma) + ylab("PD component value") + theme_minimal(base_size = 18) + ggtitle("PD component for three individuals") + scale_color_manual(values = c("#ED4938", "#2AB348", "#EDA838", "#999999")) + scale_fill_manual(values = c("#ED4938", "#2AB348", "#EDA838", "#999999")) + coord_cartesian(xlim = c(75000000, 76250000)),
+geuvadis_recount_mean_exp %>% filter(seqnames == "chr12", end > 75000000, start < 76250000) %>% select(-bin) %>% distinct() %>% mutate(origin = ifelse(strand == "+", start, end), terminus = ifelse(strand == "+", end, start)) %>% mutate(width = end - start) %>% filter(!(width < 1000 & mean_exp_log1p < 0.05)) %>% arrange(origin) %>% mutate(`log(exp+1)` = mean_exp_log1p) %>% mutate(y = c(1, 2, 1, 2, 1, 3, 1, 1, 2, 3, 2, 2, 3, 2, 1, 2, 3, 4, 2, 1, 1, 1)) %>% mutate(ifelse(`log(exp+1)` > 0.5, `log(exp+1)`, NA)) %>% ggplot() + geom_segment(aes(x = origin, xend = terminus, y = y, yend = y, color = `log(exp+1)`), size = 2, arrow = arrow(length = unit(4, "point"))) + coord_cartesian(xlim = c(75000000, 76250000))+  scale_y_continuous(breaks = NULL, expand = expansion(add = 0.4)) + ylab("") + xlab("") + scale_color_gradient2(low = "grey", mid = "#2AB348", high = "#0f8a2a", na.value = "grey", midpoint = 2.5), ncol = 1, align = "v", axis = "lr", rel_heights = c(2.5,1))
+
+```
+
+## 2B
+
+```{r 2B}
+
+
+
+Geuvadis_PD_ext_indivs = Geuvadis_PD %>% dplyr::select(any_of(ext_data_tbls_log1p_centered %>% map(colnames) %>% unlist() %>% unique()))
+
+PD_perc_positive = Geuvadis_PD_ext_indivs %>%
+  mutate(dplyr::select(., matches("GM|NA|HG")) %>% 
+           as.matrix() %>% 
+           {tibble(perc_indiv_having_positive_PD = rowMeans(. > 0)*100)}) %>%
+  dplyr::select(-matches("GM|NA|HG"))
+
+detect_positive_regions = function(gap_width = 10, cutoff = 15){
+  
+  PD_perc_positive %>% 
+    dplyr::select(chr, bin, perc_indiv_having_positive_PD) %>% 
+    filter(perc_indiv_having_positive_PD > cutoff) %>% 
+    mutate(peak_num = (abs(c(0, diff(bin))) > 1) %>% cumsum() %>% paste0("peak_", .)) %>% 
+    group_by(peak_num) %>%
+    mutate(peak_length = (max(bin) - min(bin) + 1)) %>%
+    filter(peak_length > gap_width) %>%
+    summarise(chr = unique(chr),
+              max_bin = max(bin), 
+              min_bin = min(bin),
+              peak_length = unique(peak_length)) %>%
+    arrange(peak_num %>% str_remove("peak_") %>% as.numeric()) %>%
+    mutate(dist_next = abs(lag(max_bin) - min_bin) < gap_width) %>% 
+    mutate(peak_pair = dist_next == TRUE | lead(dist_next) == TRUE) %>% 
+    mutate(group_distinct = cumsum(!replace_na(dist_next, FALSE))) %>% 
+    group_by(group_distinct) %>% 
+    summarise(chr = unique(chr), 
+              min_bin = min(min_bin), 
+              max_bin = max(max_bin), 
+              peak_length = max_bin - min_bin + 1) %>%
+    dplyr::select(-group_distinct) %>%
+    mutate(bin = map2(min_bin, max_bin, ~.x:.y),
+           peak_id = paste0(chr, ":", min_bin, "-", max_bin)) %>%
+    unnest(cols = bin) %>%
+    left_join(PD_perc_positive %>% dplyr::select(chr, bin, perc_indiv_having_positive_PD)) %>% 
+    nest(bins = c(bin, perc_indiv_having_positive_PD)) %>%
+    mutate(max_perc = map_dbl(bins, ~.x$perc_indiv_having_positive_PD %>% max()))
+}  
+
+
+detect_positive_regions_bins = function(gap_width = 10, cutoff = 15) {
+  detect_positive_regions(gap_width = gap_width, cutoff = cutoff) %>% 
+    unnest(bins) %>% 
+    dplyr::select(chr, peak_id, bin)
+    
+}
+
+pos_regions_0_1_exp = left_join(detect_positive_regions_bins(gap_width = 10, cutoff = 15),
+                                geuvadis_recount_mean_exp_0.1 %>% 
+                                  dplyr::select(chr = seqnames, bin, mean_exp_log1p, start, end, gene_id, gene_name, strand)) %>% 
+  group_by(chr, peak_id) %>% 
+  nest(genes = c(mean_exp_log1p, start, end, gene_id, gene_name, strand)) %>% 
+  nest(bins = bin) %>% 
+  summarise(genes = list(bind_rows(genes) %>% distinct() %>% drop_na()), 
+            bins = list(bind_rows(bins) %>% distinct() %>% drop_na()),
+            .groups = "drop") %>%
+  mutate(n_genes = map_dbl(genes, nrow)) %>%
+  dplyr::select(-bins) %>%
+  left_join(detect_positive_regions(gap_width = 10, cutoff = 15)) %>%
+  filter(n_genes >= 2)
+
+detect_peaks_manual_within_region = function(region_id, gap_width = 10, initial_cutoff = 0.6, secondary_cutoff = 0.6){
+  #print(region_id)
+  region = tibble(reg = region_id) %>% separate(reg, into = c("chr", "start", "end"), convert = TRUE)
+  
+  sd_tib = Geuvadis_TD_summary_tib %>% 
+    dplyr::select(chr, bin, sd_PD_2comp) %>% 
+    filter(chr == region$chr, bin >= region$start, bin <= region$end) %>%
+    filter(sd_PD_2comp > initial_cutoff)
+
+  
+  if(nrow(sd_tib) < gap_width) return(tibble(chr = character(), min_bin = numeric(), max_bin = numeric(), peak_length = numeric(), peak_id = character(), bins = list(numeric()), max_sd = numeric()))
+  
+  sd_tib = sd_tib %>%
+    mutate(peak_num = (abs(c(0, diff(bin))) > 1) %>% cumsum() %>% paste0("peak_", .)) %>% 
+    group_by(peak_num) %>%
+    mutate(peak_length = (max(bin) - min(bin) + 1)) %>%
+    filter(peak_length > gap_width)
+  
+    if(nrow(sd_tib) == 0) return(tibble(chr = character(), min_bin = numeric(), max_bin = numeric(), peak_length = numeric(), peak_id = character(), bins = list(numeric()), max_sd = numeric()))
+
+  
+  sd_tib %>%
+    summarise(chr = unique(chr),
+              max_bin = max(bin), 
+              min_bin = min(bin),
+              peak_length = unique(peak_length)) %>%
+    arrange(peak_num %>% str_remove("peak_") %>% as.numeric()) %>%
+    mutate(dist_next = abs(lag(max_bin) - min_bin) < gap_width) %>% 
+    mutate(peak_pair = dist_next == TRUE | lead(dist_next) == TRUE) %>% 
+    mutate(group_distinct = cumsum(!replace_na(dist_next, FALSE))) %>% 
+    group_by(group_distinct) %>% 
+    summarise(chr = unique(chr), 
+              min_bin = min(min_bin), 
+              max_bin = max(max_bin), 
+              peak_length = max_bin - min_bin + 1) %>%
+    dplyr::select(-group_distinct) %>%
+    mutate(bin = map2(min_bin, max_bin, ~.x:.y),
+           peak_id = paste0(chr, ":", min_bin, "-", max_bin)) %>%
+    unnest(cols = bin) %>%
+    left_join(Geuvadis_TD_summary_tib %>% dplyr::select(chr, bin, sd_PD_2comp), by = c("chr", "bin")) %>% 
+    nest(bins = c(bin, sd_PD_2comp)) %>%
+    mutate(max_sd = map_dbl(bins, ~.x$sd_PD_2comp %>% max())) %>%
+    filter(max_sd > secondary_cutoff)
+}  
+
+pos_regions_containing_var_regions = pos_regions_0_1_exp %>%
+  mutate(var_regions = map(peak_id, ~detect_peaks_manual_within_region(region_id = .x)))
+
+var_regions_in_pos_regions = pos_regions_containing_var_regions %>% 
+  filter(map(var_regions, nrow) > 0) %>% 
+  pull(var_regions) %>% 
+  bind_rows()
+
+var_regions_in_pos_regions_bins = var_regions_in_pos_regions %>%
+  unnest(bins) %>%
+  dplyr::select(chr, peak_id, bin)
+
+var_regions_in_pos_regions_0_1_exp = left_join(var_regions_in_pos_regions_bins,
+                                geuvadis_recount_mean_exp_0.1 %>% 
+                                  dplyr::select(chr = seqnames, bin, mean_exp_log1p, start, end, gene_id, gene_name, strand)) %>% 
+  group_by(chr, peak_id) %>% 
+  nest(genes = c(mean_exp_log1p, start, end, gene_id, gene_name, strand)) %>% 
+  nest(bins = bin) %>% 
+  summarise(genes = list(bind_rows(genes) %>% distinct() %>% drop_na()), 
+            bins = list(bind_rows(bins) %>% distinct() %>% drop_na()),
+            .groups = "drop") %>%
+  mutate(n_genes = map_dbl(genes, nrow)) %>%
+  dplyr::select(-bins) %>%
+  left_join(var_regions_in_pos_regions) %>%
+  filter(n_genes >= 2) %>%
+  mutate(genes = map(genes, ~mutate(.x, TSS = ifelse(strand == "+", start, end)))) %>%
+  mutate(n_annot_TSSs = pmap_dbl(list(genes, min_bin, max_bin), ~mutate(..1, TSS_bin = ceiling(TSS/1e4)) %>% filter(TSS_bin >= ..2, TSS_bin <= ..3) %>% nrow(.)))
+
+
+
+subcompartments.b37 = rtracklayer::import("GSE63525_GM12878_subcompartments.bed")
+
+subcompartments.hg38 <- unlist(rtracklayer::liftOver(subcompartments.b37, rtracklayer::import.chain("hg19ToHg38.over.chain"))) %>% GenomeInfoDb::sortSeqlevels() %>% sort()
+
+pos_chr_bin = pos_regions_0_1_exp %>% unnest(bins) %>% dplyr::select(chr, bin) %>% with(paste(chr, bin))
+  
+var_chr_bin = var_regions_in_pos_regions_0_1_exp %>% unnest(bins) %>% dplyr::select(chr, bin) %>% with(paste(chr, bin))
+
+pos_var_chr_bin = tibble(pos_chr_bin) %>% mutate(var = pos_chr_bin %in% var_chr_bin)
+
+regions_subcompartments_rao_hg38 = subcompartments.hg38 %>% 
+  as_tibble() %>% 
+  filter(name != "NA") %>% 
+  mutate(chr = as.character(seqnames)) %>% 
+  dplyr::select(chr, start, end, name) %>% 
+  mutate(bins = map2(start, end, ~ceiling(.x/1e4):ceiling(.y/1e4))) %>% 
+  unnest(bins) %>% 
+  mutate(extent_in_bin = pmin(bins*1e4, end) - pmax(bins*1e4 + 1 - 1e4, start) + 1) %>% 
+  dplyr::select(chr, bin = bins, name, extent_in_bin) %>% 
+  filter(paste(chr, bin) %in% with(Geuvadis_TD_summary_tib, paste(chr, bin))) %>%
+  mutate(in_pos = ifelse(paste(chr, bin) %in% pos_chr_bin, "in_pos", "not_in_pos")) %>%
+  mutate(in_var = ifelse(paste(chr, bin) %in% var_chr_bin, "in_var", "not_in_var")) %>% 
+  group_by(in_pos, in_var, name) %>%
+  summarise(extent_in_bin = sum(extent_in_bin), n = n(), .groups = "drop") %>%
+  mutate(region = case_when(in_var == "in_var" ~ "var",
+                              in_pos == "in_pos" ~ "pos",
+                              TRUE ~ "not_pos"))
+
+regions_subcompartments_rao_hg38 %>% 
+  filter(region != "var") %>%
+  mutate(compartment = case_when(name %in% c("A1", "A2") ~ "Active", name == "B1" ~ "Facultative", name %in% c("B2", "B3") ~ "Constitutive")) %>% filter(!is.na(compartment)) %>%
+  ggplot(aes(region, extent_in_bin, fill = compartment)) +
+  geom_col(position = "fill") +
+  scale_fill_brewer(palette = "Set1") +
+  ggtitle("Distribution of Rao et al \nsubcompartments in \npos/non-pos regions") +
+  theme_minimal(base_size = 20) 
+
+```
+
+## 2C
+
+```{r 2C}
+
+atac_regions = vroom::vroom("yri.atac.ths.txt") %>% mutate(bin = ((start + end)/2/1e4) %>% ceiling())
+
+
+Geuvadis_PD_ext_indivs %>% 
+  dplyr::select(chr, bin) %>%
+  left_join(pos_regions_0_1_exp %>% 
+              dplyr::select(chr, peak_id, bins) %>% 
+              unnest(bins), by = c("chr", "bin")) %>%
+  mutate(pos_region = !is.na(peak_id)) %>%
+  dplyr::select(-peak_id, -perc_indiv_having_positive_PD) %>%
+  left_join(atac_regions %>% 
+              dplyr::select(chr = seqnames, bin) %>% 
+              group_by(chr, bin) %>% 
+              summarise(n_atac = n(), .groups = "drop")) %>%
+  mutate(n_atac = replace_na(n_atac, 0)) %>%
+  group_by(pos_region) %>%
+  summarise(n_bins = n(), n_atac = sum(n_atac)) %>%
+  mutate(n_atac_per_bin = n_atac/n_bins) %>%
+  mutate(region = ifelse(pos_region, "pos", "not_pos")) %>%
+  ggplot(aes(n_atac_per_bin, region, fill = region)) + 
+  geom_col() +
+  theme_minimal(base_size = 20) +
+  ggtitle("ATAC-Seq peaks per bin in \npositive and non-positive regions") +
+  #theme(plot.title = ggtext::element_textbox_simple()) +
+  xlab("Number of OCRs per bin") +
+  theme(legend.position = "none")
+
+```
+
+## 2D
+
+```{r 2D}
+
+ext_PD_per_bin_cor = vroom::vroom("ext_PD_per_bin_cor.tsv") %>% 
+  mutate(pos = ifelse(paste(chr, bin) %in% pos_chr_bin, "pos", "not_pos")) %>%
+  group_by(measure_type) %>%
+  mutate(q_val_whole_measure = p.adjust(p.value, method = "fdr")) %>%
+  group_by(measure_type, pos) %>%
+  mutate(q_val_measure_pos = p.adjust(p.value, method = "fdr"))
+
+ext_PD_per_bin_cor %>% 
+  filter(measure_type %in% c("H3K27AC_Grubert", "H3K4ME1_Grubert", "H3K4ME3_Grubert")) %>%
+  summarise(mean_PCC = mean(estimate, na.rm = TRUE)) %>% 
+  mutate(measure_type = str_remove(measure_type, "_Grubert") %>% str_replace("AC", "ac") %>% str_replace("ME", "me")) %>%
+  #mutate(prop_sig = ifelse(pos == "pos", prop_sig, -prop_sig)) %>% 
+  ggplot(aes(measure_type, mean_PCC, fill = pos)) + 
+  geom_col(position = "dodge") + 
+  theme_minimal(base_size = 20) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  ggtitle("Mean HM-PD PCC") +
+  xlab("") +
+  scale_fill_discrete(name = "Region", labels = c("PD-Negative", "PD-Positive"))
+
+```
+
+## 2E
+
+```{r 2E}
+
+#in situ mbol, because it has the most reads: 
+#system("curl -L --user <user>:<password> https://data.4dnucleome.org/files-processed/4DNFIVK5JOFU/@@download/4DNFIVK5JOFU.bed.gz -o GM12878.boundaries.bed")
+
+GM12878_HG38_boundaries = rtracklayer::import.bed("GM12878.boundaries.bed") %>% 
+  as_tibble() %>%
+  mutate(bin = ceiling(start/1e4)) %>%
+  dplyr::rename(chr = seqnames)
+
+bins_near_pos_boundary = pos_regions_0_1_exp %>% 
+  dplyr::select(chr, peak_id, min_bin, max_bin) %>% 
+  pivot_longer(c(min_bin, max_bin), 
+               values_to = "bin", 
+               names_to = "orientation") %>% 
+  mutate(near_bins = map(bin, ~seq(.x - 40, .x + 40))) %>% 
+  unnest(near_bins) %>% 
+  filter(near_bins > 0) %>%
+  left_join(GM12878_HG38_boundaries)
+
+bins_near_pos_boundary %>%
+mutate(boundary = paste(chr, near_bins) %in% with(GM12878_HG38_boundaries, paste(chr, bin))) %>%
+mutate(x = bin - near_bins) %>%
+group_by(x) %>%
+summarise(boundaries = sum(boundary)) %>%
+ggplot(aes(x, boundaries)) +
+geom_line() +
+ggtitle("Number of Hi-C boundaries, \nby distance from positive region boundary") +
+xlab("Position in bins relative to region boundary") +
+theme_minimal(base_size = 20) + 
+  geom_segment(data = tibble(y = c(89, 123, 89), yend = c(89, 123, 89), x = c(-40, -5, 5), xend = c(-5, 5, 40)), inherit.aes = FALSE, mapping = aes(y = y, yend = yend, x = x, xend = xend), linetype = "longdash", color = "ivory4")
+
+```
+
+## 2F
+
+```{r 2F}
+eQTL = loadRData("me.eQTL_allchrs_combined_GEUVADIS_TPM_g3_f15.all.rda")$cis$eqtls %>% 
+  as_tibble() %>%
+  nest(snps = -gene)
+
+geneloc_tss = vroom::vroom("geneloc.all.eQTL_allchrs_combined_GEUVADIS_TPM_g3_f15.txt") %>%
+  left_join(geuvadis_recount_mean_exp %>% mutate(name = str_remove(gene, "\\..*")) %>% dplyr::select(name, strand) %>% distinct()) %>%
+  mutate(tss = ifelse(strand == "+", start, end)) %>%
+  arrange(str_remove(chr, "chr") %>% as.numeric(), tss)
+
+genes_in_var_0.6_regs_in_pos_regs = var_regions_in_pos_regions_0_1_exp %>% dplyr::select(genes) %>% unnest(genes) %>% pull(gene_id) %>% unique() %>% str_remove("\\..*")
+genes_in_pos_regs = pos_regions_0_1_exp %>% dplyr::select(genes) %>% unnest(genes) %>% pull(gene_id) %>% unique() %>% str_remove("\\..*")
+
+
+#genes_in_pos_samp_regs = pos_regions_sample %>% dplyr::select(genes) %>% unnest(genes) %>% pull(gene_id) %>% unique() %>% str_remove("\\..*")
+
+eQTL_neighbor_shared = left_join(eQTL, geneloc_tss, by = c("gene" = "name")) %>% #this means that genes that do not have an eQTL are omitted
+    arrange(str_remove(chr, "chr") %>% as.numeric(), tss) %>%
+    mutate(snps = map(snps, ~dplyr::select(.x, snps))) %>% 
+    mutate(snps_lead = lead(snps)) %>% mutate(snps_common = map2_dbl(snps, snps_lead, ~intersect(.x$snps, .y$snps) %>% length())) %>%
+  mutate(distance = lead(tss) - tss) %>%
+  mutate(in_pos = ifelse(gene %in% genes_in_pos_regs, "in_pos", "not_in_pos"),
+         in_var = ifelse(gene %in% genes_in_var_0.6_regs_in_pos_regs, "in_var", "not_in_var"))
+
+eGene_qtl_sharing = eQTL_neighbor_shared %>% mutate(in_var = ifelse(in_var == "in_var", "in_var", ""), in_pos = ifelse(in_var == "in_var", "", in_pos)) %>% mutate(region = paste0(in_pos, in_var)) %>% mutate(any_snps_common = snps_common > 0) %>% mutate(lead_region = lead(region)) %>% filter(!is.na(lead_region)) %>% mutate(region_sort = map2_chr(region, lead_region, ~sort(c(.x, .y) %>% unique()) %>% paste(collapse = " > ") %>% str_remove_all("in_"))) %>% group_by(region_sort) %>% summarise(perc_common = any_snps_common %>% mean() %>% '*'(100), n = n()) %>% arrange(perc_common)
+
+eGene_qtl_sharing %>% 
+  filter(!str_detect(region_sort, "var|>")) %>% 
+  mutate(region_sort = c("PD-Negative", "PD-Positive")) %>%
+  ggplot(aes(reorder(region_sort, perc_common), 
+             perc_common,
+             fill = region_sort)) + 
+  theme_minimal(base_size = 20) + 
+  geom_col() + 
+  geom_text(aes(label = c("n = 5498", "n = 7602")), vjust = 2, cex = 6) +
+  ggtitle("Percentage of neighboring eGenes \nsharing at least one eQTL, \nby region class") + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + 
+  xlab("Gene pair location") +
+  ylab("Percentage") +
+  theme(legend.position = "none")
+
+```
+
+## 2G
+
+```{r 2G}
+
+eQTL_sharing_pos_neg_over_distance = eQTL_neighbor_shared %>% 
+  mutate(in_var = ifelse(in_var == "in_var", "in_var", ""), in_pos = ifelse(in_var == "in_var", "", in_pos)) %>% 
+  mutate(region = paste0(in_pos, in_var)) %>% 
+  mutate(any_snps_common = snps_common > 0) %>% 
+  mutate(lead_region = lead(region)) %>% 
+  filter(!is.na(lead_region)) %>% 
+  mutate(region_sort = map2_chr(region, lead_region, ~sort(c(.x, .y) %>% unique()) %>% 
+                                  paste(collapse = " > ") %>% 
+                                  str_remove_all("in_"))) %>% 
+  filter(chr == lead(chr)) %>% 
+  dplyr::select(region_sort, any_snps_common, distance) %>% 
+  filter(region_sort %in% c("pos", "not_pos")) %>% 
+  mutate(distance_bin = cut_number(distance, 10)) %>% 
+  group_by(region_sort, distance_bin) %>% 
+  summarise(perc_snp_common = round(mean(any_snps_common)*100), n = n(), .groups = "drop") %>% 
+  mutate(dist_bin_mean = map_dbl(distance_bin, ~str_remove_all(.x, "\\(|\\)|\\[|\\]") %>% 
+                                   str_split(",", simplify = TRUE) %>% as.numeric() %>% mean()))
+  
+
+eQTL_sharing_pos_neg_over_distance %>% ggplot(aes(dist_bin_mean, perc_snp_common, size = n, color = region_sort)) + geom_point() + scale_x_log10(breaks = c(1e3, 1e4, 1e5, 1e6, 1e7), labels = c("1e3" = "1 kbp", "1e4" = "10 kbp", "1e5" = "100 kbp", "1e6" = "1 Mbp", "1e7" = "10 Mbp")) + ggtitle("Percentage of neigboring gene pairs sharing \nan eQTL for increasing distances", subtitle = "* denotes p value < 1e5") + ylab("Percentage") + xlab("Distance between genes in pair") + scale_color_discrete(name = "Region", labels = c("PD-Negative", "PD-Positive")) + geom_text(aes(dist_bin_mean, max(perc_snp_common) *1.1, label = "*"), color = "black", cex = 7)
+
+```
+
+## 3A
+
+```{r 3A, fig.height=8}
+
+Geuvadis_PD_sd = vroom::vroom("rwr_-5_iidr_-1.rw_sd.tsv", col_types = vroom::cols())
+
+plot_fig3A = function(chr, startbin, endbin){
+  chr_num = str_remove(chr, "chr")
+  chr_chr = paste0("chr", chr_num)
+  
+  boundaries_domains = bind_rows(positive = pos_regions_0_1_exp %>% filter(chr == chr_chr, min_bin > startbin-5e3, max_bin < endbin+5e3) %>% select(chr, min_bin, max_bin), variable = var_regions_in_pos_regions_0_1_exp %>% filter(chr == chr_chr, min_bin > startbin-5e3, max_bin < endbin+5e3) %>% select(chr, min_bin, max_bin), .id = "region") %>% select(left = min_bin, right = max_bin, region) 
+  
+  
+ # + geom_rect(data = boundaries_rect_k27pdcompare, aes(xmin = (left)*1e4, xmax = (right)*1e4, ymin = -Inf, ymax = Inf, fill = region), alpha=0.2, colour = NA)
+  
+  # plot.indiv = full_join(Geuvadis_PD %>% dplyr::filter(chr == chr_chr, bin > startbin, bin < endbin) %>% dplyr::select(bin, HG00104, GM19093, GM19210) %>% pivot_longer(-bin, values_to = "mean"), Geuvadis_PD_sd %>% dplyr::filter(chr == chr_chr, bin > startbin, bin < endbin) %>% dplyr::select(bin, HG00104, GM19093, GM19210) %>% pivot_longer(-bin, values_to = "sd")) %>% ggplot() + geom_hline(yintercept = 0) + geom_line(aes(x = bin*1e4, y = mean, color = name)) + geom_ribbon(aes(x = bin*1e4, y = mean, ymin = mean - 2*sd, ymax = mean + 2*sd, fill = name), alpha = 0.2, colour = NA) + scale_x_continuous(name="", labels = scales::comma) + ylab("PD component value") + theme_minimal(base_size = 18) + ggtitle("PD component for three individuals") + scale_color_manual(values = c("#ED4938", "#2AB348", "#EDA838", "#999999")) + scale_fill_manual(values = c("#ED4938", "#2AB348", "#EDA838", "#999999"))
+  
+  plot.indiv = full_join(Geuvadis_PD %>% dplyr::filter(chr == chr_chr, bin > startbin, bin < endbin) %>% dplyr::select(bin, HG00104, GM19093, GM19210) %>% pivot_longer(-bin, values_to = "mean"), Geuvadis_PD_sd %>% dplyr::filter(chr == chr_chr, bin > startbin, bin < endbin) %>% dplyr::select(bin, HG00104, GM19093, GM19210) %>% pivot_longer(-bin, values_to = "sd")) %>% ggplot() + geom_rect(data = boundaries_domains, aes(xmin = (left)*1e4, xmax = (right)*1e4, ymin = -Inf, ymax = Inf, fill = region), alpha=0.2, colour = NA) + geom_hline(yintercept = 0) + geom_line(aes(x = bin*1e4, y = mean, color = name)) + scale_x_continuous(name="", labels = scales::comma) + ylab("Co-activity\nscore") + ggtitle("PD component for three individuals") + scale_color_manual(values = c("#ED4938", "#2AB348", "#EDA838", "#999999")) + coord_cartesian(c(startbin*1e4, endbin*1e4)) + scale_fill_manual(values = c("#377eb8", "#4daf4a"))
+
+  # plot.all.indiv = full_join(Geuvadis_PD %>% dplyr::filter(chr == chr_chr, bin > startbin, bin < endbin) %>% dplyr::select(bin, matches("NA|HG|GM")) %>% pivot_longer(-bin, values_to = "mean"), Geuvadis_PD_sd %>% dplyr::filter(chr == chr_chr, bin > startbin, bin < endbin) %>% dplyr::select(bin, matches("NA|HG|GM")) %>% pivot_longer(-bin, values_to = "sd")) %>% mutate(indiv = if_else(name %in% c("HG00104", "GM19093", "GM19210"), name, "rest")) %>% arrange(desc(indiv)) %>% ggplot(aes(x = bin*1e4, y = mean, color = indiv, group = fct_inorder(name))) + geom_hline(yintercept = 0) + geom_line() + scale_x_continuous(name="", labels = scales::comma) + ylab("PD component value") + theme_minimal(base_size = 18) + ggtitle("PD component for all individuals") + scale_color_manual(values = c("#ED4938", "#2AB348", "#EDA838", "#999999")) + ylim(c(-5, 5))
+
+  plot.variation = Geuvadis_TD_summary_tib %>% dplyr::filter(chr == chr_chr, bin > startbin, bin < endbin) %>% dplyr::select(chr, bin, sd = sd_PD_2comp) %>% ggplot(aes(bin*1e4, sd)) + geom_line() + scale_x_continuous(name=paste0("Position along chromosome", chr_num), labels = scales::comma) + ylab("Standard deviation") + theme(legend.position = "none") + ggtitle("Variation across all individuals")
+  
+  genes_to_include = pos_regions_0_1_exp %>% filter(chr == chr_chr, max_bin > startbin, min_bin < endbin) %>% unnest(genes) %>% mutate(gene_id_trunc = str_remove(gene_id, "\\..*"))
+
+
+cowplot::plot_grid(plot.indiv, plot.variation, ggbio::autoplot(biovizBase::crunch(EnsDb.Hsapiens.v86::EnsDb.Hsapiens.v86, which = paste0(chr_num, ":", startbin, "0000-", endbin, "0000") %>% as("GRanges")) %>% '['(.$gene_id %in% genes_to_include$gene_id_trunc) 
+%>% split(.$gene_name) %>% as("GRangesList") %>% `names<-`(names(.) %>% str_remove("ENSG00000")))@ggplot + coord_cartesian(xlim = c(startbin*1e4, endbin*1e4)), ncol = 1, align = "v", axis = "lr")
+}
+
+var_regions_in_pos_regions_0_1_exp_genetype = geuvadis_rse %>% SummarizedExperiment::rowData() %>% as_tibble() %>% select(gene_id, gene_type) %>% left_join(var_regions_in_pos_regions_0_1_exp %>% unnest(genes), .) %>% nest(genes = c("mean_exp_log1p", "start", "end", "gene_id", "gene_name", "strand", "TSS", "gene_type")) %>% mutate(n_pseudogene = map_dbl(genes, ~pull(.x, gene_type) %>% str_count("pseudo") %>% sum()), protein_coding = map_dbl(genes, ~pull(.x, gene_type) %>% str_count("protein_coding") %>% sum())) %>% arrange(desc(max_sd))
+
+plot_fig3A(4, 6820, 6880)
+
+```
+
+
+## 3B
+
+```{r 3B}
+
+
+
+pos_regions_0_1_exp_mean_PD = pos_regions_0_1_exp %>%
+  mutate(bins = map2(bins, chr, ~left_join(.x, Geuvadis_TD_summary_tib %>%
+                                             filter(chr == .y) %>%
+                                             dplyr::select(bin, mean_PD_2comp), 
+                                           by = "bin"))) %>% 
+  mutate(mean_PD = map_dbl(bins, ~pull(.x, mean_PD_2comp) %>% 
+                             mean(na.rm = TRUE) %>% 
+                             {round(.*2)/2}))
+
+var_regions_in_pos_regions_0_1_exp_bins = var_regions_in_pos_regions_0_1_exp %>% 
+  unnest(bins) %>% 
+  dplyr::select(chr, bin, peak_id)
+
+pos_regions_0_1_exp_mean_PD_var_ol = pos_regions_0_1_exp_mean_PD %>% mutate(perc_var_overlap = map2_dbl(chr, bins, ~sum(paste(.x, .y$bin) %in% with(var_regions_in_pos_regions_0_1_exp_bins, paste(chr, bin)))))
+
+var_regions_in_pos_regions_0_1_exp_mean_PD = var_regions_in_pos_regions_0_1_exp %>% 
+    mutate(bins = map2(bins, chr, ~left_join(.x, Geuvadis_TD_summary_tib %>%
+                                                 filter(chr == .y) %>%
+                                                 dplyr::select(bin, mean_PD_2comp), 
+                                             by = "bin"))) %>% 
+    mutate(mean_PD = map_dbl(bins, ~pull(.x, mean_PD_2comp) %>% 
+                                 mean(na.rm = TRUE) %>% 
+                                 {round(.*2)/2}))
+
+pos_region_sample = var_regions_in_pos_regions_0_1_exp_mean_PD %>% 
+    dplyr::select(n_genes, peak_length, mean_PD) %>%
+    group_by(n_genes, peak_length, mean_PD) %>%
+    summarise(count = n(), .groups = "drop") %>%
+    arrange(desc(count)) %>%
+    mutate(pos_regs_squares = pmap(list(n_genes, peak_length, mean_PD, count), ~pos_regions_0_1_exp_mean_PD_var_ol %>% 
+                                     filter(perc_var_overlap < 10) %>%
+                                       mutate(sum_squares = (abs(n_genes - ..1)/n_genes)^2 + 
+                                                ((abs(peak_length - ..2)/peak_length)*2)^2 + 
+                                                (abs(mean_PD - ..3)/2)^2) %>%
+                                       arrange(sum_squares) %>% 
+                                     dplyr::slice_head(n = max(sum(.$sum_squares == 0), ..4)) %>% 
+                                     dplyr::slice_sample(n = ..4))) %>%
+  mutate(max_sum_squares = map_dbl(pos_regs_squares, ~with(.x, max(sum_squares))))
+
+pos_region_sample_unique_best_match = pos_region_sample %>% 
+  dplyr::rename(n_genes_var = n_genes, peak_length_var = peak_length, mean_PD_var = mean_PD) %>% 
+  unnest(pos_regs_squares) %>% 
+  group_by(n_genes_var, peak_length_var, mean_PD_var) %>% 
+  mutate(countlist = 1:unique(count)) %>% 
+  group_by(peak_id) %>% 
+  arrange(sum_squares) %>% 
+  mutate(best_match = c(TRUE, rep(FALSE, n() - 1)))
+
+var_regions_unmatched = pos_region_sample_unique_best_match %>% filter(!best_match)
+pos_regs_unique = pos_region_sample_unique_best_match %>% filter(best_match)
+i=0
+
+while(nrow(var_regions_unmatched) > 0){
+  i = i + 1
+  message(i)
+  pos_region_sample_unique_best_match2 = var_regions_unmatched %>% group_by(n_genes_var, peak_length_var, mean_PD_var) %>%
+    dplyr::select(n_genes_var, peak_length_var, mean_PD_var) %>%
+    summarise(count = n(), .groups = "drop") %>%
+    arrange(desc(count)) %>% mutate(pos_regs_squares = pmap(list(n_genes_var, peak_length_var, mean_PD_var, count), ~pos_regions_0_1_exp_mean_PD_var_ol %>% 
+                                     filter(perc_var_overlap < 10) %>%
+                                       filter(!peak_id %in% pos_regs_unique$peak_id) %>%
+                                       mutate(sum_squares = (abs(n_genes - ..1)/n_genes)^2 + 
+                                                ((abs(peak_length - ..2)/peak_length)*2)^2 + 
+                                                (abs(mean_PD - ..3)/2)^2) %>%
+                                       arrange(sum_squares) %>% 
+                                     dplyr::slice_head(n = max(sum(.$sum_squares == 0), ..4)) %>% 
+                                     dplyr::slice_sample(n = ..4))) %>%
+  mutate(max_sum_squares = map_dbl(pos_regs_squares, ~with(.x, max(sum_squares)))) %>%
+  unnest(pos_regs_squares) %>% 
+  group_by(n_genes_var, peak_length_var, mean_PD_var) %>% 
+  mutate(countlist = 1:unique(count)) %>% 
+  group_by(peak_id) %>% 
+  arrange(sum_squares) %>% 
+  mutate(best_match = c(TRUE, rep(FALSE, n() - 1)))
+
+var_regions_unmatched = pos_region_sample_unique_best_match2 %>% filter(!best_match)
+pos_regs_unique = pos_region_sample_unique_best_match2 %>% filter(best_match) %>% bind_rows(pos_regs_unique)
+}
+
+
+
+pos_regions_sample = pos_regs_unique %>%
+  dplyr::select(chr, peak_id, genes, n_genes, min_bin, max_bin, peak_length, bins, max_perc, mean_PD, perc_var_overlap, sum_squares) %>%
+  ungroup()
+
+genes_in_pos_samp_regs = pos_regions_sample %>% dplyr::select(genes) %>% unnest(genes) %>% pull(gene_id) %>% unique() %>% str_remove("\\..*")
+
+
+geuvadis_recount_tibble_0.1_exp = geuvadis_recount_tibble %>% 
+  filter(gene_id %in% geuvadis_recount_mean_exp_0.1$gene) %>%
+  mutate(TSS = ifelse(strand == "+", start, end), .before = 6) %>%
+  dplyr::select(seqnames, gene_id, TSS, starts_with("ERR")) %>%
+  nest(exp = matches("ERR")) %>%
+  arrange(seqnames, TSS) %>%
+  mutate(map2_dfr(exp, lead(exp), ~tryCatch(expr = cor.test(unlist(.x), unlist(.y)) %>% broom::tidy() %>% dplyr::select(estimate, p.value), error = function(x){tibble(estimate = NA, p.value = NA)}))) %>%
+  mutate(p.adj = p.adjust(p.value, method = "fdr")) %>%
+  mutate(gene_id = str_remove(gene_id, "\\..*")) %>%
+  mutate(in_var = ifelse(gene_id %in% genes_in_var_0.6_regs_in_pos_regs, "in_var", "not_in_var"),
+         in_pos = ifelse(gene_id %in% genes_in_pos_regs, "in_pos", "not_in_pos"),
+         in_sampled_pos = ifelse(gene_id %in% genes_in_pos_samp_regs, "in_pos_samp", "not_in_pos_samp"))
+
+genes_for_corplot = biovizBase::crunch(EnsDb.Hsapiens.v86::EnsDb.Hsapiens.v86, which = "12:70100000-70700000" %>% as("GRanges")) %>% '['(.$gene_id %in% c("ENSG00000257613", "ENSG00000111596", "ENSG00000279530", "ENSG00000135643", "ENSG00000258168", "ENSG00000277247")) %>% as_tibble() %>% select(gene_name, gene_id) %>% distinct()
+
+
+
+
+plot_fig3B = function(chr, startbin, endbin){
+  chr_num = str_remove(chr, "chr")
+  chr_chr = paste0("chr", chr_num)
+  
+    genes_to_include = pos_regions_0_1_exp %>% filter(chr == chr_chr, max_bin > startbin, min_bin < endbin) %>% unnest(genes) %>% mutate(gene_id_trunc = str_remove(gene_id, "\\..*")) %>% filter(gene_id_trunc %in% (biovizBase::crunch(EnsDb.Hsapiens.v86::EnsDb.Hsapiens.v86, which = paste0(chr_num, ":", startbin, "0000-", endbin, "0000") %>% as("GRanges")) %>% '$'("gene_id")))
+  
+geuvadis_recount_tibble_0.1_exp %>% 
+  filter(gene_id %in% genes_to_include$gene_id_trunc) %>% 
+  dplyr::select(gene_id, exp) %>% 
+  left_join(genes_to_include %>% select(gene_id_trunc, gene_name, gene_id = gene_id_trunc)) %>% 
+  dplyr::select(gene_name, exp) %>% 
+  mutate(exp = map(exp, unlist)) %>% 
+  pivot_wider(names_from = gene_name, values_from = exp) %>% 
+  unnest(cols = everything()) %>% 
+  cor() %>% 
+  pheatmap::pheatmap(cluster_rows = F, cluster_cols = F)
+}
+
+
+plot_fig3B(4, 6820, 6880)
+
+```
+
+
+## 3C
+
+```{r 3C}
+
+pos_peak_ids_genes = pos_regions_0_1_exp %>% mutate(genes = pmap(list(genes, min_bin, max_bin), ~mutate(..1, TSS = ifelse(strand == "+", start, end), TSS_bin = ceiling(TSS/1e4)) %>% filter(TSS_bin >= ..2, TSS_bin <= ..3))) %>% select(peak_id, genes) %>% unnest(genes) %>% select(peak_id, gene_id) %>% mutate(gene_id = gene_id %>% str_remove("\\..*")) %>% mutate(pos_peak_id = paste0("pos_", peak_id)) %>% select(-peak_id)
+
+var_peak_ids_genes = var_regions_in_pos_regions_0_1_exp %>% mutate(genes = pmap(list(genes, min_bin, max_bin), ~mutate(..1, TSS = ifelse(strand == "+", start, end), TSS_bin = ceiling(TSS/1e4)) %>% filter(TSS_bin >= ..2, TSS_bin <= ..3))) %>% select(peak_id, genes) %>% unnest(genes) %>% select(peak_id, gene_id) %>% mutate(gene_id = gene_id %>% str_remove("\\..*")) %>% mutate(var_peak_id = paste0("var_", peak_id)) %>% select(-peak_id)
+
+pos_samp_peak_ids_genes = pos_regions_sample %>% mutate(genes = pmap(list(genes, min_bin, max_bin), ~mutate(..1, TSS = ifelse(strand == "+", start, end), TSS_bin = ceiling(TSS/1e4)) %>% filter(TSS_bin >= ..2, TSS_bin <= ..3))) %>% select(peak_id, genes) %>% unnest(genes) %>% select(peak_id, gene_id) %>% mutate(gene_id = gene_id %>% str_remove("\\..*")) %>% mutate(pos_samp_peak_id = paste0("pos_samp_", peak_id)) %>% select(-peak_id)
+
+neighbor_gene_cors_in_regions_for_violin = geuvadis_recount_tibble_0.1_exp %>% left_join(pos_peak_ids_genes) %>% left_join(var_peak_ids_genes) %>% left_join(pos_samp_peak_ids_genes) %>% group_by(pos_peak_id, var_peak_id, pos_samp_peak_id) %>% nest() %>% mutate(data = map(data, ~slice_head(.x, n = nrow(.x) - 1))) %>% mutate(mean_cor = map_dbl(data, ~mean(.x$estimate, na.rm = TRUE)), prop_sig = map_dbl(data, ~mean(.x$p.adj < 0.1, na.rm = TRUE))) %>% mutate(region = case_when(!is.na(var_peak_id) ~ "var", !is.na(pos_samp_peak_id) ~ "pos_samp", !is.na(pos_peak_id) ~ "pos", is.na(pos_peak_id) ~ "neg")) %>% unnest(data)
+
+neighbor_gene_cors_in_regions_for_violin %>%
+  mutate(region = case_when(region == "neg" ~ "Background", region == "pos" ~ "Co-activity", region == "var" ~ "Variable", region == "pos_samp" ~ "Matched")) %>%
+  filter(estimate >- 0.5) %>% #filter 1 outlier
+  ggplot(aes(region, estimate, fill = region)) +
+  geom_violin() +
+  xlab("") +
+  ylab("PCC") +
+  ggtitle("Neighboring gene pair co-expression", subtitle = "Red = mean, blue = median") + 
+  stat_summary(fun = "mean",
+               geom = "crossbar",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "crossbar",
+               aes(color = "Median")) +
+  scale_colour_manual(values = c("red", "blue"), # Colors
+                      name = "") +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("#E41A1C", "#377EB8", "#377EB8", "#4DAF4A"))
+
+```
+
+
+## 3D
+
+```{r 3D}
+
+
+gene_variability = read_rds("gene_variability.rds")
+
+individual_ABC_gene_stats = read_rds("individual_ABC_gene_stats.rds")
+
+individual_ABC_gene_stats_ENSG_filtered = individual_ABC_gene_stats %>%
+  mutate(input_number = 1:nrow(.)) %>%
+  left_join(gprofiler2::gconvert(.$TargetGene) %>% as_tibble()) %>%
+  group_by(TargetGene) %>%
+  filter(n() == 1 | TargetGene == name) %>%
+  filter(n() == 1 | target %in% gene_variability$gene_id) %>%
+  filter(n() == 1) %>%
+  filter(!is.na(target_number))
+
+
+gene_var_int_var_in_reg = left_join(gene_variability, 
+          individual_ABC_gene_stats_ENSG_filtered, 
+          by = c("gene_id" = "target"), 
+          suffix = c("_geu", "_bat")) %>% 
+  mutate(across(where(~any(is.na(.x)) & is.numeric(.x)), ~replace_na(.x, 0))) %>%
+  mutate(in_var = ifelse(gene_id %in% genes_in_var_0.6_regs_in_pos_regs, "in_var", "not_in_var"),
+         in_pos = ifelse(gene_id %in% genes_in_pos_regs, "in_pos", "not_in_pos"))
+
+
+
+
+bind_rows(var = var_regions_in_pos_regions_0_1_exp,
+          pos_sampled = pos_regions_sample,
+          .id = "var_pos") %>% 
+  mutate(int = map(genes, ~mutate(.x, ENSG = str_remove(gene_id, "\\..*")) %>% 
+                     left_join(gene_var_int_var_in_reg %>% 
+                                 filter(TargetGene != "0") %>%
+                                 dplyr::select(ENSG = gene_id, 
+                                        starts_with("int_"), 
+                                        starts_with("exp_")), by = "ENSG"))) %>%
+  dplyr::select(var_pos, peak_id, int) %>%
+  unnest(cols = int) %>%
+  group_by(var_pos, peak_id) %>%
+  summarise(across(starts_with("int_"), ~mean(.x, na.rm = TRUE)), 
+            .groups = "drop") %>% 
+  pivot_longer(starts_with("int")) %>% 
+  filter(name %in% c("int_mean", "int_sd")) %>%
+      mutate(name = case_when(name == "int_mean" ~ "Mean ABC interactions per gene",
+                                name == "int_sd" ~ "Individual variability in ABC interactions (SD)")) %>%
+  ggplot(aes(var_pos, value, col = var_pos)) + 
+  geom_boxplot() + 
+  ggtitle("Number and variability of ABC interactions") +
+  ggpubr::stat_compare_means(hjust = 1, vjust = -1) +
+  coord_flip() +
+  xlab("") +
+  facet_wrap(vars(name), ncol = 1, scales = "free") +
+  theme(legend.position = "none")
+
+
+```
+
+
+## 3E
+
+```{r 3E}
+
+ext_cors = read_rds("ext_cors|0_6_noIG.rds")
+
+ext_cors_over_region_estimate = ext_cors %>% mutate(across(-peak_id, ~map(.x, ~.x[[3]][[1]] %>% pull(estimate)) %>% unlist()))
+
+ext_cors_pos_regions_sample = read_rds("ext_cors_pos_regions_sample.rds")
+
+ext_cors_pos_regions_sample_over_region_estimate = ext_cors_pos_regions_sample %>% mutate(across(-peak_id, ~map(.x, ~.x[[3]][[1]] %>% pull(estimate)) %>% unlist()))
+
+bind_rows(var = ext_cors_over_region_estimate,
+          pos = ext_cors_pos_regions_sample_over_region_estimate,
+          .id = "region") %>%
+  select(region, matches("Grubert")) %>%
+  pivot_longer(-region, names_to = "HM", values_to = "PCC") %>%
+  group_by(region, HM) %>%
+  summarise(mean_PCC = mean(PCC, na.rm = TRUE)) %>%
+  ggplot(aes(mean_PCC, HM, fill = region)) +
+  geom_col(position = "dodge") +
+  ggtitle("Mean HM-PD PCC") +
+  xlab("PCC") +
+  ylab("Histone Modification") +
+  theme(legend.position = "top")
+
+```
+
+## 3F
+
+```{r 3F}
+
+
+focus_bin = 22074
+chr_ = "chr1"
+start_bin_ = focus_bin - 23
+end_bin_ = focus_bin + 15
+
+h3k27ac_no_mean_center = read_rds("ext_data_tbls.RDS")$Grubert2015_ChIP_H3K27AC.normalised.csv %>% filter(chr == chr_, start > start_bin_*1e4, end < end_bin_*1e4)
+
+h3k27ac_common_indivs = intersect(colnames(h3k27ac_no_mean_center), colnames(Geuvadis_PD)) %>% keep(str_detect(., "^GM"))
+
+k27ac_normalized = read_rds("ext_data_tbls.RDS")$Grubert2015_ChIP_H3K27AC.normalised.csv 
+
+var_regions_in_pos_regions_0_1_exp_PD = read_rds("var_regions_in_pos_regions_0_1_exp_PD|0_6_noIG.rds")
+
+var_reg_pd_long = var_regions_in_pos_regions_0_1_exp_PD %>% mutate(PD = map(PD, ~select(.x, bin, all_of(h3k27ac_common_indivs)) %>% pivot_longer(-bin, names_to = "individual", values_to = "PD"))) %>% select(chr, peak_id, PD) %>% unnest(PD)
+  
+k27ac_long = k27ac_normalized %>% select(chr, all_of(h3k27ac_common_indivs), start) %>% mutate(bin = ceiling(start/1e4)) %>% select(-start) %>% pivot_longer(c(-chr, -bin), names_to = "individual", values_to = "H3K27ac")
+
+PD_K27ac_cor_in_var_regs = var_reg_pd_long %>% left_join(k27ac_long) %>% group_by(chr, bin, peak_id) %>% summarise(cor = cor(PD, H3K27ac), .groups = "drop")
+
+
+
+h3k27ac_common_indivs_sorted = Geuvadis_PD %>% filter(chr == chr_, bin == focus_bin) %>% dplyr::select(all_of(h3k27ac_common_indivs)) %>% pivot_longer(everything()) %>% arrange(value) %>% mutate(name = fct_inorder(name)) %>% pull(name)
+
+boundaries_rect_k27pdcompare = bind_rows(positive = pos_regions_0_1_exp %>% filter(chr == chr_, min_bin > start_bin_-5e3, max_bin < end_bin_+5e3) %>% select(chr, min_bin, max_bin), variable = var_regions_in_pos_regions_0_1_exp %>% filter(chr == chr_, min_bin > start_bin_-5e3, max_bin < end_bin_+5e3) %>% select(chr, min_bin, max_bin), .id = "region") %>% select(left = min_bin, right = max_bin, region) 
+
+
+var_example_reg_k27pdcompare =  Geuvadis_PD %>% dplyr::filter(chr == chr_, bin > start_bin_, bin < end_bin_) %>% dplyr::select(bin, all_of(h3k27ac_common_indivs)) %>% pivot_longer(-bin, values_to = "mean") %>% ggplot() + geom_rect(data = boundaries_rect_k27pdcompare, aes(xmin = (left)*1e4, xmax = (right)*1e4, ymin = -Inf, ymax = Inf, fill = region), alpha=0.2, colour = NA) + geom_hline(yintercept = 0) + geom_line(aes(x = bin*1e4, y = mean, color = factor(name, levels = levels(h3k27ac_common_indivs_sorted)))) + scale_x_continuous(name="", labels = scales::comma) + ylab("Co-activity\nscore") + ggtitle("PD component for 33 individuals with \nH3K27ac availability") + coord_cartesian(c(start_bin_*1e4, end_bin_*1e4)) + scale_colour_viridis_d() + guides(color = "none") + theme(legend.position = "top")
+
+
+h3k27ac_k27pdcompare = h3k27ac_no_mean_center %>% dplyr::select(start, all_of(h3k27ac_common_indivs_sorted)) %>% pivot_longer(-start, values_to = "mean") %>% ggplot() + geom_rect(data = boundaries_rect_k27pdcompare, aes(xmin = (left)*1e4, xmax = (right)*1e4, ymin = 0, ymax = Inf, fill = region), alpha=0.2, colour = NA) + geom_line(aes(x = start, y = mean, color = factor(name, levels = levels(h3k27ac_common_indivs_sorted)))) + scale_x_continuous(name="", labels = scales::comma) + ylab("H3K27ac\nChIP-seq")  + coord_cartesian(c(start_bin_*1e4, end_bin_*1e4)) + scale_colour_viridis_d() + guides(color = "none") + scale_y_log10() + theme(legend.position = "none")
+
+h3k27ac_PD_cor_k27pdcompare = h3k27ac_no_mean_center %>% select(start, all_of(h3k27ac_common_indivs)) %>% pivot_longer(-start, values_to = "h3k27ac") %>% left_join(Geuvadis_PD %>% filter(chr == chr_) %>% select(start, all_of(h3k27ac_common_indivs)) %>% pivot_longer(-start, values_to = "PD")) %>% group_by(start) %>% summarise(cor = cor(h3k27ac, PD)) %>% ggplot(aes(start, cor)) + geom_line() 
+
+
+h3k27ac_gene_track = ggbio::autoplot(biovizBase::crunch(EnsDb.Hsapiens.v86::EnsDb.Hsapiens.v86, which = paste0(chr_ %>% str_remove("chr"), ":", start_bin_*1e4, "-", end_bin_*1e4) %>% as("GRanges")) %>% '['(.$gene_name %in% geuvadis_recount_mean_exp_0.1$gene_name) %>% split(.$gene_name) %>% as("GRangesList"))@ggplot + coord_cartesian(c(start_bin_*1e4, end_bin_*1e4)) + scale_y_discrete(expand = expansion(add = 0.2)) + theme(plot.margin = unit(c(0,0,0,0), "cm"))
+
+cowplot::plot_grid(var_example_reg_k27pdcompare, h3k27ac_k27pdcompare, h3k27ac_gene_track, ncol = 1, align = "v", axis = "lr", rel_heights = c(3, 2, 1.2))
+
+```
+
+## 4A
+
+```{r 4A}
+
+
+
+ENCODE_TF_beds = ENCODE_TF_beds_ %>%
+  mutate(bed = map(bed, ~left_join(.x, var_regions_in_pos_regions_0_1_exp %>%
+              unnest(bins) %>%
+              dplyr::select(chr, bin) %>%
+              mutate(in_var_reg = TRUE), by = c("chr", "bin")) %>%
+  mutate(in_var_reg = replace_na(in_var_reg, FALSE))))
+
+pos_regions_0_1_exp_atac = pos_regions_0_1_exp %>%
+  mutate(atac = map2(chr, bins, ~inner_join(.y %>% dplyr::select(bin), atac_regions %>% filter(seqnames == .x), by = "bin"))) %>%
+  mutate(n_atac = map_dbl(atac, nrow), atac_per_bin = n_atac/peak_length)
+
+pos_atac = pos_regions_0_1_exp_atac %>% 
+  unnest(atac) %>% 
+  dplyr::select(seqnames, start, end, name, atac.fc, atac.pval, atac.qval, atac.peak.name)
+
+var_regions_in_pos_regions_0_1_exp_atac = var_regions_in_pos_regions_0_1_exp %>%
+  mutate(atac = map2(chr, bins, ~inner_join(.y %>% dplyr::select(bin), atac_regions %>% filter(seqnames == .x), by = "bin"))) %>%
+  mutate(n_atac = map_dbl(atac, nrow), atac_per_bin = n_atac/peak_length)
+
+var_atac = var_regions_in_pos_regions_0_1_exp_atac %>% 
+  unnest(atac) %>% 
+  dplyr::select(seqnames, start, end, name, atac.fc, atac.pval, atac.qval, atac.peak.name)
+
+pos_var_atac_GR = pos_atac %>% 
+  mutate(var = ifelse(name %in% var_atac$name, "var", "not_var"), 
+         contain_TF = "no_TF") %>% 
+  as("GRanges")
+
+
+ENCODE_TF_beds_atac_enrichment = ENCODE_TF_beds %>% 
+  mutate(map_dfr(bed, ~as(.x, "GRanges") %>% 
+                   GenomicRanges::findOverlaps(pos_var_atac_GR) %>% 
+                   S4Vectors::subjectHits() %>%
+                   unique() %>%
+                   '[<-'(pos_var_atac_GR$contain_TF, ., "TF") %>% 
+                   '$<-'(pos_var_atac_GR, "contain_TF", value = .) %>% 
+                   S4Vectors::mcols() %>% 
+                   as_tibble() %>% 
+                   dplyr::select(var, contain_TF) %>% 
+                   group_by(var, contain_TF) %>% 
+                   summarise(n = n(), .groups = "drop") %>% 
+                   pivot_wider(names_from = "contain_TF", values_from = n) %>% 
+                   column_to_rownames("var") %>%
+                   mutate(across(where(is.numeric), ~replace_na(.x, 0))) %>% # was modify replace na 0
+                   fisher.test(alternative = "greater") %>% 
+                   broom::tidy() %>%
+                   dplyr::select(estimate, p.value))) %>%
+  mutate(p.adj = p.adjust(p.value, method = "fdr"))
+
+pos_samp_regions_in_pos_regions_0_1_exp_atac = pos_regions_sample %>%
+  mutate(atac = map2(chr, bins, ~inner_join(.y %>% dplyr::select(bin), atac_regions %>% filter(seqnames == .x), by = "bin"))) %>%
+  mutate(n_atac = map_dbl(atac, nrow), atac_per_bin = n_atac/peak_length)
+
+pos_samp_atac = pos_samp_regions_in_pos_regions_0_1_exp_atac %>% 
+  unnest(atac) %>% 
+  dplyr::select(seqnames, start, end, name, atac.fc, atac.pval, atac.qval, atac.peak.name)
+
+pos_samp_atac_GR = pos_atac %>% 
+  mutate(pos_samp = ifelse(name %in% pos_samp_atac$name, "pos_samp", "not_pos_samp"), 
+         contain_TF = "no_TF") %>% 
+  as("GRanges")
+
+ENCODE_TF_beds_atac_enrichment_pos_samp = ENCODE_TF_beds %>% 
+  mutate(map_dfr(bed, ~as(.x, "GRanges") %>% 
+                   GenomicRanges::findOverlaps(pos_samp_atac_GR) %>% 
+                   S4Vectors::subjectHits() %>%
+                   unique() %>%
+                   '[<-'(pos_samp_atac_GR$contain_TF, ., "TF") %>% 
+                   '$<-'(pos_samp_atac_GR, "contain_TF", value = .) %>% 
+                   S4Vectors::mcols() %>% 
+                   as_tibble() %>% 
+                   dplyr::select(pos_samp, contain_TF) %>% 
+                   group_by(pos_samp, contain_TF) %>% 
+                   summarise(n = n(), .groups = "drop") %>% 
+                   pivot_wider(names_from = "contain_TF", values_from = n) %>% 
+                   column_to_rownames("pos_samp") %>%
+                   mutate(across(where(is.numeric), ~replace_na(.x, 0))) %>% # was modify replace na 0
+                   fisher.test(alternative = "greater") %>% 
+                   broom::tidy() %>%
+                   dplyr::select(estimate, p.value))) %>%
+  mutate(p.adj = p.adjust(p.value, method = "fdr"))
+
+
+bind_rows(var = ENCODE_TF_beds_atac_enrichment %>% 
+    mutate(TF_name_E = ifelse(p.value > 0.05, "", TF_name_E)), pos_samp = ENCODE_TF_beds_atac_enrichment_pos_samp %>% 
+        mutate(TF_name_E = ifelse(p.value > 0.05, "", TF_name_E)), .id = "pos_var") %>% ggplot(aes(-log10(p.value), estimate, label = TF_name_E, color = pos_var)) + 
+    geom_point() +
+    geom_vline(xintercept = -log10(0.1)) +
+    ggrepel::geom_label_repel(aes(segment.linetype = as.numeric(p.adj < 0.1)*-1 + 2), ylim = c(NA, 1), xlim = c(1.3, NA)) +
+  ggtitle("Enrichment of ENCODE TFBSs in ATAC-seq peaks in variable/sampled positive vs positive regions", subtitle = "Solid lines: adj p val < 0.1") +
+    theme(plot.title = ggtext::element_textbox_simple())
+
+```
+
+
+## 4B
+
+```{r 4B}
+
+ENCODE_TF_beds_regions = ENCODE_TF_beds %>%
+  mutate(regions = map(bed, ~tibble(in_pos = with(.x, paste(chr, bin)) %in% pos_chr_bin,
+                                    in_var = with(.x, paste(chr, bin)) %in% var_chr_bin) %>%
+                         group_by(in_pos, in_var) %>% 
+                         summarise(n = n(), .groups = "drop") %>% 
+                         mutate(in_pos = ifelse(in_pos, "in_pos", "not_in_pos"), 
+                                in_var = ifelse(in_var, "in_var", "not_in_var")) %>% 
+                         pivot_wider(names_from = in_var, values_from = n) %>% 
+                         mutate(across(where(is.numeric), ~replace_na(.x, 0))) %>% # was modify replace na 0
+                         column_to_rownames("in_pos")))
+
+ENCODE_TF_beds_regions_enrichment = ENCODE_TF_beds_regions %>%
+  mutate(bins_containing = map(bed, ~pos_var_chr_bin %>% 
+                                 mutate(contain_TF = pos_chr_bin %in% with(.x, paste(chr, bin))) %>%
+                                 group_by(var, contain_TF) %>% 
+                                 summarise(n = n(), .groups = "drop") %>% 
+                                 mutate(var = ifelse(var, "var", "not_var"), 
+                                        contain_TF = ifelse(contain_TF, "TF", "no_TF")) %>% 
+                                 pivot_wider(names_from = "contain_TF", values_from = n) %>% 
+                                 column_to_rownames("var") %>%
+                                 mutate(across(where(is.numeric), ~replace_na(.x, 0))))) %>% # was modify replace na 0
+  rowwise() %>%
+  mutate(fisher.test(bins_containing, alternative = "greater") %>% broom::tidy() %>% dplyr::select(estimate, p.value)) %>%
+  mutate(enrichment_ratio = mutate(bins_containing, ratio = TF/no_TF) %>% {.$ratio[[2]]/.$ratio[[1]]}) %>%
+  mutate(p.adj = p.adjust(p.value, method = "fdr"))
+
+ENCODE_TF_beds_genes = read_rds("ENCODE_TF_beds_genes.rds")
+
+genes_in_var_reg = var_regions_in_pos_regions_0_1_exp %>%
+  dplyr::select(genes) %>%
+  unnest(cols = genes) %>%
+  pull(gene_id) %>%
+  str_remove("\\..*")
+
+
+ENCODE_TF_beds_genes_variability = ENCODE_TF_beds_genes %>%
+  mutate(genes = map(genes, ~mutate(.x, in_var_reg = gene_id_trunc %in% genes_in_var_reg) %>%
+                       inner_join(gene_variability %>% 
+                                   dplyr::select(gene_id, exp_sd, exp_mean, exp_cov, exp_cov2), 
+                                 by = c("gene_id_trunc" = "gene_id")))) %>%
+  mutate(map_dfr(genes, ~tryCatch(expr = t.test(formula = exp_cov ~ in_var_reg, data = .x) %>% broom::tidy() %>% mutate(rel_diff = estimate2/estimate1) %>% dplyr::select(rel_diff, estimate, p.value), error = function(x){tibble(estimate = NA, p.value = NA)}))) %>%
+  mutate(target_mean_exp_CoV = map_dbl(genes, ~pull(.x, exp_cov) %>% mean(na.rm = TRUE))) %>%
+  mutate(map_dfr(genes, ~dplyr::select(.x, exp_sd, exp_mean, exp_cov, exp_cov2) %>% summarise(across(everything(), mean)) %>% rename_with(.cols = everything(), .fn = ~paste0("target_genes_", .x))))
+
+jaspar_enrichment_tsv = vroom::vroom("allEnrichments.tsv")
+
+jaspar_enrichment_tsv_pruned_ENSG = jaspar_enrichment_tsv %>% 
+  filter(!str_detect(TF_name, ":")) %>%
+  left_join(., with(., gprofiler2::gconvert(TF_name)) %>% as_tibble() %>% dplyr::select(TF_name = input, ENSG = target) %>% distinct()) %>% 
+  filter(!is.na(ENSG)) #all entries without ENSG are not from human
+
+all_TFs_variability = 
+  geuvadis_recount_tibble %>%
+  mutate(gene_id = str_remove(gene_id, "\\..*")) %>% 
+  filter(gene_id %in% c(jaspar_enrichment_tsv_pruned_ENSG$ENSG, ENCODE_TF_beds$ENSG)) %>%
+  mutate(exp_sd = dplyr::select(., matches("^ERR")) %>% as.matrix() %>% matrixStats::rowSds()) %>%
+  mutate(exp_mean = dplyr::select(., matches("^ERR")) %>% as.matrix() %>% matrixStats::rowMeans2()) %>%
+  dplyr::select(-matches("^ERR")) %>%
+  mutate(exp_cov = exp_sd/exp_mean) %>%
+  mutate(exp_cov2 = exp_cov^2)
+
+
+ENCODE_TF_var_enrichment_stats = inner_join(ENCODE_TF_beds_atac_enrichment %>% 
+                                       dplyr::select(url, TF_name_E, oddsRatio_TF_in_ATAC = estimate, p.value_TF_in_ATAC = p.value, ENSG) %>% 
+                                       mutate(pValueLog_TF_in_ATAC = -log10(p.value_TF_in_ATAC)),
+           ENCODE_TF_beds_regions_enrichment %>% 
+             dplyr::select(url, oddsRatio_TF_in_bins = estimate, p.value_TF_in_bins = p.value) %>% 
+             mutate(pValueLog_TF_in_bins = -log10(p.value_TF_in_bins))) %>%
+  inner_join(ENCODE_TF_beds_genes_variability %>% 
+               dplyr::select(url, exp_var_in_var_reg_over_exp_var_in_pos_reg = rel_diff, target_mean_exp_CoV)) %>%
+  group_by(ENSG) %>% 
+  mutate(n_experiments = n()) %>% 
+  ungroup() %>%
+  inner_join(all_TFs_variability %>% dplyr::select(ENSG = gene_id, exp_sd, exp_mean, exp_cov, exp_cov2))
+
+ENCODE_TF_var_enrichment_stats %>%
+  filter(exp_cov < 4) %>%
+  mutate(label = ifelse((oddsRatio_TF_in_ATAC > sort(oddsRatio_TF_in_ATAC)[68]) & (exp_cov > sort(exp_cov)[68]),
+                        TF_name_E, "")) %>%
+  ggplot(aes(oddsRatio_TF_in_ATAC, exp_cov, label = label)) + geom_point() + geom_smooth(method = "lm", se = FALSE) + ggpubr::stat_cor(method = "pearson") +
+  ggtitle("Enrichment of ENCODE TF NarrowPeaks in ATAC-seq peaks in variable regions, correlated with TF expression variability, pearson correlation, outlier (NR2F1, exp_cov 4.4, exp_mean 0.01) omitted") +
+  
+  theme(plot.title = ggtext::element_textbox_simple()) +
+  ggrepel::geom_label_repel() +
+  ylab("TF expression variability (CoV)") +
+  xlab("TFBS enrichment in variable regions odds ratio")
+
+```
+
+## 4C
+
+```{r 4C}
+
+var_pos_combined_atac_shared = read_rds("var_pos_combined_atac_shared|0_6_noIG.rds")
+
+var_pos_combined_atac_shared %>% 
+  dplyr::select(var_pos, matches("cutoff")) %>% 
+  pivot_longer(-var_pos, names_to = "cutoff", values_to = "TFs_shared") %>% 
+  filter(cutoff == "cutoff_200") %>%
+  ggplot(aes(var_pos, TFs_shared)) + 
+  geom_boxplot() + 
+  ggpubr::stat_compare_means(hjust = 1, vjust = -2) +
+  ylim(c(0, 300)) +
+  ggtitle("Amount of JASPAR TFBSs shared between all ATAC-seq peaks in variable and positive regions, cutoff 200") +
+  theme(plot.title = ggtext::element_textbox_simple()) +
+  coord_flip()
+
+```
+
+
+## 5A
+
+```{r 5A}
+
+
+eQTL_neighbor_shared_pos_samp = left_join(eQTL, geneloc_tss, by = c("gene" = "name")) %>% #this means that genes that do not have an eQTL are omitted
+    arrange(str_remove(chr, "chr") %>% as.numeric(), tss) %>%
+    mutate(snps = map(snps, ~dplyr::select(.x, snps))) %>% 
+    mutate(snps_lead = lead(snps)) %>% mutate(snps_common = map2_dbl(snps, snps_lead, ~intersect(.x$snps, .y$snps) %>% length())) %>%
+  mutate(distance = lead(tss) - tss) %>%
+  mutate(in_pos = ifelse(gene %in% genes_in_pos_regs, "in_pos", "not_in_pos"),
+         in_pos_samp = ifelse(gene %in% genes_in_pos_samp_regs, "in_pos_samp", "not_in_pos_samp"))
+
+
+eGene_qtl_sharing_pos_samp = eQTL_neighbor_shared_pos_samp %>% mutate(in_pos_samp = ifelse(in_pos_samp == "in_pos_samp", "in_pos_samp", ""), in_pos = ifelse(in_pos_samp == "in_pos_samp", "", in_pos)) %>% mutate(region = paste0(in_pos, in_pos_samp)) %>% mutate(any_snps_common = snps_common > 0) %>% mutate(lead_region = lead(region)) %>% filter(!is.na(lead_region)) %>% mutate(region_sort = map2_chr(region, lead_region, ~sort(c(.x, .y) %>% unique()) %>% paste(collapse = " > ") %>% str_remove_all("in_"))) %>% group_by(region_sort) %>% summarise(perc_common = any_snps_common %>% mean() %>% '*'(100), n = n()) %>% arrange(perc_common)
+
+
+eqtl_compare_table = eQTL_neighbor_shared_pos_samp %>% mutate(in_pos_samp = ifelse(in_pos_samp == "in_pos_samp", "in_pos_samp", ""), in_pos = ifelse(in_pos_samp == "in_pos_samp", "", in_pos)) %>% mutate(region = paste0(in_pos, in_pos_samp)) %>% mutate(any_snps_common = snps_common > 0) %>% mutate(lead_region = lead(region)) %>% filter(!is.na(lead_region)) %>% mutate(region_sort = map2_chr(region, lead_region, ~sort(c(.x, .y) %>% unique()) %>% paste(collapse = " > ") %>% str_remove_all("in_"))) %>% bind_rows(eQTL_neighbor_shared %>% mutate(in_var = ifelse(in_var == "in_var", "in_var", ""), in_pos = ifelse(in_var == "in_var", "", in_pos)) %>% mutate(region = paste0(in_pos, in_var)) %>% mutate(any_snps_common = snps_common > 0) %>% mutate(lead_region = lead(region)) %>% filter(!is.na(lead_region)) %>% mutate(region_sort = map2_chr(region, lead_region, ~sort(c(.x, .y) %>% unique()) %>% paste(collapse = " > ") %>% str_remove_all("in_"))))
+
+
+
+
+bind_rows(eGene_qtl_sharing_pos_samp %>% filter(region_sort == "pos_samp"), eGene_qtl_sharing %>% filter(region_sort %in% c("pos", "not_pos", "var"))) %>% ggplot(aes(reorder(region_sort, perc_common), fill = n, perc_common)) + geom_col() + ggtitle("Percentage of neighboring \neGenes sharing at least \none eQTL, by region class") + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
+
+bind_rows(
+background_vs_pos = eqtl_compare_table %>% filter(region_sort %in% c("not_pos", "pos")) %>% group_by(region_sort) %>% summarise(n_common = sum(any_snps_common), n_not_common = sum(!any_snps_common)) %>% select(-region_sort) %>% fisher.test() %>% broom::tidy(),
+pos_vs_pos_samp = eqtl_compare_table %>% filter(region_sort %in% c("pos", "pos_samp")) %>% group_by(region_sort) %>% summarise(n_common = sum(any_snps_common), n_not_common = sum(!any_snps_common)) %>% select(-region_sort) %>% fisher.test() %>% broom::tidy(),
+pos_samp_vs_var = eqtl_compare_table %>% filter(region_sort %in% c("pos_samp", "var")) %>% group_by(region_sort) %>% summarise(n_common = sum(any_snps_common), n_not_common = sum(!any_snps_common)) %>% select(-region_sort) %>% fisher.test() %>% broom::tidy(), .id = "test")
+
+```
+
+
+## 5B
+
+```{r 5B}
+
+mevar15 = loadRData("me.mean_PD_per_indiv_per_reg_var_g3_f15.all.rda")
+mepos15 = loadRData("me.mean_PD_per_indiv_per_reg_pos_g3_f15.all.rda")
+
+p_val_perc_domains_assoc_with_co_a_QTL = tibble(assoc = c(mevar15$cis$eqtls$gene %>% unique() %>% length(),
+                                                          mepos15$cis$eqtls$gene %>% unique() %>% length()),
+                                                not_assoc = 212 - assoc) %>% fisher.test() %>% pluck("p.value")
+
+
+GEUVADIS_SNPS = vroom::vroom("SNP.all.eQTL_allchrs_combined_GEUVADIS_TPM_g3_f15.txt") %>% `colnames<-`(str_replace(colnames(.), "NA", "GM"))
+
+
+filter_LD = function(tib, iter = 1, max_iter = 38){
+  require(glue)
+  tib = tib %>% mutate(!!glue("cor_{iter}") := map_dbl(geno, ~cor(.x, geno[[iter]]) %>% round(5) %>% abs()) %>% '[<-'(iter, 2)) %>% filter(!!as.symbol(glue("cor_{iter}")) == 2 | !!as.symbol(glue("cor_{iter}")) < 0.8)
+  if(tib %>% filter(!if_any(matches("cor"), ~.x == 2)) %>% nrow() == 0) return(tib)
+  filter_LD(tib, iter = iter + 1)
+}
+
+mevar_LD_removed15 = mevar15$cis$eqtls %>% as_tibble() %>% left_join(GEUVADIS_SNPS, by = c("snps" = "snpid")) %>% nest(snps = -gene) %>% mutate(snps = map(snps, ~mutate(.x, geno = dplyr::select(., matches("^(NA|HG|GM)")) %>% t() %>% as.data.frame() %>% as.list()) %>% dplyr::select(-matches("^(GM|NA|HG)")) %>% filter_LD()))
+
+mepos_LD_removed15 = mepos15$cis$eqtls %>% as_tibble() %>% left_join(GEUVADIS_SNPS, by = c("snps" = "snpid")) %>% nest(snps = -gene) %>% mutate(snps = map(snps, ~mutate(.x, geno = dplyr::select(., matches("^(NA|HG|GM)")) %>% t() %>% as.data.frame() %>% as.list()) %>% dplyr::select(-matches("^(GM|NA|HG)")) %>% filter_LD()))
+
+dfFullpos15 = mepos15$param$dfFull
+tstatpos15 = mepos15$cis$eqtls$statistic
+rpos15 = tstatpos15 / sqrt( dfFullpos15 + tstatpos15^2 )
+R2pos15 = rpos15^2
+pos_r2_tib15 = tibble(snps = mepos15$cis$eqtls$snps, R2 = R2pos15)
+
+
+dfFullvar15 = mevar15$param$dfFull
+tstatvar15 = mevar15$cis$eqtls$statistic
+rvar15 = tstatvar15 / sqrt( dfFullvar15 + tstatvar15^2 )
+R2var15 = rvar15^2
+var_r2_tib15 = tibble(snps = mevar15$cis$eqtls$snps, R2 = R2var15)
+
+R2_LD_removed15 = bind_rows(var = mevar_LD_removed15 %>% 
+            mutate(snps = map(snps, ~select(.x, -matches('cor'), -geno))) %>%
+            unnest(snps) %>%
+            left_join(var_r2_tib15),
+          pos_sampled = mepos_LD_removed15 %>% 
+            mutate(snps = map(snps, ~select(.x, -matches('cor'), -geno))) %>%
+            unnest(snps) %>%
+            left_join(pos_r2_tib15),
+          .id = "var_pos")
+
+R2_LD_removed15 %>%
+  ggplot(aes(var_pos, R2)) + 
+  geom_boxplot() + 
+  scale_y_log10() + 
+  ggtitle("Proportion of variance explained, \nnon-LD region PD QTLs") +
+  xlab("") +
+  ylab("R^2") +
+  ggpubr::stat_compare_means(hjust = 1, vjust = -1) +
+  coord_flip()
+
+```
+
+## 5C
+
+```{r 5C}
+
+bind_rows(pos_sample = mepos15$cis$eqtls %>% as_tibble() %>% group_by(gene) %>% arrange(FDR) %>% slice_head(n = 1) %>% left_join(GEUVADIS_SNPS, by = c("snps" = "snpid")) %>% dplyr::rename(snp = snps, peak_id = gene), var = mevar15$cis$eqtls %>% as_tibble() %>% group_by(gene) %>% arrange(FDR) %>% slice_head(n = 1) %>% left_join(GEUVADIS_SNPS, by = c("snps" = "snpid")) %>% dplyr::rename(snp = snps, peak_id = gene), .id = "pos_var") %>% ggplot(aes(pos_var, abs(beta), color = pos_var)) + ggbeeswarm::geom_quasirandom() + theme(axis.title.x = element_blank(), legend.position = "none") + ggtitle("Absolute effect sizes of \nregion PD QTLs") + ggpubr::stat_compare_means(hjust = 1, vjust = -1) + coord_flip()
+
+```
+
+## 6C
+
+```{r 6C}
+
+top_TF_analysis_csv = read_csv("GEUVADIS_TOP_TFs_variable_regions.csv")
+
+eQTL_me = loadRData("me.eQTL_allchrs_combined_GEUVADIS_TPM_g3_f15.all.rda")
+
+dfFull_eQTL = eQTL_me$param$dfFull
+tstat_eQTL = eQTL_me$cis$eqtls$statistic
+r_eQTL = tstat_eQTL / sqrt( dfFull_eQTL + tstat_eQTL^2 )
+R2_eQTL = r_eQTL^2
+eQTL_r2_tib = eQTL_me$cis$eqtls %>% as_tibble() %>% mutate(R2 = R2_eQTL)
+
+top_TF_analysis_csv %>% pull(top_10) %>% str_split(",") %>% unlist() %>% table() %>% enframe() %>% left_join(top_TF_analysis_csv %>% group_by(top_1) %>% count(), by = c("name" = "top_1")) %>% dplyr::rename(TF = name) %>% mutate(value = as.numeric(value), n = replace_na(n, 0)) %>% left_join(eQTL_me$cis$eqtls %>% as_tibble() %>% mutate(R2 = R2_eQTL) %>% group_by(gene) %>% slice_head(n = 1) %>% ungroup() %>% inner_join(ENCODE_TF_beds_genes %>% select(TF_name_E, ENSG), by = c("gene" = "ENSG")) %>% select(TF_name_E, R2), by = c("TF" = "TF_name_E")) %>% mutate(R2 = replace_na(R2, 0)*100) %>% filter(R2 != 0) %>% ggplot(aes("TF", R2)) + geom_boxplot() + geom_jitter() + labs(title = "Percent of TF variance explained by top eQTL", x = "", y = "Percentage of variance explained") + ylim(c(0, NA))
+
+```
+
+
